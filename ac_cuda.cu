@@ -380,10 +380,10 @@ Build_NFA (ACSM_STRUCT * acsm)
           {
               px = CopyMatchListEntry (mlist);
 
-              if( !px )
-              {
-                FatalError("*** Out of memory Initializing Aho Corasick in acsmx.c ****");
-              }
+              // if( !px )
+              // {
+              //   FatalError("*** Out of memory Initializing Aho Corasick in acsmx.c ****");
+              // }
 
               /* Insert at front of MatchList */
               px->next = acsm->acsmStateTable[s].MatchList;
@@ -658,6 +658,7 @@ acsmCompile (ACSM_STRUCT * acsm,
     if (build_tree && neg_list_func)
     {
         acsmBuildMatchStateTrees(acsm, build_tree, neg_list_func);
+        printf("Went in acsmBuildMatchStateTrees\n");
     }
 
     return 0;
@@ -866,13 +867,15 @@ int acsmPrintSummaryInfo(void)
 /*
 *  Text Data Buffer
 */
-unsigned char text[512];
+// unsigned char text[512];
+static unsigned char text[512];
+static const char *text_ptr = (const char*)text;
 
 /*
 *    A Match is found
 */
   int
-MatchFound (unsigned id, int index, void *data)
+MatchFound (void * id, void *tree, int index, void *data, void *neg_list)
 {
   fprintf (stdout, "%s\n", (char *) id);
   return 0;
@@ -883,9 +886,10 @@ MatchFound (unsigned id, int index, void *data)
 *
 */
   int
-main (int argc, char **argv)
+main (int argc, const char **argv)
 {
-  int i, nocase = 0;
+  int i, nocase = 0, current_state=0;
+  int nfound;
   ACSM_STRUCT * acsm;
   if (argc < 3)
 
@@ -894,9 +898,11 @@ main (int argc, char **argv)
         "Usage: acsmx pattern word-1 word-2 ... word-n  -nocase\n");
       exit (0);
     }
-  acsm = acsmNew ();
-  strncpy (text, argv[1], sizeof(text) - 1);
+  acsm = acsmNew (NULL, NULL, NULL);
+  // acsm = acsmNew ();
+  strncpy ((char *)text, argv[1], sizeof(text) - 1);
   text[sizeof(text) - 1] = '\0';
+  fprintf (stdout, "Text sting: %s\n", text);
   for (i = 1; i < argc; i++)
     if (strcmp (argv[i], "-nocase") == 0)
       nocase = 1;
@@ -905,11 +911,16 @@ main (int argc, char **argv)
     {
       if (argv[i][0] == '-')
     continue;
-      acsmAddPattern (acsm, argv[i], strlen (argv[i]), nocase, 0, 0,
-            argv[i], i - 2);
+      memcpy ((char *)text, argv[i], strlen(argv[i]) + 1);
+      fprintf (stdout, "Pattern[%d]: %s\n", i-2, text);
+      acsmAddPattern (acsm, (unsigned char *)text, strlen (text_ptr), nocase, 0, 0, 0,
+            (unsigned char *)argv[i], i - 2);
     }
-  acsmCompile (acsm);
-  acsmSearch (acsm, text, strlen (text), MatchFound, (void *) 0);
+  acsmCompile (acsm, NULL, NULL);
+  strncpy ((char *)text, argv[1], sizeof(text) - 1);
+  printf("numPatterns: %d\n", acsm->numPatterns);
+  nfound = acsmSearch (acsm, text, strlen (text_ptr), MatchFound, (void *) 0, &current_state);
+  printf("nfound: %d\n", nfound);
   acsmFree (acsm);
   printf ("normal pgm end\n");
   return (0);
