@@ -8,6 +8,8 @@ Step 2: Snort utilizes ac_cuda.cu
 
 
 ./ac_cuda ushers he she his hers
+
+
 Text sting: ushers
 Pattern[0]: he
 Pattern[1]: she
