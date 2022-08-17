@@ -7,19 +7,36 @@ Step 1: give input text and patterns in ac_cuda.cu (main) so it runs AC algorith
 Step 2: Snort utilizes ac_cuda.cu
 
 
-./ac_cuda ushers he she his hers
+./ac_cuda ushers he us she hers his
 
 
 Text sting: ushers
+
 Pattern[0]: he
-Pattern[1]: she
-Pattern[2]: his
+
+Pattern[1]: us
+
+Pattern[2]: she
+
 Pattern[3]: hers
-numPatterns: 4
-he
-hers
-nfound: 2
+
+Pattern[4]: his
+
+numPatterns: 5
+
+
+Found pattern: us
+
+Found pattern: he
+
+Found pattern: she
+
+Found pattern: hers
+
+nfound: 4
+
 normal pgm end
 
 
-output wrong, needs to be fixed
+
+Printing output fixed.
