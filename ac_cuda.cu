@@ -590,6 +590,7 @@ _acsmCompile (ACSM_STRUCT * acsm)
     ACSM_PATTERN * plist;
 
     /* Count number of states */
+    // printf("went in _acsmCompile\n");
     acsm->acsmMaxStates = 1;
     for (plist = acsm->acsmPatterns; plist != NULL; plist = plist->next)
     {
@@ -653,7 +654,7 @@ acsmCompile (ACSM_STRUCT * acsm,
     int rval;
 
     if ((rval = _acsmCompile (acsm)))
-        return rval;
+        return rval; // printf("went in rval\n");
 
     if (build_tree && neg_list_func)
     {
@@ -693,6 +694,7 @@ acsmSearch (ACSM_STRUCT * acsm, unsigned char *Tx, int n,
             void *data, int* current_state )
 {
     int state = 0;
+    int temp_state = 0;
     ACSM_PATTERN * mlist;
     unsigned char *Tend;
     ACSM_STATETABLE * StateTable = acsm->acsmStateTable;
@@ -711,17 +713,32 @@ acsmSearch (ACSM_STRUCT * acsm, unsigned char *Tx, int n,
     }
 
     state = *current_state;
+    temp_state = state;
+    // printf("T: %s\n", T);
+    // printf("Tend: %s\n", Tend);
 
     for (; T < Tend; T++)
     {
+        // printf("T: %s\n", T);
+        // printf("*T: %d\n", *T);
+        temp_state = state;
         state = StateTable[state].NextState[*T];
+        // printf("from state: %d to state %d\n", temp_state, state);
 
         if( StateTable[state].MatchList != NULL )
         {
             mlist = StateTable[state].MatchList;
-            index = T - mlist->n + 1 - Tc;
+            index = T - mlist->n + 1 - Tc; //?
             nfound++;
-            if (Match (mlist->udata->id, mlist->rule_option_tree, index, data, mlist->neg_list) > 0)
+            printf("Found pattern: %s\n", mlist->casepatrn);
+            while(mlist->next != NULL){
+              printf("Found pattern: %s\n", mlist->next->casepatrn);
+              nfound++;
+              mlist = mlist->next;
+            }
+            // if (mlist->next != NULL)
+            //   printf("mlist pattern: %s\n", mlist->next->casepatrn);
+            if (Match (mlist->udata->id, mlist->rule_option_tree, index, data, mlist->neg_list) > 0) //?
             {
                 *current_state = state;
                 return nfound;
@@ -877,7 +894,7 @@ static const char *text_ptr = (const char*)text;
   int
 MatchFound (void * id, void *tree, int index, void *data, void *neg_list)
 {
-  fprintf (stdout, "%s\n", (char *) id);
+  // fprintf (stdout, "%s\n", (char *) id);
   return 0;
 }
 
@@ -918,6 +935,7 @@ main (int argc, const char **argv)
     }
   acsmCompile (acsm, NULL, NULL);
   strncpy ((char *)text, argv[1], sizeof(text) - 1);
+
   printf("numPatterns: %d\n", acsm->numPatterns);
   nfound = acsmSearch (acsm, text, strlen (text_ptr), MatchFound, (void *) 0, &current_state);
   printf("nfound: %d\n", nfound);
