@@ -9,12 +9,15 @@ Snort (version: 2.9.20): Pattern Matching/search in GPU
 To identify the device position (e.g., 0, 1, 2, ...), run:
 
 1) $ clinfo -l
+
 ->Compile the source code
 
 2) $ cd gpuregex; make
+
 ->Run the executable 
 
 3) $ ./bin/gpuregex -p patterns.dat -i TheAdventuresOfSherlockHolmes.dat -d 0 -v -m 0
+
 Notes: 
 -p: pattern file
 -i: input file
