@@ -1,10 +1,10 @@
-## ================== UNDER DEVELOPMENT ======================
+# ================== UNDER DEVELOPMENT ======================
 
-## gnort_2.9.20
+# gnort_2.9.20
 Snort (version: 2.9.20): Pattern Matching/search in GPU
 
 
-# gpuregex 4
+## gpuregex 4
 
 To identify the device position (e.g., 0, 1, 2, ...), run:
 
@@ -25,7 +25,7 @@ Run the executable
 		-v: verbose (prints matches -- default does not print)
 		-m: 1 for cpu & shared gpu, 0 for discrete gpu
 
-# snort
+## snort
 
 1) capture and send packet: fpdetect.c
 2) use custom method provided by gpuregex repo (instead of acsmx, bnfe etc.) -> mpse.c possibly
