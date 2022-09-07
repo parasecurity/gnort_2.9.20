@@ -31,6 +31,8 @@ Notes:
 2) use custom method provided by gpuregex repo (instead of acsmx, bnfe etc.) -> mpse.c possibly
 3) ...
 
-REPO CHANGES LOG:
+## REPO CHANGES LOG:
+
 CUDA files were moved to obsolete/ (use openCL instead of CUDA).
+
 Opencl acsmxCL.c, snort's pattern matching algorithm moved to obsolete/ (use provided repo by Eva Papadogiannaki).
