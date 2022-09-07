@@ -1,4 +1,4 @@
-# ============== UNDER DEVELOPMENT ==================
+# === UNDER DEVELOPMENT ===
 
 # gnort_2.9.20
 Snort (version: 2.9.20): Pattern Matching/search in GPU
