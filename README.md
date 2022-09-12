@@ -31,6 +31,10 @@ Notes:
 2) use custom method provided by gpuregex repo (instead of acsmx, bnfe etc.) -> mpse.c possibly
 3) ...
 
+
+!!! fpcreate.c -> fpSetDetectSearchMethod, type a case where "xdfa"
+!!! from snort.conf: config detection: search-method ac-split -> swap to search-method xdfa
+
 ## REPO CHANGES LOG:
 
 CUDA files were moved to obsolete/ (use openCL instead of CUDA).
