@@ -33,6 +33,7 @@ Notes:
 
 
 !!! fpcreate.c -> fpSetDetectSearchMethod, type a case where "xdfa"
+
 !!! from snort.conf: config detection: search-method ac-split -> swap to search-method xdfa
 
 ## REPO CHANGES LOG:
