@@ -36,6 +36,8 @@ Notes:
 
 !!! from snort.conf: config detection: search-method ac-split -> swap to search-method xdfa
 
+!!! mpse_methods.h: put line #define MPSE_XDFA 15
+
 ## REPO CHANGES LOG:
 
 CUDA files were moved to obsolete/ (use openCL instead of CUDA).
