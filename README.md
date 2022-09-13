@@ -38,6 +38,8 @@ Notes:
 
 !!! mpse_methods.h: put line #define MPSE_XDFA 15
 
+TODO: setup a search function in dfamatch.c called in mpse.c, (implement a pktbuffer, probably two dimensional to reduce idle time (?))
+
 ## REPO CHANGES LOG:
 
 CUDA files were moved to obsolete/ (use openCL instead of CUDA).
