@@ -40,6 +40,16 @@ Notes:
 
 TODO: setup a search function in dfamatch.c called in mpse.c, (implement a pktbuffer, probably two dimensional to reduce idle time (?))
 
+## pcap
+
+$ gcc pcap_decoder.c -o pcap_decoder -lpcap
+
+$ sudo ./pcap_decoder <interfacename>
+
+DONE: captured tcp packets and payload to incoming interface.
+
+TODO: saved captured packets to a file.
+
 ## REPO CHANGES LOG:
 
 CUDA files were moved to obsolete/ (use openCL instead of CUDA).
