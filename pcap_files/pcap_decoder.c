@@ -244,6 +244,7 @@ struct sniff_ip {
 
 /* TCP header */
 typedef u_int tcp_seq;
+int SAVE_TCP_ONLY = 0;
 
 struct sniff_tcp {
         u_short th_sport;               /* source port */
@@ -267,6 +268,18 @@ struct sniff_tcp {
         u_short th_urp;                 /* urgent pointer */
 };
 
+struct sniff_udp {
+        u_short uh_sport;               /* source port */
+        u_short uh_dport;               /* destination port */
+        u_short uh_ulen;                /* udp length */
+        u_short uh_sum;                 /* udp checksum */
+};
+
+FILE *f_p;
+char filename[] = "traces.dat";
+
+
+
 void
 got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *packet);
 
@@ -281,6 +294,10 @@ print_app_banner(void);
 
 void
 print_app_usage(void);
+
+
+void
+save_packets_to_file(u_char protocol, char * sa, char * da, int sp, int dp, const u_char *payload, int len);
 
 /*
  * app name/banner
@@ -297,6 +314,104 @@ print_app_banner(void)
 return;
 }
 
+void
+save_packets_to_file(u_char protocol, char * sa, char * da, int sp, int dp, const u_char *payload, int len){
+    /* determine protocol */
+	// switch(protocol) {
+	// 	case IPPROTO_TCP:
+	// 		printf("   Protocol: TCP\n");
+	// 		break;
+	// 	case IPPROTO_UDP:
+	// 		printf("   Protocol: UDP\n");
+	// 		break;
+	// 	case IPPROTO_ICMP:
+	// 		printf("   Protocol: ICMP\n");
+	// 		return;
+	// 	case IPPROTO_IP:
+	// 		printf("   Protocol: IP\n");
+	// 		return;
+	// 	default:
+	// 		printf("   Protocol: unknown\n");
+	// 		return;
+	// }
+    // printf("src addr: %s\n", sa);
+    // printf("dst addr: %s\n", da);
+    // printf("src port: %d\n", sp);
+    // printf("dst port: %d\n", dp);
+    
+    // printf("%s %s %d %d\n", sa, da, sp, dp);
+
+    // char sa_str[] = 
+    
+    // Open file in write mode
+
+    f_p = fopen(filename,"a");
+
+    // If file opened successfully, then write the string to file
+    if ( f_p )
+    {
+
+        switch(protocol) {
+            case IPPROTO_TCP:
+                // printf("   Protocol: TCP\n");
+                fputs("tcp", f_p);
+                break;
+            case IPPROTO_UDP:
+                // printf("   Protocol: UDP\n");
+                fputs("udp", f_p);
+                break;
+            case IPPROTO_ICMP:
+                // printf("   Protocol: ICMP\n");
+                fputs("icmp", f_p);
+                break;
+            case IPPROTO_IP:
+                // printf("   Protocol: IP\n");
+                fputs("ip", f_p);
+                break;
+            default:
+                printf("Protocol: unknown\n");
+                return;
+	    }
+        fputs(" ", f_p);
+        fputs(sa,f_p);
+        fputs(" ", f_p);
+        fputs(da,f_p);
+        fputs(" ", f_p);
+        // fputs(str(sp), f_p);
+        fprintf(f_p, "%d", sp); 
+        fputs(" ", f_p);
+        // fputs(str(dp), f_p);
+        fprintf(f_p, "%d", dp); 
+        fputs(" ", f_p);
+        
+
+        const u_char *ch;
+        ch = payload;
+        for(int i = 0; i < len; i++) {
+            if (isprint(*ch)){
+                // printf("%c", *ch);
+                fputc(*ch, f_p);
+            }
+            else{
+                // printf(".");
+                fputs(".", f_p);
+            }
+            ch++;
+	    }
+        // printf("\n");
+        fputs("\n", f_p);
+
+
+    }
+    else
+    {
+        printf("Failed to open the file\n");
+    }
+    //Close the file
+    
+    fclose(f_p);
+    return;
+}
 /*
  * print help text
  */
@@ -425,13 +540,18 @@ got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *packet)
 	const struct sniff_ethernet *ethernet;  /* The ethernet header [1] */
 	const struct sniff_ip *ip;              /* The IP header */
 	const struct sniff_tcp *tcp;            /* The TCP header */
+    const struct sniff_udp *udp;
 	const char *payload;                    /* Packet payload */
 
 	int size_ip;
 	int size_tcp;
 	int size_payload;
 
-	printf("\nPacket number %d:\n", count);
+    int size_udp;
+
+
+
+	// printf("\nPacket number %d:\n", count);
 	count++;
 
 	/* define ethernet header */
@@ -446,16 +566,42 @@ got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *packet)
 	}
 
 	/* print source and destination IP addresses */
-	printf("       From: %s\n", inet_ntoa(ip->ip_src));
-	printf("         To: %s\n", inet_ntoa(ip->ip_dst));
+	// printf("       From: %s\n", inet_ntoa(ip->ip_src));
+	// printf("         To: %s\n", inet_ntoa(ip->ip_dst));
+
+
 
 	/* determine protocol */
 	switch(ip->ip_p) {
 		case IPPROTO_TCP:
-			printf("   Protocol: TCP\n");
+			// printf("   Protocol: TCP\n");
 			break;
 		case IPPROTO_UDP:
-			printf("   Protocol: UDP\n");
+			// printf("   Protocol: UDP\n");
+            if (SAVE_TCP_ONLY)
+                return;
+            udp = (struct sniff_udp*)(packet + SIZE_ETHERNET + size_ip);
+            size_udp = ntohs(udp->uh_ulen);
+                /* define/compute udp payload (daragram) offset */
+            payload = (u_char *)(packet + SIZE_ETHERNET + size_ip + 8);
+
+            /* compute udp payload (datagram) size */
+            size_payload = ntohs(ip->ip_len) - (size_ip + 8);
+
+            /*
+            * Print payload data; it might be binary, so don't just
+            * treat it as a string.
+            */
+            if (size_payload > 0) {
+                // printf("Going into save packets to file\n");
+                char * src_adr; // = inet_ntoa(ip->ip_src);
+                src_adr = (char *)malloc(strlen(inet_ntoa(ip->ip_src)));
+                strcpy(src_adr, inet_ntoa(ip->ip_src));
+                char * dst_adr; // = inet_ntoa(ip->ip_dst);
+                dst_adr = (char *)malloc(strlen(inet_ntoa(ip->ip_dst)));
+                strcpy(dst_adr, inet_ntoa(ip->ip_dst));
+                save_packets_to_file(ip->ip_p, src_adr, dst_adr, ntohs(udp->uh_sport), ntohs(udp->uh_dport), payload, size_payload);
+            }
 			return;
 		case IPPROTO_ICMP:
 			printf("   Protocol: ICMP\n");
@@ -480,8 +626,8 @@ got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *packet)
 		return;
 	}
 
-	printf("   Src port: %d\n", ntohs(tcp->th_sport));
-	printf("   Dst port: %d\n", ntohs(tcp->th_dport));
+	// printf("   Src port: %d\n", ntohs(tcp->th_sport));
+	// printf("   Dst port: %d\n", ntohs(tcp->th_dport));
 
 	/* define/compute tcp payload (segment) offset */
 	payload = (u_char *)(packet + SIZE_ETHERNET + size_ip + size_tcp);
@@ -494,15 +640,36 @@ got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *packet)
 	 * treat it as a string.
 	 */
 	if (size_payload > 0) {
-		printf("   Payload (%d bytes):\n", size_payload);
-		print_payload(payload, size_payload);
+		// printf("   Payload (%d bytes):\n", size_payload);
+		// print_payload(payload, size_payload);
 	}
+    /* print source and destination IP addresses */
+	// printf("       From: %s\n", inet_ntoa(ip->ip_src));
+	// printf("         To: %s\n", inet_ntoa(ip->ip_dst));
+
+    char * src_adr; // = inet_ntoa(ip->ip_src);
+    src_adr = (char *)malloc(strlen(inet_ntoa(ip->ip_src)));
+    strcpy(src_adr, inet_ntoa(ip->ip_src));
+    char * dst_adr; // = inet_ntoa(ip->ip_dst);
+    dst_adr = (char *)malloc(strlen(inet_ntoa(ip->ip_dst)));
+    strcpy(dst_adr, inet_ntoa(ip->ip_dst));
+
+    // printf("       From: %s\n", src_adr);
+	// printf("         To: %s\n", dst_adr);
+    // printf("       From: %s\n", inet_ntoa(ip->ip_src));
+	// printf("         To: %s\n", inet_ntoa(ip->ip_dst));
+    if (size_payload > 0) {
+        // printf("Going into save packets to file\n");
+        save_packets_to_file(ip->ip_p, src_adr, dst_adr, ntohs(tcp->th_sport), ntohs(tcp->th_dport), payload, size_payload);
+    }
 
 return;
 }
 
 int main(int argc, char **argv)
 {
+    f_p = fopen(filename,"w");
+    fclose(f_p);
 
 	char *dev = NULL;			/* capture device name */
 	char errbuf[PCAP_ERRBUF_SIZE];		/* error buffer */
@@ -512,7 +679,7 @@ int main(int argc, char **argv)
 	struct bpf_program fp;			/* compiled filter program (expression) */
 	bpf_u_int32 mask;			/* subnet mask */
 	bpf_u_int32 net;			/* ip */
-	int num_packets = 100;			/* number of packets to capture */
+	int num_packets = 8000;			/* number of packets to capture */
 
 	print_app_banner();
 
@@ -581,7 +748,6 @@ int main(int argc, char **argv)
 	/* cleanup */
 	pcap_freecode(&fp);
 	pcap_close(handle);
-
 	printf("\nCapture complete.\n");
 
 return 0;
