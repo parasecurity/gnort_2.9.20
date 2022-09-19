@@ -5,6 +5,7 @@ TASKS:
 - [x] Scripts run perfectly fine.
 - [ ] Parallel running and not offline (possible?).
 - [ ] Run same examples inside snort's pattern matching machine (need to identify snort's search call).
+- [ ] Document average number of packets captured on Step 1) (needed?).
 
 ## Step 1) capture and log packets (TCP and UDP only) in a file "traces.dat".
 
