@@ -22,7 +22,7 @@ Notes:
   
 Packets format:
 	
-<protocol> <source ip> <destination ip> <source port> <destination port> <payload>
+(protocol, source_ip, destination_ip, source_port, destination_port, payload)
   
 If file traces.dat is generated successfully, move to Step 2).
   
@@ -80,7 +80,7 @@ Notes:
   
 Example output:
   
-	Match: udp 192.168.1.9 192.168.1.1 39688 53 .............region1.analytics.**google**.com.......)........
+	Match: udp 192.168.1.9 192.168.1.1 39688 53 .............region1.analytics.google.com.......)........
 	Match: tcp 192.168.1.9 140.82.114.21 54038 443 ............d.'M.......G...=...{!......@.ET ...l.h.....g....3.P.....'....?... .........+./.,.0............./.5.................collector.github.com..............................#.........h2.http/1.1....................................3.+.)........ [t...G...Q.f..1.cM.N..=.p+mcO..L.-.....+................Di.....h2........t.....................................................................................................................).K.&. ...7E|$..;..l.@Cm(..D...../.I..O.....! gmd@..$._(.&r.D? .......:P.(..p}
 	Match: tcp 192.168.1.9 34.242.155.96 43258 443 ............W..,..$.........r.2}.Kl.fn..... )....I?M...i=._..w....l.~..p.3>d. .........+./.,.0............./.5.................spotify.demdex.net..............................#.........h2.http/1.1....................................3.+.)........ dD.a.o........(.e.R1.^..}b$..>R'.-.....+...jj...........Di.....h2ZZ............................................................................................................................................................................................................
 	Match: udp 192.168.1.1 192.168.1.9 53 42919 L............dart.l.doUBLeClICK.Net......l.douBLeclICk.NEt..........0.ns1.google.com..dns-admin.I.Q.................<..)........
@@ -93,7 +93,7 @@ Example output:
 	
 It is noted that google, github and spotify patterns are matched with the input packets and the script prints in the console the header and contents of the packet. Detailed:
 	
-<protocol> <source ip> <destination ip> <source port> <destination port> <payload>
+(protocol, source_ip, destination_ip, source_port, destination_port, payload)
  
   
   
