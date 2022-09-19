@@ -1,5 +1,11 @@
 # GPU pattern matching demo in real (offline) packets/traces captured and dumped by libpcap. Patterns used are set manually and are not compiled via snort rules. (NOT READY - NEEDS CONFIRMATION)! Steps below:
 
+TASKS:
+
+- [x] Scripts run perfectly fine.
+- [ ] Parallel running and not offline (possible?).
+- [ ] Run same examples inside snort's pattern matching machine (need to identify snort's search call).
+
 ## Step 1) capture and log packets (TCP and UDP only) in a file "traces.dat".
 
 Compile:
