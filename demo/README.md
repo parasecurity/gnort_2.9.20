@@ -23,8 +23,9 @@ Notes:
 	
   	-file generated called traces.dat contains up to 8000 packets (will never actually be 8000, since not all packets are captured successfully, and packets other than TCP/UDP are discarded). TODO: set an average number of packets captured.
   
-
-  
+Packets format:
+	
+<protocol> <source ip> <destination ip> <source port> <destination port> <payload>
   
 If file traces.dat is generated successfully, move to Step 2).
   
@@ -96,7 +97,7 @@ Notes:
   
 Example output:
   
-Match: udp 192.168.1.9 192.168.1.1 39688 53 .............region1.analytics.<mark>google</mark>google.com.......)........
+Match: udp 192.168.1.9 192.168.1.1 39688 53 .............region1.analytics.google.com.......)........
 
 Match: tcp 192.168.1.9 140.82.114.21 54038 443 ............d.'M.......G...=...{!......@.ET ...l.h.....g....3.P.....'....?... .........+./.,.0............./.5.................collector.github.com..............................#.........h2.http/1.1....................................3.+.)........ [t...G...Q.f..1.cM.N..=.p+mcO..L.-.....+................Di.....h2........t.....................................................................................................................).K.&. ...7E|$..;..l.@Cm(..D...../.I..O.....! gmd@..$._(.&r.D? .......:P.(..p}
 
@@ -113,7 +114,9 @@ Total matches: 23
 Execution time (usecs): 1051
 	
 	
-It is noted that google, github and spotify patterns are matched with the input packets and the script prints in the console the header and contents of the packet.
+It is noted that google, github and spotify patterns are matched with the input packets and the script prints in the console the header and contents of the packet. Detailed:
+	
+<protocol> <source ip> <destination ip> <source port> <destination port> <payload>
  
   
   
