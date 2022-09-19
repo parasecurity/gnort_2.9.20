@@ -9,7 +9,7 @@ $ gcc pcap_decoder.c -o pcap_decoder -lpcap
 
 Run:
 
-$ sudo ./pcap_decoder -i <interfacename>
+$ sudo ./pcap_decoder -i &lt;interfacename&rt;
 	
 
 Notes: 
