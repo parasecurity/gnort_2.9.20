@@ -15,12 +15,9 @@ $ sudo ./pcap_decoder -i <interfacename>
 Notes: 
   
 	-argument -lpcap mandatory to compile via libpcap.h
-	
 	-sudo mandatory to gain permission to iterate through interface traffic
  	-argument -i <interfacename> not mandatory, pcap_lookupdev() finds interface automatically
-	
   	-find <interfacename> by executing "$ ifconfig -a" and identifying the interface of the current machine
-	
   	-file generated called traces.dat contains up to 8000 packets (will never actually be 8000, since not all packets are captured successfully, and packets other than TCP/UDP are discarded). TODO: set an average number of packets captured.
   
 Packets format:
@@ -86,13 +83,9 @@ $ ./bin/gpuregex -p patterns.dat -i traces.dat -d 0 -m 0 -v
 Notes:
   
 	-p: pattern file
-	
 	-i: input file
-	
 	-d: device position
-	
 	-v: verbose (prints matches -- default does not print)
-	
 	-m: 1 for cpu & shared gpu, 0 for discrete gpu
   
 Example output:
