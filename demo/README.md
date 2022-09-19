@@ -15,7 +15,7 @@ Compile:
 
 Run:
 
-	sudo ./pcap_decoder -i &lt;interfacename &rt;
+	sudo ./pcap_decoder -i <interfacename>
 	
 
 Notes: 
