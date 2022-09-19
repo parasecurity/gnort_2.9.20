@@ -10,12 +10,12 @@ TASKS:
 
 Compile:
 
-	$ gcc pcap_decoder.c -o pcap_decoder -lpcap
+	 gcc pcap_decoder.c -o pcap_decoder -lpcap
 
 
 Run:
 
-$ sudo ./pcap_decoder -i &lt;interfacename &rt;
+	sudo ./pcap_decoder -i &lt;interfacename &rt;
 	
 
 Notes: 
@@ -61,20 +61,20 @@ Some patterns are likely (but not surely) to appear and others (dummysite, rando
   
 Identify device position:
   
-$ clinfo -l
+	clinfo -l
   
 Example output:
   
 Platform #0: NVIDIA CUDA
- `-- Device #0: NVIDIA GeForce RTX 3060
+ -- Device #0: NVIDIA GeForce RTX 3060
   
 Compile the source code:
   
-$ make
+	make
   
 Run the executable:
   
-$ ./bin/gpuregex -p patterns.dat -i traces.dat -d 0 -m 0 -v
+	./bin/gpuregex -p patterns.dat -i traces.dat -d 0 -m 0 -v
 
 Notes:
   
