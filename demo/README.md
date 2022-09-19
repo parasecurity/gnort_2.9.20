@@ -66,8 +66,7 @@ Identify device position:
   
 Example output:
   
-Platform #0: NVIDIA CUDA
- -- Device #0: NVIDIA GeForce RTX 3060
+	Platform #0: NVIDIA CUDA -- Device #0: NVIDIA GeForce RTX 3060
   
 Compile the source code:
   
