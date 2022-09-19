@@ -10,7 +10,7 @@ TASKS:
 
 Compile:
 
-$ gcc pcap_decoder.c -o pcap_decoder -lpcap
+$ 	gcc pcap_decoder.c -o pcap_decoder -lpcap
 
 
 Run:
