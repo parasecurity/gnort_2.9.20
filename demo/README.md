@@ -1,6 +1,6 @@
 # GPU pattern matching demo in real (offline) packets/traces captured and dumped by libpcap. Patterns used are set manually and are not compiled via snort rules. (NOT READY - NEEDS CONFIRMATION)! Steps below:
 
-## Step 1) capture and log packets (TCP and UDP only) in a file "traces.dat" ().
+## Step 1) capture and log packets (TCP and UDP only) in a file "traces.dat".
 
 Compile:
 
