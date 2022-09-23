@@ -5,7 +5,8 @@ TASKS:
 - [x] Scripts run perfectly fine.
 - [ ] Parallel running and not offline (possible?).
 - [ ] Run same examples inside snort's pattern matching machine (need to identify snort's search call).
-- [ ] Document average number of packets captured on Step 1) (needed?).
+- [ ] Check for correctness.
+- [ ] Implement ICMP protocol.
 
 ## Step 1) capture and log packets (TCP and UDP only) in a file "traces.dat".
 
@@ -29,7 +30,7 @@ Notes:
 	-sudo mandatory to gain permission to iterate through interface traffic
  	-argument -i <interfacename> not mandatory, pcap_lookupdev() finds interface automatically
   	-find <interfacename> by executing "$ ifconfig -a" and identifying the interface of the current machine
-  	-file generated called traces.dat contains up to 8000 packets (will never actually be 8000, since not all packets are captured successfully, and packets other than TCP/UDP are discarded). TODO: set an average number of packets captured.
+  	-file generated called traces.dat contains up to 8000 packets (packets other than TCP/UDP are discarded).
   
 Packets format:
 	
