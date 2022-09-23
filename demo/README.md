@@ -5,7 +5,7 @@ TASKS:
 - [x] Scripts run perfectly fine.
 - [ ] Parallel running and not offline (possible?).
 - [ ] Run same examples inside snort's pattern matching machine (need to identify snort's search call).
-- [ ] Check for correctness.
+- [x] Check for correctness (verified by both ngrep and Wireshark).
 - [ ] Implement ICMP protocol.
 
 ## Step 1) capture and log packets (TCP and UDP only) in a file "traces.dat".
