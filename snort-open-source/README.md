@@ -134,8 +134,8 @@ sudo touch /etc/snort/rules/local.rules
 Copy configuration files to the desired directory.  
 
 ```
-sudo cp ~/snort_src/snort-2.9.16/etc/*.conf* /etc/snort
-sudo cp ~/snort_src/snort-2.9.16/etc/*.map /etc/snort
+sudo cp ~/snort_src/snort-2.9.20/etc/*.conf* /etc/snort
+sudo cp ~/snort_src/snort-2.9.20/etc/*.map /etc/snort
 ```
 
 ## Community rules
@@ -157,6 +157,12 @@ sudo sed -i 's/include $RULE_PATH/#include $RULE_PATH/' /etc/snort/snort.conf
 ```
 
 ## Configure the network and rule sets
+
+Prepare the conf file, comment inclusions.
+
+```
+sudo sed -i 's/include $RULE_PATH/#include $RULE_PATH/' /etc/snort/snort.conf
+```
 
 ```
 sudo nano /etc/snort/snort.conf
