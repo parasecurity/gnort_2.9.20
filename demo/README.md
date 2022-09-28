@@ -1,12 +1,12 @@
-# GPU pattern matching demo in real (offline) packets/traces captured and dumped by libpcap. Patterns used are set manually and are not compiled via snort rules. (NOT READY - NEEDS CONFIRMATION)! Steps below:
+# GPU pattern matching demo in real (offline) packets/traces captured and dumped by libpcap. Patterns used are set manually and are not compiled via snort rules. Steps below:
 
 TASKS:
 
 - [x] Scripts run perfectly fine.
-- [ ] Parallel running and not offline (possible?).
-- [ ] Run same examples inside snort's pattern matching machine (need to identify snort's search call).
+- [x] Parallel running and not offline (Done! but not checked for correctness - will not update this).
+- [x] Run same examples inside snort's pattern matching machine (need to identify snort's search call).
 - [x] Check for correctness (verified by both ngrep and Wireshark).
-- [ ] Implement ICMP protocol.
+- [ ] Implement ICMP and other protocols.
 
 ## Step 1) capture and log packets (TCP and UDP only) in a file "traces.dat".
 
