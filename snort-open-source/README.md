@@ -82,7 +82,7 @@ Install Snort:
 ./configure --enable-sourcefire && make && sudo make install
 ```
 
-If you run into installation problems, either look up the errors online or [check here](#possible-installation-problems) for common solutions.
+If you run into installation problems, either look up the errors online or [click here](#possible-installation-problems) to solve common problems.
 
 If Snort is successfully installed, follow the next steps. **mandatory!**
   
@@ -351,7 +351,7 @@ Try to install again
 ./configure --enable-sourcefire && make && sudo make install
 ```
 
-Repeat searching and copying files if the error persists. If the installation succeeds continue configuration here.
+Repeat searching and copying files if the error persists. If the installation succeeds continue configuration [here](#configure-snort).
 
 ## Running Snort in the background
   
