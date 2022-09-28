@@ -332,6 +332,7 @@ apt-file search rpc/rpc.h
 Example output:
 
 ```
+/snort_src/snort-2.9.20$ apt-file search rpc/rpc.h
 dietlibc-dev: /usr/include/diet/rpc/rpc.h 
 krb5-multidev: /usr/include/mit-krb5/gssrpc/rpc.h
 libkrb5-dev: /usr/include/gssrpc/rpc.h
