@@ -17,7 +17,7 @@ sudo apt install -y gcc libpcre3-dev zlib1g-dev libluajit-5.1-dev libpcap-dev op
 Create directory.
 
 ```
-  mkdir ~/snort_src && cd ~/snort_src
+mkdir ~/snort_src && cd ~/snort_src
 ```
   
 Data Aquisition library (DAQ), to make abstract calls to packet capture libraries.
@@ -41,101 +41,241 @@ sudo apt-get install -y autoconf libtool
 
 Configure.
 
+```
 autoreconf -f -i
+```
 
 Install DAQ.
 
+```
 ./configure && make && sudo make install
+```
 
 Go back to install Snort.
 
+```
 cd ~/snort_src
+```
 
 Download version (latest 2.9.20):
 
+```
 wget https://www.snort.org/downloads/snort/snort-2.9.20.tar.gz
+```
 
 or specify (if other version is chosen, adjust version tag in the future steps):
 
+```
 wget https://www.snort.org/downloads/snort/snort-<version>.tar.gz
-  
+```
+
 Extract:
-  
+
+```
 tar -xvzf snort-2.9.20.tar.gz
 cd snort-2.9.20
-  
+```
+
 Install Snort:
-  
+
+```
 ./configure --enable-sourcefire && make && sudo make install
+```
 
 Snort is successfully installed. **The following steps are mandatory!**
   
 ## Configure Snort
   
 Update shared libraries.
-  
+
+```
 sudo ldconfig
+```
 
 Link snort.  
 
+```
 sudo ln -s /usr/local/bin/snort /usr/sbin/snort
-  
+```
+
 Setup username and folder structure:  
 
+```
 sudo groupadd snort
 sudo useradd snort -r -s /sbin/nologin -c SNORT_IDS -g snort
+```
 
+```
 sudo mkdir -p /etc/snort/rules
 sudo mkdir /var/log/snort
 sudo mkdir /usr/local/lib/snort_dynamicrules  
-  
+```  
 Set permissions:
   
+```
 sudo chmod -R 5775 /etc/snort
 sudo chmod -R 5775 /var/log/snort
 sudo chmod -R 5775 /usr/local/lib/snort_dynamicrules
 sudo chown -R snort:snort /etc/snort
 sudo chown -R snort:snort /var/log/snort
 sudo chown -R snort:snort /usr/local/lib/snort_dynamicrules
-  
+```
+
 Create files for white/black lists and rules.
-  
+
+```
 sudo touch /etc/snort/rules/white_list.rules
 sudo touch /etc/snort/rules/black_list.rules
 sudo touch /etc/snort/rules/local.rules
-  
+```
+
 Copy configuration files to the desired directory.  
 
+```
 sudo cp ~/snort_src/snort-2.9.16/etc/*.conf* /etc/snort
 sudo cp ~/snort_src/snort-2.9.16/etc/*.map /etc/snort
+```
 
 ## Community rules
-  
+
+```
 wget https://www.snort.org/rules/community -O ~/community.tar.gz
+```
 
+```
 sudo tar -xvf ~/community.tar.gz -C ~/
+```
 
+```
 sudo cp ~/community-rules/* /etc/snort/rules
+```
 
+```
 sudo sed -i 's/include $RULE_PATH/#include $RULE_PATH/' /etc/snort/snort.conf
+```
 
 ## Configure the network and rule sets
-  
+
+```
 sudo nano /etc/snort/snort.conf
+```
 
 Find public ip (from another terminal)
-  
+
+```
 ifconfig -a
-  
+```  
 or
-  
+
+```  
 ip addr
+```
 
 Inside snort.conf edit server_public_ip from ifconfig -a:
-  
+
+```
 # Setup the network addresses you are protecting
 ipvar HOME_NET server_public_ip/32
+```
+
+```
+# Set up the external network addresses. Leave as "any" in most situations
+ipvar EXTERNAL_NET !$HOME_NET
+```
+
+```
+# Path to your rules files (this can be a relative path)
+var RULE_PATH /etc/snort/rules
+var SO_RULE_PATH /etc/snort/so_rules
+var PREPROC_RULE_PATH /etc/snort/preproc_rules
+```
+
+```
+# Set the absolute path appropriately
+var WHITE_LIST_PATH /etc/snort/rules
+var BLACK_LIST_PATH /etc/snort/rules
+```
+
+At section 6 set the output for unified2 to log under filename of snort.log like below.
+
+```
+# unified2
+# Recommended for most installs
+output unified2: filename snort.log, limit 128
+```
+  
+Uncomment the line below at the bottom of the same file in order to allow snort to iterate through custom rules. 
+
+```  
+include $RULE_PATH/local.rules
+```
+
+Same thing for the community rules file.
+
+```
+include $RULE_PATH/community.rules
+```
+
+## Validate settings
+
+```
+sudo snort -T -c /etc/snort/snort.conf
+```
+
+  
+## Test the configuration
+  
+Open the local rules file  
+
+```
+sudo nano /etc/snort/rules/local.rules
+```
+
+Import testing rules  
+
+```
+alert icmp any any -> $HOME_NET any (msg:"ICMP test"; sid:10000001; rev:001;)
+alert tcp any any -> $HOME_NET any (msg:"TCP test"; sid:10000002; rev:001;)
+alert udp any any -> $HOME_NET any (msg:"UDP test"; sid:10000003; rev:001;)
+```
+
+The rule consists of the following parts:
+
+* action for traffic matching the rule, alert in this case
+* traffic protocol like TCP, UDP or ICMP like here
+* the source address and port, simply marked as any to include all addresses and ports
+* the destination address and port, $HOME_NET as declared in the configuration and any for port
+* some additional bits
+  * log message
+  * unique rule identifier (sid) which for local rules needs to be 1000001 or higher
+  * rule version number.
+  
+  
+Run snort (edit the interfacename variable in order to sniff to the specific network interface, typically its eth0, en0 etc, this is checked by running the previous ip addr command on the terminal).
+
+```
+sudo snort -A console -i <interfacename> -u snort -g snort -c /etc/snort/snort.conf
+```
+
+You should now see alerts popping up! To stop sniffing interrupt with ctrl^c.
+  
+Read the logs (press TAB to find specific timestamp of sniffing)
+
+```
+snort -r /var/log/snort/snort.log.
+```
+
+## Good rule writing sources
+
+* http://www.cyb3rs3c.net/, rule editor
+* https://www.youtube.com/watch?v=8T8XVoNqMbc
+* https://cyvatar.ai/write-configure-snort-rules/
+
+## Running Snort in the background
+  
+Needed ?
 
 
 
-
+  
+  
