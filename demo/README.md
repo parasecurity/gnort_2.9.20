@@ -3,7 +3,7 @@
 TASKS:
 
 - [x] Scripts run perfectly fine.
-- [x] ~~Parallel running and not offline ~~(Done! but not checked for correctness - will not update this).
+- [x] ~~Parallel running and not offline~~ (Done! but not checked for correctness - will not update this).
 - [x] Run same examples inside snort's pattern matching machine (need to identify snort's search call).
 - [x] Check for correctness (verified by both ngrep and Wireshark).
 - [ ] ~~Implement ICMP and other protocols.~~ (This demo is a proof of concept on gpu pattern matching, no need to implement multiple protocols).
