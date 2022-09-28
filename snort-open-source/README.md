@@ -179,17 +179,36 @@ or
 ip addr
 ```
 
-Inside snort.conf edit server_public_ip from ifconfig -a:
+Inside snort.conf, replace any with the public ip:
 
 ```
 # Setup the network addresses you are protecting
-ipvar HOME_NET server_public_ip/32
+ipvar HOME_NET any
 ```
+
+to
+
+```
+# Setup the network addresses you are protecting
+ipvar HOME_NET XXX.XXX.XXX.XXX/XX
+```
+
+At the EXTERNAL_NET, replace any with !$HOME_NET:
+
+```
+# Set up the external network addresses. Leave as "any" in most situations
+ipvar EXTERNAL_NET any
+```
+
+to
 
 ```
 # Set up the external network addresses. Leave as "any" in most situations
 ipvar EXTERNAL_NET !$HOME_NET
 ```
+
+
+Do the following changes:
 
 ```
 # Path to your rules files (this can be a relative path)
@@ -218,7 +237,7 @@ Uncomment the line below at the bottom of the same file in order to allow snort 
 include $RULE_PATH/local.rules
 ```
 
-Same thing for the community rules file.
+Add community rules path, if you downloaded them.
 
 ```
 include $RULE_PATH/community.rules
@@ -239,7 +258,7 @@ Open the local rules file
 sudo nano /etc/snort/rules/local.rules
 ```
 
-Import testing rules  
+Copy paste testing rules  
 
 ```
 alert icmp any any -> $HOME_NET any (msg:"ICMP test"; sid:10000001; rev:001;)
@@ -294,23 +313,45 @@ fatal error: rpc/rpc.h: No such file or directory
    32 | #include <rpc/rpc.h>
 ```
 
-This means that certain libraries are missing. You can either find online the source code or look through the already installed libraries and copy them to the desired directory.
+You can either find online the source code of the specific headers or look through the already installed libraries and copy them to the desired directory.
 
-Search for the file:
+```
+sudo apt install apt-file
+```
+
+```
+sudo apt-file update
+```
+
+-> Search for the missing file:
 
 ```
 apt-file search rpc/rpc.h
 ```
 
-Output:
+Example output:
 
 ```
-some output here
+dietlibc-dev: /usr/include/diet/rpc/rpc.h 
+krb5-multidev: /usr/include/mit-krb5/gssrpc/rpc.h
+libkrb5-dev: /usr/include/gssrpc/rpc.h
+libntirpc-dev: /usr/include/ntirpc/rpc/rpc.h
+libtirpc-dev: /usr/include/tirpc/rpc/rpc.h
 ```
 
+Copy file to desired location from any source
+
 ```
-cp rpc.h /usr/include/rpc
+cp /usr/include/ntirpc/rpc/rpc.h /usr/include/rpc
 ```
+
+Try to install again
+
+```
+./configure --enable-sourcefire && make && sudo make install
+```
+
+Repeat searching and copying files if the error persists. If the installation succeeds continue configuration here.
 
 ## Running Snort in the background
   
