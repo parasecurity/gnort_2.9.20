@@ -82,7 +82,9 @@ Install Snort:
 ./configure --enable-sourcefire && make && sudo make install
 ```
 
-Snort is successfully installed. **The following steps are mandatory!**
+If you run into installation problems, either look up the errors online or check here.
+
+If Snort is successfully installed, follow the next steps. **mandatory!**
   
 ## Configure Snort
   
@@ -270,6 +272,39 @@ snort -r /var/log/snort/snort.log.
 * http://www.cyb3rs3c.net/, rule editor
 * https://www.youtube.com/watch?v=8T8XVoNqMbc
 * https://cyvatar.ai/write-configure-snort-rules/
+
+## Possible installation problems
+
+1) You don't have make installed.
+
+```
+sudo apt install make
+```
+
+2) During snort installation, header files are missing. For example:
+
+```
+fatal error: rpc/rpc.h: No such file or directory
+   32 | #include <rpc/rpc.h>
+```
+
+This means that certain libraries are missing. You can either find online the source code or look through the already installed libraries and copy them to the desired directory.
+
+Search for the file:
+
+```
+apt-file search rpc/rpc.h
+```
+
+Output:
+
+```
+some output here
+```
+
+```
+cp rpc.h /usr/include/rpc
+```
 
 ## Running Snort in the background
   
