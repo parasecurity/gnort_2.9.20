@@ -1,6 +1,6 @@
 # === STILL UNDER DEVELOPMENT === ADD ALERTING AND LOGGING VIA SNORT
 
-# Gnort installation guide
+# Gnort (Pattern Matching on GPU) installation guide
 
 This is a short guide on how to install and run GPU Accelerated Snort IDS, including technical prerequisites.
 Base snort version: 2.9.20
