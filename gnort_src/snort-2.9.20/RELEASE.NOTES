@@ -1,0 +1,20 @@
+2022-05-13 - Snort 2.9.20
+
+[*] New Additions
+
+        Added support for dns root queries and underflow.
+
+        Added support to get extra data from SMTP and HTTP into IPS event.
+
+        Added support for login success and failure eventing for IMAP and POP3.
+
+        Added support to handle empty string for SNI/CN/SAN/ORG.
+
+[*] Improvements / Fix
+
+
+        Fixed a scenario where SSL traffic was not detected correctly.
+
+        Fixed security zones info in intrusion events.
+
+        Fixed URL lookup failure.
