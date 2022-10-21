@@ -242,8 +242,8 @@ sudo nano /etc/snort/rules/local.rules
 Copy paste testing rules  
 
 ```
-alert tcp any any -> $HOME_NET any ( msg:"TCP test FACEBOOK"; content:"github"; fast_pattern:only; sid:10000004; rev:1; )
-alert udp any any -> $HOME_NET any ( msg:"UDP test FACEBOOK"; content:"github"; fast_pattern:only;  sid:10000005; rev:1; )
+alert tcp any any -> $HOME_NET any ( msg:"TCP test GITHUB"; content:"github"; fast_pattern:only; sid:10000004; rev:1; )
+alert udp any any -> $HOME_NET any ( msg:"UDP test GITHUB"; content:"github"; fast_pattern:only;  sid:10000005; rev:1; )
 ```
 
 The rule consists of the following parts:
