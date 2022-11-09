@@ -16,7 +16,7 @@ struct xdfactx {
 	int *trans;
 	cl_mem ktrans;
 
-	// argyris
+	// ========
 	int opt, e;
 	int devpos; /* the first available device */
 	int mapped; /* 0 for discrete devices */
@@ -32,16 +32,63 @@ struct xdfactx {
 	struct xpktbuf *xpb;
 	// struct xdfactx *xdfa;
 	struct timeval start_time, end_time;
+
+
+	//=======
+	struct pattern * patterns;
+    struct pattern *** mlist;
+
+	void         (*userfree)(void *p);
+    void         (*optiontreefree)(void **p);
+    void         (*neg_list_free)(void **p);
+	//=======
 };
 
+// ========
+struct pattern {
+	struct  pattern *next;
+
+    unsigned char         *patrn;
+    unsigned char         *casepatrn;
+    int      n;
+    int      nocase;
+    int      offset;
+    int      depth;
+    int      negative;
+    void *udata;
+    int      iid;
+    void   * rule_option_tree;
+    void   * neg_list;
+};
+// ========
+
 struct xdfactx *
-xdfa_new(void);
+xdfa_new(userfree, optiontreefree, neg_list_free);
+
+// =======
+void
+create_matchlist(struct xdfactx *xdfa);
 
 void
-xdfa_addpattern(struct xdfactx *xdfa, char *pattern, unsigned int length);
+xdfa_print_plist(struct xdfactx *xdfa);
 
 void
-xdfa_compile(struct xdfactx *xdfa);
+print_matchlist(struct xdfactx *xdfa);
+// =======
+
+void
+xdfa_addpattern(struct xdfactx *xdfa, char *pattern, unsigned int length, int nocase, int offset, int depth, int negative, void * id, int iid);
+
+struct _SnortConfig;
+void
+xdfa_compile_with_sc(struct xdfactx *xdfa, struct _SnortConfig *,
+                                int (*build_tree)(struct _SnortConfig *, void * id, void **existing_tree),
+                                int (*neg_list_func)(void *id, void **list));
+
+void
+xdfa_compile(struct xdfactx *xdfa,
+                                int (*build_tree)(struct _SnortConfig *, void * id, void **existing_tree),
+                                int (*neg_list_func)(void *id, void **list));
 
 void
 xdfa_dump(struct xdfactx *xdfa, const char *path, int print);

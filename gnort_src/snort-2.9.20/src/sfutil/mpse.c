@@ -135,7 +135,7 @@ void * mpseNew( int method, int use_global_counter_flag,
             break;
         //tuc===============================================================================================
         case XDFA_GPU:
-            p->obj = xdfa_new();
+            p->obj = xdfa_new(userfree, optiontreefree, neg_list_free);
             break;
         //==================================================================================================
         default:
@@ -218,7 +218,7 @@ void * mpseNewWithSnortConfig( struct _SnortConfig *sc,
 #endif
         //tuc===============================================================================================
         case XDFA_GPU:
-            p->obj = xdfa_new();
+            p->obj = xdfa_new(userfree, optiontreefree, neg_list_free);
             break;
         //==================================================================================================
         default:
@@ -351,7 +351,7 @@ int  mpseAddPattern ( void * pvoid, void * P, int m,
                                 noCase, negative, ID );
     //tuc===============================================================================================
     case XDFA_GPU:
-        xdfa_addpattern((struct xdfactx *)p->obj, (/*unsigned*/ char *)P, m); // TODO: need to check nocase
+        xdfa_addpattern((struct xdfactx *)p->obj, (/*unsigned*/ char *)P, m, noCase, offset, depth, negative, ID, IID); // TODO: need to check nocase
         return 0;
         // break;
     //==================================================================================================
@@ -369,6 +369,7 @@ int  mpseAddPatternWithSnortConfig ( SnortConfig *sc, void * pvoid, void * P, in
 	// printf("Pattern: %s\n", (unsigned char *) P);
   MPSE * p = (MPSE*)pvoid;
 //   printf("METHOD: %d\n", p->method);
+    printf("id: %d, iid: %d\n", ID, IID);
 
   switch( p->method )
    {
@@ -400,7 +401,7 @@ int  mpseAddPatternWithSnortConfig ( SnortConfig *sc, void * pvoid, void * P, in
 #endif
     //tuc===============================================================================================
     case XDFA_GPU:
-        xdfa_addpattern((struct xdfactx *)p->obj, (/*unsigned*/ char *)P, m); // TODO: add no case
+        xdfa_addpattern((struct xdfactx *)p->obj, (/*unsigned*/ char *)P, m, noCase, offset, depth, negative, ID, IID); // TODO: add no case
         return 0;
         // break;
     //==================================================================================================
@@ -456,7 +457,7 @@ int  mpsePrepPatterns  ( void * pvoid,
     //tuc===============================================================================================
     case XDFA_GPU:
         printf("===GPUREGEX=== PREPPATTERNS W/O SNORT CONFIG\n");
-        xdfa_compile((struct xdfactx *)p->obj);
+        xdfa_compile((struct xdfactx *)p->obj, build_tree, neg_list_func);
         return 0;
         // break;
     //==================================================================================================
@@ -511,7 +512,7 @@ int  mpsePrepPatternsWithSnortConf  ( struct _SnortConfig *sc, void * pvoid,
 
     case XDFA_GPU:
         printf("===GPUREGEX=== PREPPATTERNS WITH SNORT CONFIG\n");
-        xdfa_compile((struct xdfactx *)p->obj);
+        xdfa_compile_with_sc((struct xdfactx *)p->obj, sc, build_tree, neg_list_func);
         return 0;
         // break;
     // ========================================
@@ -719,7 +720,7 @@ int mpseSearch( void *pvoid, const unsigned char * T, int n,
     
     case XDFA_GPU:
         // printf("mpse pkt: %s\n", T);
-        ret = xdfa_search((struct xdfactx *) p->obj, (char *)T, n);
+        ret = xdfa_search((struct xdfactx *) p->obj, (char *)T, n, action, data);
         // printf("success :)\n");
         return ret;
     //======================================================================================================

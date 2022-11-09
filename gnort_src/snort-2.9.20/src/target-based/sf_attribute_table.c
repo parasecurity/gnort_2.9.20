@@ -1,8 +1,9 @@
-/* A Bison parser, made by GNU Bison 3.0.5.  */
+/* A Bison parser, made by GNU Bison 3.8.2.  */
 
 /* Bison implementation for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015, 2018 Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2021 Free Software Foundation,
+   Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -15,7 +16,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -33,6 +34,10 @@
 /* C LALR(1) parser skeleton written by Richard Stallman, by
    simplifying the original so-called "semantic" parser.  */
 
+/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+   especially those whose name start with YY_ or yy_.  They are
+   private implementation details that can be changed or removed.  */
+
 /* All symbols defined below should begin with yy or YY, to avoid
    infringing on user name space.  This should be done even for local
    variables, as they might otherwise be expanded by user macros.
@@ -40,11 +45,11 @@
    define necessary library symbols; they are noted "INFRINGES ON
    USER NAME SPACE" below.  */
 
-/* Identify Bison output.  */
-#define YYBISON 1
+/* Identify Bison output, and Bison version.  */
+#define YYBISON 30802
 
-/* Bison version.  */
-#define YYBISON_VERSION "3.0.5"
+/* Bison version string.  */
+#define YYBISON_VERSION "3.8.2"
 
 /* Skeleton name.  */
 #define YYSKELETON_NAME "yacc.c"
@@ -65,12 +70,11 @@
 #define yyerror         sfat_error
 #define yydebug         sfat_debug
 #define yynerrs         sfat_nerrs
-
 #define yylval          sfat_lval
 #define yychar          sfat_char
 
-/* Copy the first part of user declarations.  */
-#line 33 "sf_attribute_table.y" /* yacc.c:339  */
+/* First part of user prologue.  */
+#line 33 "sf_attribute_table.y"
 
 #ifdef TARGET_BASED
 #include <stdlib.h>
@@ -95,214 +99,238 @@ extern char *sfat_grammar_error;
 extern int sfat_lex();
 extern void sfat_error(char*);
 
-#line 99 "sf_attribute_table.c" /* yacc.c:339  */
+#line 103 "sf_attribute_table.c"
 
-# ifndef YY_NULLPTR
-#  if defined __cplusplus && 201103L <= __cplusplus
-#   define YY_NULLPTR nullptr
+# ifndef YY_CAST
+#  ifdef __cplusplus
+#   define YY_CAST(Type, Val) static_cast<Type> (Val)
+#   define YY_REINTERPRET_CAST(Type, Val) reinterpret_cast<Type> (Val)
 #  else
-#   define YY_NULLPTR 0
+#   define YY_CAST(Type, Val) ((Type) (Val))
+#   define YY_REINTERPRET_CAST(Type, Val) ((Type) (Val))
+#  endif
+# endif
+# ifndef YY_NULLPTR
+#  if defined __cplusplus
+#   if 201103L <= __cplusplus
+#    define YY_NULLPTR nullptr
+#   else
+#    define YY_NULLPTR 0
+#   endif
+#  else
+#   define YY_NULLPTR ((void*)0)
 #  endif
 # endif
 
-/* Enabling verbose error messages.  */
-#ifdef YYERROR_VERBOSE
-# undef YYERROR_VERBOSE
-# define YYERROR_VERBOSE 1
-#else
-# define YYERROR_VERBOSE 0
-#endif
-
-/* In a future release of Bison, this section will be replaced
-   by #include "sf_attribute_table.h".  */
-#ifndef YY_SFAT_SF_ATTRIBUTE_TABLE_H_INCLUDED
-# define YY_SFAT_SF_ATTRIBUTE_TABLE_H_INCLUDED
-/* Debug traces.  */
-#ifndef YYDEBUG
-# define YYDEBUG 0
-#endif
-#if YYDEBUG
-extern int sfat_debug;
-#endif
-
-/* Token type.  */
-#ifndef YYTOKENTYPE
-# define YYTOKENTYPE
-  enum yytokentype
-  {
-    SF_AT_COMMENT = 258,
-    SF_AT_WHITESPACE = 259,
-    SF_START_SNORT_ATTRIBUTES = 260,
-    SF_END_SNORT_ATTRIBUTES = 261,
-    SF_AT_START_MAP_TABLE = 262,
-    SF_AT_END_MAP_TABLE = 263,
-    SF_AT_START_ENTRY = 264,
-    SF_AT_END_ENTRY = 265,
-    SF_AT_START_ENTRY_ID = 266,
-    SF_AT_END_ENTRY_ID = 267,
-    SF_AT_START_ENTRY_VALUE = 268,
-    SF_AT_END_ENTRY_VALUE = 269,
-    SF_AT_START_ATTRIBUTE_TABLE = 270,
-    SF_AT_END_ATTRIBUTE_TABLE = 271,
-    SF_AT_START_HOST = 272,
-    SF_AT_END_HOST = 273,
-    SF_AT_START_HOST_IP = 274,
-    SF_AT_END_HOST_IP = 275,
-    SF_AT_STRING = 276,
-    SF_AT_NUMERIC = 277,
-    SF_AT_IPv6 = 278,
-    SF_AT_IPv6Cidr = 279,
-    SF_AT_START_OS = 280,
-    SF_AT_END_OS = 281,
-    SF_AT_START_ATTRIBUTE_VALUE = 282,
-    SF_AT_END_ATTRIBUTE_VALUE = 283,
-    SF_AT_START_ATTRIBUTE_ID = 284,
-    SF_AT_END_ATTRIBUTE_ID = 285,
-    SF_AT_START_CONFIDENCE = 286,
-    SF_AT_END_CONFIDENCE = 287,
-    SF_AT_START_NAME = 288,
-    SF_AT_END_NAME = 289,
-    SF_AT_START_VENDOR = 290,
-    SF_AT_END_VENDOR = 291,
-    SF_AT_START_VERSION = 292,
-    SF_AT_END_VERSION = 293,
-    SF_AT_START_FRAG_POLICY = 294,
-    SF_AT_END_FRAG_POLICY = 295,
-    SF_AT_START_STREAM_POLICY = 296,
-    SF_AT_END_STREAM_POLICY = 297,
-    SF_AT_START_SERVICES = 298,
-    SF_AT_END_SERVICES = 299,
-    SF_AT_START_SERVICE = 300,
-    SF_AT_END_SERVICE = 301,
-    SF_AT_START_CLIENTS = 302,
-    SF_AT_END_CLIENTS = 303,
-    SF_AT_START_CLIENT = 304,
-    SF_AT_END_CLIENT = 305,
-    SF_AT_START_IPPROTO = 306,
-    SF_AT_END_IPPROTO = 307,
-    SF_AT_START_PORT = 308,
-    SF_AT_END_PORT = 309,
-    SF_AT_START_PROTOCOL = 310,
-    SF_AT_END_PROTOCOL = 311,
-    SF_AT_START_APPLICATION = 312,
-    SF_AT_END_APPLICATION = 313
-  };
-#endif
-/* Tokens.  */
-#define SF_AT_COMMENT 258
-#define SF_AT_WHITESPACE 259
-#define SF_START_SNORT_ATTRIBUTES 260
-#define SF_END_SNORT_ATTRIBUTES 261
-#define SF_AT_START_MAP_TABLE 262
-#define SF_AT_END_MAP_TABLE 263
-#define SF_AT_START_ENTRY 264
-#define SF_AT_END_ENTRY 265
-#define SF_AT_START_ENTRY_ID 266
-#define SF_AT_END_ENTRY_ID 267
-#define SF_AT_START_ENTRY_VALUE 268
-#define SF_AT_END_ENTRY_VALUE 269
-#define SF_AT_START_ATTRIBUTE_TABLE 270
-#define SF_AT_END_ATTRIBUTE_TABLE 271
-#define SF_AT_START_HOST 272
-#define SF_AT_END_HOST 273
-#define SF_AT_START_HOST_IP 274
-#define SF_AT_END_HOST_IP 275
-#define SF_AT_STRING 276
-#define SF_AT_NUMERIC 277
-#define SF_AT_IPv6 278
-#define SF_AT_IPv6Cidr 279
-#define SF_AT_START_OS 280
-#define SF_AT_END_OS 281
-#define SF_AT_START_ATTRIBUTE_VALUE 282
-#define SF_AT_END_ATTRIBUTE_VALUE 283
-#define SF_AT_START_ATTRIBUTE_ID 284
-#define SF_AT_END_ATTRIBUTE_ID 285
-#define SF_AT_START_CONFIDENCE 286
-#define SF_AT_END_CONFIDENCE 287
-#define SF_AT_START_NAME 288
-#define SF_AT_END_NAME 289
-#define SF_AT_START_VENDOR 290
-#define SF_AT_END_VENDOR 291
-#define SF_AT_START_VERSION 292
-#define SF_AT_END_VERSION 293
-#define SF_AT_START_FRAG_POLICY 294
-#define SF_AT_END_FRAG_POLICY 295
-#define SF_AT_START_STREAM_POLICY 296
-#define SF_AT_END_STREAM_POLICY 297
-#define SF_AT_START_SERVICES 298
-#define SF_AT_END_SERVICES 299
-#define SF_AT_START_SERVICE 300
-#define SF_AT_END_SERVICE 301
-#define SF_AT_START_CLIENTS 302
-#define SF_AT_END_CLIENTS 303
-#define SF_AT_START_CLIENT 304
-#define SF_AT_END_CLIENT 305
-#define SF_AT_START_IPPROTO 306
-#define SF_AT_END_IPPROTO 307
-#define SF_AT_START_PORT 308
-#define SF_AT_END_PORT 309
-#define SF_AT_START_PROTOCOL 310
-#define SF_AT_END_PROTOCOL 311
-#define SF_AT_START_APPLICATION 312
-#define SF_AT_END_APPLICATION 313
-
-/* Value type.  */
-#if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-
-union YYSTYPE
+#include "sf_attribute_table.h"
+/* Symbol kind.  */
+enum yysymbol_kind_t
 {
-#line 59 "sf_attribute_table.y" /* yacc.c:355  */
-
-  char stringValue[STD_BUF];
-  uint32_t numericValue;
-  AttributeData data;
-  MapData mapEntry;
-
-#line 262 "sf_attribute_table.c" /* yacc.c:355  */
+  YYSYMBOL_YYEMPTY = -2,
+  YYSYMBOL_YYEOF = 0,                      /* "end of file"  */
+  YYSYMBOL_YYerror = 1,                    /* error  */
+  YYSYMBOL_YYUNDEF = 2,                    /* "invalid token"  */
+  YYSYMBOL_SF_AT_COMMENT = 3,              /* SF_AT_COMMENT  */
+  YYSYMBOL_SF_AT_WHITESPACE = 4,           /* SF_AT_WHITESPACE  */
+  YYSYMBOL_SF_START_SNORT_ATTRIBUTES = 5,  /* SF_START_SNORT_ATTRIBUTES  */
+  YYSYMBOL_SF_END_SNORT_ATTRIBUTES = 6,    /* SF_END_SNORT_ATTRIBUTES  */
+  YYSYMBOL_SF_AT_START_MAP_TABLE = 7,      /* SF_AT_START_MAP_TABLE  */
+  YYSYMBOL_SF_AT_END_MAP_TABLE = 8,        /* SF_AT_END_MAP_TABLE  */
+  YYSYMBOL_SF_AT_START_ENTRY = 9,          /* SF_AT_START_ENTRY  */
+  YYSYMBOL_SF_AT_END_ENTRY = 10,           /* SF_AT_END_ENTRY  */
+  YYSYMBOL_SF_AT_START_ENTRY_ID = 11,      /* SF_AT_START_ENTRY_ID  */
+  YYSYMBOL_SF_AT_END_ENTRY_ID = 12,        /* SF_AT_END_ENTRY_ID  */
+  YYSYMBOL_SF_AT_START_ENTRY_VALUE = 13,   /* SF_AT_START_ENTRY_VALUE  */
+  YYSYMBOL_SF_AT_END_ENTRY_VALUE = 14,     /* SF_AT_END_ENTRY_VALUE  */
+  YYSYMBOL_SF_AT_START_ATTRIBUTE_TABLE = 15, /* SF_AT_START_ATTRIBUTE_TABLE  */
+  YYSYMBOL_SF_AT_END_ATTRIBUTE_TABLE = 16, /* SF_AT_END_ATTRIBUTE_TABLE  */
+  YYSYMBOL_SF_AT_START_HOST = 17,          /* SF_AT_START_HOST  */
+  YYSYMBOL_SF_AT_END_HOST = 18,            /* SF_AT_END_HOST  */
+  YYSYMBOL_SF_AT_START_HOST_IP = 19,       /* SF_AT_START_HOST_IP  */
+  YYSYMBOL_SF_AT_END_HOST_IP = 20,         /* SF_AT_END_HOST_IP  */
+  YYSYMBOL_SF_AT_STRING = 21,              /* SF_AT_STRING  */
+  YYSYMBOL_SF_AT_NUMERIC = 22,             /* SF_AT_NUMERIC  */
+  YYSYMBOL_SF_AT_IPv6 = 23,                /* SF_AT_IPv6  */
+  YYSYMBOL_SF_AT_IPv6Cidr = 24,            /* SF_AT_IPv6Cidr  */
+  YYSYMBOL_SF_AT_START_OS = 25,            /* SF_AT_START_OS  */
+  YYSYMBOL_SF_AT_END_OS = 26,              /* SF_AT_END_OS  */
+  YYSYMBOL_SF_AT_START_ATTRIBUTE_VALUE = 27, /* SF_AT_START_ATTRIBUTE_VALUE  */
+  YYSYMBOL_SF_AT_END_ATTRIBUTE_VALUE = 28, /* SF_AT_END_ATTRIBUTE_VALUE  */
+  YYSYMBOL_SF_AT_START_ATTRIBUTE_ID = 29,  /* SF_AT_START_ATTRIBUTE_ID  */
+  YYSYMBOL_SF_AT_END_ATTRIBUTE_ID = 30,    /* SF_AT_END_ATTRIBUTE_ID  */
+  YYSYMBOL_SF_AT_START_CONFIDENCE = 31,    /* SF_AT_START_CONFIDENCE  */
+  YYSYMBOL_SF_AT_END_CONFIDENCE = 32,      /* SF_AT_END_CONFIDENCE  */
+  YYSYMBOL_SF_AT_START_NAME = 33,          /* SF_AT_START_NAME  */
+  YYSYMBOL_SF_AT_END_NAME = 34,            /* SF_AT_END_NAME  */
+  YYSYMBOL_SF_AT_START_VENDOR = 35,        /* SF_AT_START_VENDOR  */
+  YYSYMBOL_SF_AT_END_VENDOR = 36,          /* SF_AT_END_VENDOR  */
+  YYSYMBOL_SF_AT_START_VERSION = 37,       /* SF_AT_START_VERSION  */
+  YYSYMBOL_SF_AT_END_VERSION = 38,         /* SF_AT_END_VERSION  */
+  YYSYMBOL_SF_AT_START_FRAG_POLICY = 39,   /* SF_AT_START_FRAG_POLICY  */
+  YYSYMBOL_SF_AT_END_FRAG_POLICY = 40,     /* SF_AT_END_FRAG_POLICY  */
+  YYSYMBOL_SF_AT_START_STREAM_POLICY = 41, /* SF_AT_START_STREAM_POLICY  */
+  YYSYMBOL_SF_AT_END_STREAM_POLICY = 42,   /* SF_AT_END_STREAM_POLICY  */
+  YYSYMBOL_SF_AT_START_SERVICES = 43,      /* SF_AT_START_SERVICES  */
+  YYSYMBOL_SF_AT_END_SERVICES = 44,        /* SF_AT_END_SERVICES  */
+  YYSYMBOL_SF_AT_START_SERVICE = 45,       /* SF_AT_START_SERVICE  */
+  YYSYMBOL_SF_AT_END_SERVICE = 46,         /* SF_AT_END_SERVICE  */
+  YYSYMBOL_SF_AT_START_CLIENTS = 47,       /* SF_AT_START_CLIENTS  */
+  YYSYMBOL_SF_AT_END_CLIENTS = 48,         /* SF_AT_END_CLIENTS  */
+  YYSYMBOL_SF_AT_START_CLIENT = 49,        /* SF_AT_START_CLIENT  */
+  YYSYMBOL_SF_AT_END_CLIENT = 50,          /* SF_AT_END_CLIENT  */
+  YYSYMBOL_SF_AT_START_IPPROTO = 51,       /* SF_AT_START_IPPROTO  */
+  YYSYMBOL_SF_AT_END_IPPROTO = 52,         /* SF_AT_END_IPPROTO  */
+  YYSYMBOL_SF_AT_START_PORT = 53,          /* SF_AT_START_PORT  */
+  YYSYMBOL_SF_AT_END_PORT = 54,            /* SF_AT_END_PORT  */
+  YYSYMBOL_SF_AT_START_PROTOCOL = 55,      /* SF_AT_START_PROTOCOL  */
+  YYSYMBOL_SF_AT_END_PROTOCOL = 56,        /* SF_AT_END_PROTOCOL  */
+  YYSYMBOL_SF_AT_START_APPLICATION = 57,   /* SF_AT_START_APPLICATION  */
+  YYSYMBOL_SF_AT_END_APPLICATION = 58,     /* SF_AT_END_APPLICATION  */
+  YYSYMBOL_YYACCEPT = 59,                  /* $accept  */
+  YYSYMBOL_AttributeGrammar = 60,          /* AttributeGrammar  */
+  YYSYMBOL_SnortAttributes = 61,           /* SnortAttributes  */
+  YYSYMBOL_MappingTable = 62,              /* MappingTable  */
+  YYSYMBOL_ListOfMapEntries = 63,          /* ListOfMapEntries  */
+  YYSYMBOL_MapEntry = 64,                  /* MapEntry  */
+  YYSYMBOL_MapEntryStart = 65,             /* MapEntryStart  */
+  YYSYMBOL_MapEntryEnd = 66,               /* MapEntryEnd  */
+  YYSYMBOL_MapEntryData = 67,              /* MapEntryData  */
+  YYSYMBOL_MapValue = 68,                  /* MapValue  */
+  YYSYMBOL_MapId = 69,                     /* MapId  */
+  YYSYMBOL_AttributeTable = 70,            /* AttributeTable  */
+  YYSYMBOL_ListOfHosts = 71,               /* ListOfHosts  */
+  YYSYMBOL_HostEntry = 72,                 /* HostEntry  */
+  YYSYMBOL_HostEntryStart = 73,            /* HostEntryStart  */
+  YYSYMBOL_HostEntryEnd = 74,              /* HostEntryEnd  */
+  YYSYMBOL_HostEntryData = 75,             /* HostEntryData  */
+  YYSYMBOL_IpCidr = 76,                    /* IpCidr  */
+  YYSYMBOL_HostOS = 77,                    /* HostOS  */
+  YYSYMBOL_OSAttributes = 78,              /* OSAttributes  */
+  YYSYMBOL_OSAttribute = 79,               /* OSAttribute  */
+  YYSYMBOL_OSName = 80,                    /* OSName  */
+  YYSYMBOL_OSVendor = 81,                  /* OSVendor  */
+  YYSYMBOL_OSVersion = 82,                 /* OSVersion  */
+  YYSYMBOL_OSFragPolicy = 83,              /* OSFragPolicy  */
+  YYSYMBOL_OSStreamPolicy = 84,            /* OSStreamPolicy  */
+  YYSYMBOL_AttributeInfo = 85,             /* AttributeInfo  */
+  YYSYMBOL_AttributeValueString = 86,      /* AttributeValueString  */
+  YYSYMBOL_AttributeValueNumber = 87,      /* AttributeValueNumber  */
+  YYSYMBOL_AttributeId = 88,               /* AttributeId  */
+  YYSYMBOL_AttributeConfidence = 89,       /* AttributeConfidence  */
+  YYSYMBOL_ServiceList = 90,               /* ServiceList  */
+  YYSYMBOL_ServiceListStart = 91,          /* ServiceListStart  */
+  YYSYMBOL_ServiceListEnd = 92,            /* ServiceListEnd  */
+  YYSYMBOL_ServiceListData = 93,           /* ServiceListData  */
+  YYSYMBOL_Service = 94,                   /* Service  */
+  YYSYMBOL_ServiceStart = 95,              /* ServiceStart  */
+  YYSYMBOL_ServiceEnd = 96,                /* ServiceEnd  */
+  YYSYMBOL_ServiceData = 97,               /* ServiceData  */
+  YYSYMBOL_ServiceDataRequired = 98,       /* ServiceDataRequired  */
+  YYSYMBOL_IPProtocol = 99,                /* IPProtocol  */
+  YYSYMBOL_Protocol = 100,                 /* Protocol  */
+  YYSYMBOL_Port = 101,                     /* Port  */
+  YYSYMBOL_Application = 102,              /* Application  */
+  YYSYMBOL_Version = 103,                  /* Version  */
+  YYSYMBOL_ClientList = 104,               /* ClientList  */
+  YYSYMBOL_ClientListStart = 105,          /* ClientListStart  */
+  YYSYMBOL_ClientListEnd = 106,            /* ClientListEnd  */
+  YYSYMBOL_ClientListData = 107,           /* ClientListData  */
+  YYSYMBOL_Client = 108,                   /* Client  */
+  YYSYMBOL_ClientStart = 109,              /* ClientStart  */
+  YYSYMBOL_ClientEnd = 110,                /* ClientEnd  */
+  YYSYMBOL_ClientData = 111,               /* ClientData  */
+  YYSYMBOL_ClientDataRequired = 112        /* ClientDataRequired  */
 };
-
-typedef union YYSTYPE YYSTYPE;
-# define YYSTYPE_IS_TRIVIAL 1
-# define YYSTYPE_IS_DECLARED 1
-#endif
+typedef enum yysymbol_kind_t yysymbol_kind_t;
 
 
-extern YYSTYPE sfat_lval;
 
-int sfat_parse (void);
-
-#endif /* !YY_SFAT_SF_ATTRIBUTE_TABLE_H_INCLUDED  */
-
-/* Copy the second part of user declarations.  */
-
-#line 279 "sf_attribute_table.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
 #endif
 
-#ifdef YYTYPE_UINT8
-typedef YYTYPE_UINT8 yytype_uint8;
-#else
-typedef unsigned char yytype_uint8;
+/* On compilers that do not define __PTRDIFF_MAX__ etc., make sure
+   <limits.h> and (if available) <stdint.h> are included
+   so that the code can choose integer types of a good width.  */
+
+#ifndef __PTRDIFF_MAX__
+# include <limits.h> /* INFRINGES ON USER NAME SPACE */
+# if defined __STDC_VERSION__ && 199901 <= __STDC_VERSION__
+#  include <stdint.h> /* INFRINGES ON USER NAME SPACE */
+#  define YY_STDINT_H
+# endif
 #endif
 
-#ifdef YYTYPE_INT8
-typedef YYTYPE_INT8 yytype_int8;
+/* Narrow types that promote to a signed type and that can represent a
+   signed or unsigned integer of at least N bits.  In tables they can
+   save space and decrease cache pressure.  Promoting to a signed type
+   helps avoid bugs in integer arithmetic.  */
+
+#ifdef __INT_LEAST8_MAX__
+typedef __INT_LEAST8_TYPE__ yytype_int8;
+#elif defined YY_STDINT_H
+typedef int_least8_t yytype_int8;
 #else
 typedef signed char yytype_int8;
 #endif
 
-#ifdef YYTYPE_UINT16
-typedef YYTYPE_UINT16 yytype_uint16;
+#ifdef __INT_LEAST16_MAX__
+typedef __INT_LEAST16_TYPE__ yytype_int16;
+#elif defined YY_STDINT_H
+typedef int_least16_t yytype_int16;
 #else
-typedef unsigned short int yytype_uint16;
+typedef short yytype_int16;
 #endif
 
-#ifdef YYTYPE_INT16
-typedef YYTYPE_INT16 yytype_int16;
+/* Work around bug in HP-UX 11.23, which defines these macros
+   incorrectly for preprocessor constants.  This workaround can likely
+   be removed in 2023, as HPE has promised support for HP-UX 11.23
+   (aka HP-UX 11i v2) only through the end of 2022; see Table 2 of
+   <https://h20195.www2.hpe.com/V2/getpdf.aspx/4AA4-7673ENW.pdf>.  */
+#ifdef __hpux
+# undef UINT_LEAST8_MAX
+# undef UINT_LEAST16_MAX
+# define UINT_LEAST8_MAX 255
+# define UINT_LEAST16_MAX 65535
+#endif
+
+#if defined __UINT_LEAST8_MAX__ && __UINT_LEAST8_MAX__ <= __INT_MAX__
+typedef __UINT_LEAST8_TYPE__ yytype_uint8;
+#elif (!defined __UINT_LEAST8_MAX__ && defined YY_STDINT_H \
+       && UINT_LEAST8_MAX <= INT_MAX)
+typedef uint_least8_t yytype_uint8;
+#elif !defined __UINT_LEAST8_MAX__ && UCHAR_MAX <= INT_MAX
+typedef unsigned char yytype_uint8;
 #else
-typedef short int yytype_int16;
+typedef short yytype_uint8;
+#endif
+
+#if defined __UINT_LEAST16_MAX__ && __UINT_LEAST16_MAX__ <= __INT_MAX__
+typedef __UINT_LEAST16_TYPE__ yytype_uint16;
+#elif (!defined __UINT_LEAST16_MAX__ && defined YY_STDINT_H \
+       && UINT_LEAST16_MAX <= INT_MAX)
+typedef uint_least16_t yytype_uint16;
+#elif !defined __UINT_LEAST16_MAX__ && USHRT_MAX <= INT_MAX
+typedef unsigned short yytype_uint16;
+#else
+typedef int yytype_uint16;
+#endif
+
+#ifndef YYPTRDIFF_T
+# if defined __PTRDIFF_TYPE__ && defined __PTRDIFF_MAX__
+#  define YYPTRDIFF_T __PTRDIFF_TYPE__
+#  define YYPTRDIFF_MAXIMUM __PTRDIFF_MAX__
+# elif defined PTRDIFF_MAX
+#  ifndef ptrdiff_t
+#   include <stddef.h> /* INFRINGES ON USER NAME SPACE */
+#  endif
+#  define YYPTRDIFF_T ptrdiff_t
+#  define YYPTRDIFF_MAXIMUM PTRDIFF_MAX
+# else
+#  define YYPTRDIFF_T long
+#  define YYPTRDIFF_MAXIMUM LONG_MAX
+# endif
 #endif
 
 #ifndef YYSIZE_T
@@ -310,15 +338,28 @@ typedef short int yytype_int16;
 #  define YYSIZE_T __SIZE_TYPE__
 # elif defined size_t
 #  define YYSIZE_T size_t
-# elif ! defined YYSIZE_T
+# elif defined __STDC_VERSION__ && 199901 <= __STDC_VERSION__
 #  include <stddef.h> /* INFRINGES ON USER NAME SPACE */
 #  define YYSIZE_T size_t
 # else
-#  define YYSIZE_T unsigned int
+#  define YYSIZE_T unsigned
 # endif
 #endif
 
-#define YYSIZE_MAXIMUM ((YYSIZE_T) -1)
+#define YYSIZE_MAXIMUM                                  \
+  YY_CAST (YYPTRDIFF_T,                                 \
+           (YYPTRDIFF_MAXIMUM < YY_CAST (YYSIZE_T, -1)  \
+            ? YYPTRDIFF_MAXIMUM                         \
+            : YY_CAST (YYSIZE_T, -1)))
+
+#define YYSIZEOF(X) YY_CAST (YYPTRDIFF_T, sizeof (X))
+
+
+/* Stored state numbers (used for stacks). */
+typedef yytype_uint8 yy_state_t;
+
+/* State numbers in computations.  */
+typedef int yy_state_fast_t;
 
 #ifndef YY_
 # if defined YYENABLE_NLS && YYENABLE_NLS
@@ -332,47 +373,43 @@ typedef short int yytype_int16;
 # endif
 #endif
 
-#ifndef YY_ATTRIBUTE
-# if (defined __GNUC__                                               \
-      && (2 < __GNUC__ || (__GNUC__ == 2 && 96 <= __GNUC_MINOR__)))  \
-     || defined __SUNPRO_C && 0x5110 <= __SUNPRO_C
-#  define YY_ATTRIBUTE(Spec) __attribute__(Spec)
+
+#ifndef YY_ATTRIBUTE_PURE
+# if defined __GNUC__ && 2 < __GNUC__ + (96 <= __GNUC_MINOR__)
+#  define YY_ATTRIBUTE_PURE __attribute__ ((__pure__))
 # else
-#  define YY_ATTRIBUTE(Spec) /* empty */
+#  define YY_ATTRIBUTE_PURE
 # endif
 #endif
 
-#ifndef YY_ATTRIBUTE_PURE
-# define YY_ATTRIBUTE_PURE   YY_ATTRIBUTE ((__pure__))
-#endif
-
 #ifndef YY_ATTRIBUTE_UNUSED
-# define YY_ATTRIBUTE_UNUSED YY_ATTRIBUTE ((__unused__))
-#endif
-
-#if !defined _Noreturn \
-     && (!defined __STDC_VERSION__ || __STDC_VERSION__ < 201112)
-# if defined _MSC_VER && 1200 <= _MSC_VER
-#  define _Noreturn __declspec (noreturn)
+# if defined __GNUC__ && 2 < __GNUC__ + (7 <= __GNUC_MINOR__)
+#  define YY_ATTRIBUTE_UNUSED __attribute__ ((__unused__))
 # else
-#  define _Noreturn YY_ATTRIBUTE ((__noreturn__))
+#  define YY_ATTRIBUTE_UNUSED
 # endif
 #endif
 
 /* Suppress unused-variable warnings by "using" E.  */
 #if ! defined lint || defined __GNUC__
-# define YYUSE(E) ((void) (E))
+# define YY_USE(E) ((void) (E))
 #else
-# define YYUSE(E) /* empty */
+# define YY_USE(E) /* empty */
 #endif
 
-#if defined __GNUC__ && 407 <= __GNUC__ * 100 + __GNUC_MINOR__
 /* Suppress an incorrect diagnostic about yylval being uninitialized.  */
-# define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN \
-    _Pragma ("GCC diagnostic push") \
-    _Pragma ("GCC diagnostic ignored \"-Wuninitialized\"")\
+#if defined __GNUC__ && ! defined __ICC && 406 <= __GNUC__ * 100 + __GNUC_MINOR__
+# if __GNUC__ * 100 + __GNUC_MINOR__ < 407
+#  define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN                           \
+    _Pragma ("GCC diagnostic push")                                     \
+    _Pragma ("GCC diagnostic ignored \"-Wuninitialized\"")
+# else
+#  define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN                           \
+    _Pragma ("GCC diagnostic push")                                     \
+    _Pragma ("GCC diagnostic ignored \"-Wuninitialized\"")              \
     _Pragma ("GCC diagnostic ignored \"-Wmaybe-uninitialized\"")
-# define YY_IGNORE_MAYBE_UNINITIALIZED_END \
+# endif
+# define YY_IGNORE_MAYBE_UNINITIALIZED_END      \
     _Pragma ("GCC diagnostic pop")
 #else
 # define YY_INITIAL_VALUE(Value) Value
@@ -385,8 +422,22 @@ typedef short int yytype_int16;
 # define YY_INITIAL_VALUE(Value) /* Nothing. */
 #endif
 
+#if defined __cplusplus && defined __GNUC__ && ! defined __ICC && 6 <= __GNUC__
+# define YY_IGNORE_USELESS_CAST_BEGIN                          \
+    _Pragma ("GCC diagnostic push")                            \
+    _Pragma ("GCC diagnostic ignored \"-Wuseless-cast\"")
+# define YY_IGNORE_USELESS_CAST_END            \
+    _Pragma ("GCC diagnostic pop")
+#endif
+#ifndef YY_IGNORE_USELESS_CAST_BEGIN
+# define YY_IGNORE_USELESS_CAST_BEGIN
+# define YY_IGNORE_USELESS_CAST_END
+#endif
 
-#if ! defined yyoverflow || YYERROR_VERBOSE
+
+#define YY_ASSERT(E) ((void) (0 && (E)))
+
+#if !defined yyoverflow
 
 /* The parser invokes alloca or malloc; define the necessary symbols.  */
 
@@ -451,8 +502,7 @@ void free (void *); /* INFRINGES ON USER NAME SPACE */
 #   endif
 #  endif
 # endif
-#endif /* ! defined yyoverflow || YYERROR_VERBOSE */
-
+#endif /* !defined yyoverflow */
 
 #if (! defined yyoverflow \
      && (! defined __cplusplus \
@@ -461,17 +511,17 @@ void free (void *); /* INFRINGES ON USER NAME SPACE */
 /* A type that is properly aligned for any stack member.  */
 union yyalloc
 {
-  yytype_int16 yyss_alloc;
+  yy_state_t yyss_alloc;
   YYSTYPE yyvs_alloc;
 };
 
 /* The size of the maximum gap between one aligned stack and the next.  */
-# define YYSTACK_GAP_MAXIMUM (sizeof (union yyalloc) - 1)
+# define YYSTACK_GAP_MAXIMUM (YYSIZEOF (union yyalloc) - 1)
 
 /* The size of an array large to enough to hold all stacks, each with
    N elements.  */
 # define YYSTACK_BYTES(N) \
-     ((N) * (sizeof (yytype_int16) + sizeof (YYSTYPE)) \
+     ((N) * (YYSIZEOF (yy_state_t) + YYSIZEOF (YYSTYPE)) \
       + YYSTACK_GAP_MAXIMUM)
 
 # define YYCOPY_NEEDED 1
@@ -484,11 +534,11 @@ union yyalloc
 # define YYSTACK_RELOCATE(Stack_alloc, Stack)                           \
     do                                                                  \
       {                                                                 \
-        YYSIZE_T yynewbytes;                                            \
+        YYPTRDIFF_T yynewbytes;                                         \
         YYCOPY (&yyptr->Stack_alloc, Stack, yysize);                    \
         Stack = &yyptr->Stack_alloc;                                    \
-        yynewbytes = yystacksize * sizeof (*Stack) + YYSTACK_GAP_MAXIMUM; \
-        yyptr += yynewbytes / sizeof (*yyptr);                          \
+        yynewbytes = yystacksize * YYSIZEOF (*Stack) + YYSTACK_GAP_MAXIMUM; \
+        yyptr += yynewbytes / YYSIZEOF (*yyptr);                        \
       }                                                                 \
     while (0)
 
@@ -500,12 +550,12 @@ union yyalloc
 # ifndef YYCOPY
 #  if defined __GNUC__ && 1 < __GNUC__
 #   define YYCOPY(Dst, Src, Count) \
-      __builtin_memcpy (Dst, Src, (Count) * sizeof (*(Src)))
+      __builtin_memcpy (Dst, Src, YY_CAST (YYSIZE_T, (Count)) * sizeof (*(Src)))
 #  else
 #   define YYCOPY(Dst, Src, Count)              \
       do                                        \
         {                                       \
-          YYSIZE_T yyi;                         \
+          YYPTRDIFF_T yyi;                      \
           for (yyi = 0; yyi < (Count); yyi++)   \
             (Dst)[yyi] = (Src)[yyi];            \
         }                                       \
@@ -528,17 +578,20 @@ union yyalloc
 /* YYNSTATES -- Number of states.  */
 #define YYNSTATES  152
 
-/* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
-   by yylex, with out-of-bounds checking.  */
-#define YYUNDEFTOK  2
+/* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   313
 
-#define YYTRANSLATE(YYX)                                                \
-  ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
+
+/* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
+   as returned by yylex, with out-of-bounds checking.  */
+#define YYTRANSLATE(YYX)                                \
+  (0 <= (YYX) && (YYX) <= YYMAXUTOK                     \
+   ? YY_CAST (yysymbol_kind_t, yytranslate[YYX])        \
+   : YYSYMBOL_YYUNDEF)
 
 /* YYTRANSLATE[TOKEN-NUM] -- Symbol number corresponding to TOKEN-NUM
-   as returned by yylex, without out-of-bounds checking.  */
-static const yytype_uint8 yytranslate[] =
+   as returned by yylex.  */
+static const yytype_int8 yytranslate[] =
 {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -575,8 +628,8 @@ static const yytype_uint8 yytranslate[] =
 };
 
 #if YYDEBUG
-  /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_uint16 yyrline[] =
+/* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
+static const yytype_int16 yyrline[] =
 {
        0,   144,   144,   150,   155,   162,   168,   171,   174,   182,
      185,   188,   195,   202,   210,   216,   219,   222,   232,   239,
@@ -590,74 +643,74 @@ static const yytype_uint16 yyrline[] =
 };
 #endif
 
-#if YYDEBUG || YYERROR_VERBOSE || 0
+/** Accessing symbol of state STATE.  */
+#define YY_ACCESSING_SYMBOL(State) YY_CAST (yysymbol_kind_t, yystos[State])
+
+#if YYDEBUG || 0
+/* The user-facing name of the symbol whose (internal) number is
+   YYSYMBOL.  No bounds checking.  */
+static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
+
 /* YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "SF_AT_COMMENT", "SF_AT_WHITESPACE",
-  "SF_START_SNORT_ATTRIBUTES", "SF_END_SNORT_ATTRIBUTES",
-  "SF_AT_START_MAP_TABLE", "SF_AT_END_MAP_TABLE", "SF_AT_START_ENTRY",
-  "SF_AT_END_ENTRY", "SF_AT_START_ENTRY_ID", "SF_AT_END_ENTRY_ID",
-  "SF_AT_START_ENTRY_VALUE", "SF_AT_END_ENTRY_VALUE",
-  "SF_AT_START_ATTRIBUTE_TABLE", "SF_AT_END_ATTRIBUTE_TABLE",
-  "SF_AT_START_HOST", "SF_AT_END_HOST", "SF_AT_START_HOST_IP",
-  "SF_AT_END_HOST_IP", "SF_AT_STRING", "SF_AT_NUMERIC", "SF_AT_IPv6",
-  "SF_AT_IPv6Cidr", "SF_AT_START_OS", "SF_AT_END_OS",
-  "SF_AT_START_ATTRIBUTE_VALUE", "SF_AT_END_ATTRIBUTE_VALUE",
-  "SF_AT_START_ATTRIBUTE_ID", "SF_AT_END_ATTRIBUTE_ID",
-  "SF_AT_START_CONFIDENCE", "SF_AT_END_CONFIDENCE", "SF_AT_START_NAME",
-  "SF_AT_END_NAME", "SF_AT_START_VENDOR", "SF_AT_END_VENDOR",
-  "SF_AT_START_VERSION", "SF_AT_END_VERSION", "SF_AT_START_FRAG_POLICY",
-  "SF_AT_END_FRAG_POLICY", "SF_AT_START_STREAM_POLICY",
-  "SF_AT_END_STREAM_POLICY", "SF_AT_START_SERVICES", "SF_AT_END_SERVICES",
-  "SF_AT_START_SERVICE", "SF_AT_END_SERVICE", "SF_AT_START_CLIENTS",
-  "SF_AT_END_CLIENTS", "SF_AT_START_CLIENT", "SF_AT_END_CLIENT",
-  "SF_AT_START_IPPROTO", "SF_AT_END_IPPROTO", "SF_AT_START_PORT",
-  "SF_AT_END_PORT", "SF_AT_START_PROTOCOL", "SF_AT_END_PROTOCOL",
-  "SF_AT_START_APPLICATION", "SF_AT_END_APPLICATION", "$accept",
-  "AttributeGrammar", "SnortAttributes", "MappingTable",
-  "ListOfMapEntries", "MapEntry", "MapEntryStart", "MapEntryEnd",
-  "MapEntryData", "MapValue", "MapId", "AttributeTable", "ListOfHosts",
-  "HostEntry", "HostEntryStart", "HostEntryEnd", "HostEntryData", "IpCidr",
-  "HostOS", "OSAttributes", "OSAttribute", "OSName", "OSVendor",
-  "OSVersion", "OSFragPolicy", "OSStreamPolicy", "AttributeInfo",
-  "AttributeValueString", "AttributeValueNumber", "AttributeId",
-  "AttributeConfidence", "ServiceList", "ServiceListStart",
-  "ServiceListEnd", "ServiceListData", "Service", "ServiceStart",
-  "ServiceEnd", "ServiceData", "ServiceDataRequired", "IPProtocol",
-  "Protocol", "Port", "Application", "Version", "ClientList",
-  "ClientListStart", "ClientListEnd", "ClientListData", "Client",
-  "ClientStart", "ClientEnd", "ClientData", "ClientDataRequired", YY_NULLPTR
+  "\"end of file\"", "error", "\"invalid token\"", "SF_AT_COMMENT",
+  "SF_AT_WHITESPACE", "SF_START_SNORT_ATTRIBUTES",
+  "SF_END_SNORT_ATTRIBUTES", "SF_AT_START_MAP_TABLE",
+  "SF_AT_END_MAP_TABLE", "SF_AT_START_ENTRY", "SF_AT_END_ENTRY",
+  "SF_AT_START_ENTRY_ID", "SF_AT_END_ENTRY_ID", "SF_AT_START_ENTRY_VALUE",
+  "SF_AT_END_ENTRY_VALUE", "SF_AT_START_ATTRIBUTE_TABLE",
+  "SF_AT_END_ATTRIBUTE_TABLE", "SF_AT_START_HOST", "SF_AT_END_HOST",
+  "SF_AT_START_HOST_IP", "SF_AT_END_HOST_IP", "SF_AT_STRING",
+  "SF_AT_NUMERIC", "SF_AT_IPv6", "SF_AT_IPv6Cidr", "SF_AT_START_OS",
+  "SF_AT_END_OS", "SF_AT_START_ATTRIBUTE_VALUE",
+  "SF_AT_END_ATTRIBUTE_VALUE", "SF_AT_START_ATTRIBUTE_ID",
+  "SF_AT_END_ATTRIBUTE_ID", "SF_AT_START_CONFIDENCE",
+  "SF_AT_END_CONFIDENCE", "SF_AT_START_NAME", "SF_AT_END_NAME",
+  "SF_AT_START_VENDOR", "SF_AT_END_VENDOR", "SF_AT_START_VERSION",
+  "SF_AT_END_VERSION", "SF_AT_START_FRAG_POLICY", "SF_AT_END_FRAG_POLICY",
+  "SF_AT_START_STREAM_POLICY", "SF_AT_END_STREAM_POLICY",
+  "SF_AT_START_SERVICES", "SF_AT_END_SERVICES", "SF_AT_START_SERVICE",
+  "SF_AT_END_SERVICE", "SF_AT_START_CLIENTS", "SF_AT_END_CLIENTS",
+  "SF_AT_START_CLIENT", "SF_AT_END_CLIENT", "SF_AT_START_IPPROTO",
+  "SF_AT_END_IPPROTO", "SF_AT_START_PORT", "SF_AT_END_PORT",
+  "SF_AT_START_PROTOCOL", "SF_AT_END_PROTOCOL", "SF_AT_START_APPLICATION",
+  "SF_AT_END_APPLICATION", "$accept", "AttributeGrammar",
+  "SnortAttributes", "MappingTable", "ListOfMapEntries", "MapEntry",
+  "MapEntryStart", "MapEntryEnd", "MapEntryData", "MapValue", "MapId",
+  "AttributeTable", "ListOfHosts", "HostEntry", "HostEntryStart",
+  "HostEntryEnd", "HostEntryData", "IpCidr", "HostOS", "OSAttributes",
+  "OSAttribute", "OSName", "OSVendor", "OSVersion", "OSFragPolicy",
+  "OSStreamPolicy", "AttributeInfo", "AttributeValueString",
+  "AttributeValueNumber", "AttributeId", "AttributeConfidence",
+  "ServiceList", "ServiceListStart", "ServiceListEnd", "ServiceListData",
+  "Service", "ServiceStart", "ServiceEnd", "ServiceData",
+  "ServiceDataRequired", "IPProtocol", "Protocol", "Port", "Application",
+  "Version", "ClientList", "ClientListStart", "ClientListEnd",
+  "ClientListData", "Client", "ClientStart", "ClientEnd", "ClientData",
+  "ClientDataRequired", YY_NULLPTR
 };
+
+static const char *
+yysymbol_name (yysymbol_kind_t yysymbol)
+{
+  return yytname[yysymbol];
+}
 #endif
 
-# ifdef YYPRINT
-/* YYTOKNUM[NUM] -- (External) token number corresponding to the
-   (internal) symbol number NUM (which must be that of a token).  */
-static const yytype_uint16 yytoknum[] =
-{
-       0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
-     275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
-     285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
-     295,   296,   297,   298,   299,   300,   301,   302,   303,   304,
-     305,   306,   307,   308,   309,   310,   311,   312,   313
-};
-# endif
+#define YYPACT_NINF (-97)
 
-#define YYPACT_NINF -97
+#define yypact_value_is_default(Yyn) \
+  ((Yyn) == YYPACT_NINF)
 
-#define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-97)))
+#define YYTABLE_NINF (-1)
 
-#define YYTABLE_NINF -1
-
-#define yytable_value_is_error(Yytable_value) \
+#define yytable_value_is_error(Yyn) \
   0
 
-  /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
-     STATE-NUM.  */
+/* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
+   STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
        1,    25,     9,   -97,    28,   -97,    30,    41,   -97,   -97,
@@ -678,10 +731,10 @@ static const yytype_int8 yypact[] =
      -97,   -97
 };
 
-  /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
-     Performed when YYTABLE does not specify something else to do.  Zero
-     means the default is an error.  */
-static const yytype_uint8 yydefact[] =
+/* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
+   Performed when YYTABLE does not specify something else to do.  Zero
+   means the default is an error.  */
+static const yytype_int8 yydefact[] =
 {
        0,     0,     0,     2,     6,    15,     0,     0,     1,     9,
        0,     6,     0,     0,     0,     4,     5,     7,     0,     0,
@@ -701,7 +754,7 @@ static const yytype_uint8 yydefact[] =
       69,    70
 };
 
-  /* YYPGOTO[NTERM-NUM].  */
+/* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
      -97,   -97,   -97,   -97,    85,   -97,   -97,   -97,   -97,   -97,
@@ -712,10 +765,10 @@ static const yytype_int8 yypgoto[] =
      -97,   -97,   -97,   -97
 };
 
-  /* YYDEFGOTO[NTERM-NUM].  */
-static const yytype_int16 yydefgoto[] =
+/* YYDEFGOTO[NTERM-NUM].  */
+static const yytype_uint8 yydefgoto[] =
 {
-      -1,     2,     3,     6,    10,    11,    12,    28,    19,    30,
+       0,     2,     3,     6,    10,    11,    12,    28,    19,    30,
       20,     7,    13,    23,    24,    38,    32,    33,    40,    48,
       49,    50,    51,    52,    53,    54,    63,    64,    65,    66,
       88,    57,    58,    96,    75,    76,    77,   121,   101,   102,
@@ -723,9 +776,9 @@ static const yytype_int16 yydefgoto[] =
       81,   133,   111,   112
 };
 
-  /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
-     positive, shift that token.  If negative, reduce the rule whose
-     number is the opposite.  If YYTABLE_NINF, syntax error.  */
+/* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
+   positive, shift that token.  If negative, reduce the rule whose
+   number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
       67,    68,   109,   146,    71,   110,     1,   125,   127,     8,
@@ -762,9 +815,9 @@ static const yytype_int16 yycheck[] =
       56,    -1,    -1,    57
 };
 
-  /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
-     symbol of state STATE-NUM.  */
-static const yytype_uint8 yystos[] =
+/* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
+   state STATE-NUM.  */
+static const yytype_int8 yystos[] =
 {
        0,     5,    60,    61,     7,    15,    62,    70,     0,     9,
       63,    64,    65,    71,    70,     6,     8,    63,    11,    67,
@@ -784,8 +837,8 @@ static const yytype_uint8 yystos[] =
       58,    38
 };
 
-  /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
-static const yytype_uint8 yyr1[] =
+/* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
+static const yytype_int8 yyr1[] =
 {
        0,    59,    60,    61,    61,    62,    63,    63,    64,    65,
       66,    67,    68,    69,    70,    71,    71,    72,    73,    74,
@@ -798,8 +851,8 @@ static const yytype_uint8 yyr1[] =
      111,   112,   112,   112
 };
 
-  /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
-static const yytype_uint8 yyr2[] =
+/* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
+static const yytype_int8 yyr2[] =
 {
        0,     2,     1,     4,     3,     3,     0,     2,     3,     1,
        1,     2,     3,     3,     3,     0,     2,     3,     1,     1,
@@ -813,39 +866,39 @@ static const yytype_uint8 yyr2[] =
 };
 
 
+enum { YYENOMEM = -2 };
+
 #define yyerrok         (yyerrstatus = 0)
 #define yyclearin       (yychar = YYEMPTY)
-#define YYEMPTY         (-2)
-#define YYEOF           0
 
 #define YYACCEPT        goto yyacceptlab
 #define YYABORT         goto yyabortlab
 #define YYERROR         goto yyerrorlab
+#define YYNOMEM         goto yyexhaustedlab
 
 
 #define YYRECOVERING()  (!!yyerrstatus)
 
-#define YYBACKUP(Token, Value)                                  \
-do                                                              \
-  if (yychar == YYEMPTY)                                        \
-    {                                                           \
-      yychar = (Token);                                         \
-      yylval = (Value);                                         \
-      YYPOPSTACK (yylen);                                       \
-      yystate = *yyssp;                                         \
-      goto yybackup;                                            \
-    }                                                           \
-  else                                                          \
-    {                                                           \
-      yyerror (YY_("syntax error: cannot back up")); \
-      YYERROR;                                                  \
-    }                                                           \
-while (0)
+#define YYBACKUP(Token, Value)                                    \
+  do                                                              \
+    if (yychar == YYEMPTY)                                        \
+      {                                                           \
+        yychar = (Token);                                         \
+        yylval = (Value);                                         \
+        YYPOPSTACK (yylen);                                       \
+        yystate = *yyssp;                                         \
+        goto yybackup;                                            \
+      }                                                           \
+    else                                                          \
+      {                                                           \
+        yyerror (YY_("syntax error: cannot back up")); \
+        YYERROR;                                                  \
+      }                                                           \
+  while (0)
 
-/* Error token number */
-#define YYTERROR        1
-#define YYERRCODE       256
-
+/* Backward compatibility with an undocumented macro.
+   Use YYerror or YYUNDEF. */
+#define YYERRCODE YYUNDEF
 
 
 /* Enable debugging if requested.  */
@@ -862,55 +915,52 @@ do {                                            \
     YYFPRINTF Args;                             \
 } while (0)
 
-/* This macro is provided for backward compatibility. */
-#ifndef YY_LOCATION_PRINT
-# define YY_LOCATION_PRINT(File, Loc) ((void) 0)
-#endif
 
 
-# define YY_SYMBOL_PRINT(Title, Type, Value, Location)                    \
+
+# define YY_SYMBOL_PRINT(Title, Kind, Value, Location)                    \
 do {                                                                      \
   if (yydebug)                                                            \
     {                                                                     \
       YYFPRINTF (stderr, "%s ", Title);                                   \
       yy_symbol_print (stderr,                                            \
-                  Type, Value); \
+                  Kind, Value); \
       YYFPRINTF (stderr, "\n");                                           \
     }                                                                     \
 } while (0)
 
 
-/*----------------------------------------.
-| Print this symbol's value on YYOUTPUT.  |
-`----------------------------------------*/
+/*-----------------------------------.
+| Print this symbol's value on YYO.  |
+`-----------------------------------*/
 
 static void
-yy_symbol_value_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep)
+yy_symbol_value_print (FILE *yyo,
+                       yysymbol_kind_t yykind, YYSTYPE const * const yyvaluep)
 {
-  FILE *yyo = yyoutput;
-  YYUSE (yyo);
+  FILE *yyoutput = yyo;
+  YY_USE (yyoutput);
   if (!yyvaluep)
     return;
-# ifdef YYPRINT
-  if (yytype < YYNTOKENS)
-    YYPRINT (yyoutput, yytoknum[yytype], *yyvaluep);
-# endif
-  YYUSE (yytype);
+  YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
+  YY_USE (yykind);
+  YY_IGNORE_MAYBE_UNINITIALIZED_END
 }
 
 
-/*--------------------------------.
-| Print this symbol on YYOUTPUT.  |
-`--------------------------------*/
+/*---------------------------.
+| Print this symbol on YYO.  |
+`---------------------------*/
 
 static void
-yy_symbol_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep)
+yy_symbol_print (FILE *yyo,
+                 yysymbol_kind_t yykind, YYSTYPE const * const yyvaluep)
 {
-  YYFPRINTF (yyoutput, "%s %s (",
-             yytype < YYNTOKENS ? "token" : "nterm", yytname[yytype]);
+  YYFPRINTF (yyo, "%s %s (",
+             yykind < YYNTOKENS ? "token" : "nterm", yysymbol_name (yykind));
 
-  yy_symbol_value_print (yyoutput, yytype, yyvaluep);
-  YYFPRINTF (yyoutput, ")");
+  yy_symbol_value_print (yyo, yykind, yyvaluep);
+  YYFPRINTF (yyo, ")");
 }
 
 /*------------------------------------------------------------------.
@@ -919,7 +969,7 @@ yy_symbol_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep)
 `------------------------------------------------------------------*/
 
 static void
-yy_stack_print (yytype_int16 *yybottom, yytype_int16 *yytop)
+yy_stack_print (yy_state_t *yybottom, yy_state_t *yytop)
 {
   YYFPRINTF (stderr, "Stack now");
   for (; yybottom <= yytop; yybottom++)
@@ -942,21 +992,21 @@ do {                                                            \
 `------------------------------------------------*/
 
 static void
-yy_reduce_print (yytype_int16 *yyssp, YYSTYPE *yyvsp, int yyrule)
+yy_reduce_print (yy_state_t *yyssp, YYSTYPE *yyvsp,
+                 int yyrule)
 {
-  unsigned long int yylno = yyrline[yyrule];
+  int yylno = yyrline[yyrule];
   int yynrhs = yyr2[yyrule];
   int yyi;
-  YYFPRINTF (stderr, "Reducing stack by rule %d (line %lu):\n",
+  YYFPRINTF (stderr, "Reducing stack by rule %d (line %d):\n",
              yyrule - 1, yylno);
   /* The symbols being reduced.  */
   for (yyi = 0; yyi < yynrhs; yyi++)
     {
       YYFPRINTF (stderr, "   $%d = ", yyi + 1);
       yy_symbol_print (stderr,
-                       yystos[yyssp[yyi + 1 - yynrhs]],
-                       &(yyvsp[(yyi + 1) - (yynrhs)])
-                                              );
+                       YY_ACCESSING_SYMBOL (+yyssp[yyi + 1 - yynrhs]),
+                       &yyvsp[(yyi + 1) - (yynrhs)]);
       YYFPRINTF (stderr, "\n");
     }
 }
@@ -971,8 +1021,8 @@ do {                                    \
    multiple parsers can coexist.  */
 int yydebug;
 #else /* !YYDEBUG */
-# define YYDPRINTF(Args)
-# define YY_SYMBOL_PRINT(Title, Type, Value, Location)
+# define YYDPRINTF(Args) ((void) 0)
+# define YY_SYMBOL_PRINT(Title, Kind, Value, Location)
 # define YY_STACK_PRINT(Bottom, Top)
 # define YY_REDUCE_PRINT(Rule)
 #endif /* !YYDEBUG */
@@ -995,256 +1045,38 @@ int yydebug;
 #endif
 
 
-#if YYERROR_VERBOSE
 
-# ifndef yystrlen
-#  if defined __GLIBC__ && defined _STRING_H
-#   define yystrlen strlen
-#  else
-/* Return the length of YYSTR.  */
-static YYSIZE_T
-yystrlen (const char *yystr)
-{
-  YYSIZE_T yylen;
-  for (yylen = 0; yystr[yylen]; yylen++)
-    continue;
-  return yylen;
-}
-#  endif
-# endif
 
-# ifndef yystpcpy
-#  if defined __GLIBC__ && defined _STRING_H && defined _GNU_SOURCE
-#   define yystpcpy stpcpy
-#  else
-/* Copy YYSRC to YYDEST, returning the address of the terminating '\0' in
-   YYDEST.  */
-static char *
-yystpcpy (char *yydest, const char *yysrc)
-{
-  char *yyd = yydest;
-  const char *yys = yysrc;
 
-  while ((*yyd++ = *yys++) != '\0')
-    continue;
-
-  return yyd - 1;
-}
-#  endif
-# endif
-
-# ifndef yytnamerr
-/* Copy to YYRES the contents of YYSTR after stripping away unnecessary
-   quotes and backslashes, so that it's suitable for yyerror.  The
-   heuristic is that double-quoting is unnecessary unless the string
-   contains an apostrophe, a comma, or backslash (other than
-   backslash-backslash).  YYSTR is taken from yytname.  If YYRES is
-   null, do not copy; instead, return the length of what the result
-   would have been.  */
-static YYSIZE_T
-yytnamerr (char *yyres, const char *yystr)
-{
-  if (*yystr == '"')
-    {
-      YYSIZE_T yyn = 0;
-      char const *yyp = yystr;
-
-      for (;;)
-        switch (*++yyp)
-          {
-          case '\'':
-          case ',':
-            goto do_not_strip_quotes;
-
-          case '\\':
-            if (*++yyp != '\\')
-              goto do_not_strip_quotes;
-            /* Fall through.  */
-          default:
-            if (yyres)
-              yyres[yyn] = *yyp;
-            yyn++;
-            break;
-
-          case '"':
-            if (yyres)
-              yyres[yyn] = '\0';
-            return yyn;
-          }
-    do_not_strip_quotes: ;
-    }
-
-  if (! yyres)
-    return yystrlen (yystr);
-
-  return yystpcpy (yyres, yystr) - yyres;
-}
-# endif
-
-/* Copy into *YYMSG, which is of size *YYMSG_ALLOC, an error message
-   about the unexpected token YYTOKEN for the state stack whose top is
-   YYSSP.
-
-   Return 0 if *YYMSG was successfully written.  Return 1 if *YYMSG is
-   not large enough to hold the message.  In that case, also set
-   *YYMSG_ALLOC to the required number of bytes.  Return 2 if the
-   required number of bytes is too large to store.  */
-static int
-yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
-                yytype_int16 *yyssp, int yytoken)
-{
-  YYSIZE_T yysize0 = yytnamerr (YY_NULLPTR, yytname[yytoken]);
-  YYSIZE_T yysize = yysize0;
-  enum { YYERROR_VERBOSE_ARGS_MAXIMUM = 5 };
-  /* Internationalized format string. */
-  const char *yyformat = YY_NULLPTR;
-  /* Arguments of yyformat. */
-  char const *yyarg[YYERROR_VERBOSE_ARGS_MAXIMUM];
-  /* Number of reported tokens (one for the "unexpected", one per
-     "expected"). */
-  int yycount = 0;
-
-  /* There are many possibilities here to consider:
-     - If this state is a consistent state with a default action, then
-       the only way this function was invoked is if the default action
-       is an error action.  In that case, don't check for expected
-       tokens because there are none.
-     - The only way there can be no lookahead present (in yychar) is if
-       this state is a consistent state with a default action.  Thus,
-       detecting the absence of a lookahead is sufficient to determine
-       that there is no unexpected or expected token to report.  In that
-       case, just report a simple "syntax error".
-     - Don't assume there isn't a lookahead just because this state is a
-       consistent state with a default action.  There might have been a
-       previous inconsistent state, consistent state with a non-default
-       action, or user semantic action that manipulated yychar.
-     - Of course, the expected token list depends on states to have
-       correct lookahead information, and it depends on the parser not
-       to perform extra reductions after fetching a lookahead from the
-       scanner and before detecting a syntax error.  Thus, state merging
-       (from LALR or IELR) and default reductions corrupt the expected
-       token list.  However, the list is correct for canonical LR with
-       one exception: it will still contain any token that will not be
-       accepted due to an error action in a later state.
-  */
-  if (yytoken != YYEMPTY)
-    {
-      int yyn = yypact[*yyssp];
-      yyarg[yycount++] = yytname[yytoken];
-      if (!yypact_value_is_default (yyn))
-        {
-          /* Start YYX at -YYN if negative to avoid negative indexes in
-             YYCHECK.  In other words, skip the first -YYN actions for
-             this state because they are default actions.  */
-          int yyxbegin = yyn < 0 ? -yyn : 0;
-          /* Stay within bounds of both yycheck and yytname.  */
-          int yychecklim = YYLAST - yyn + 1;
-          int yyxend = yychecklim < YYNTOKENS ? yychecklim : YYNTOKENS;
-          int yyx;
-
-          for (yyx = yyxbegin; yyx < yyxend; ++yyx)
-            if (yycheck[yyx + yyn] == yyx && yyx != YYTERROR
-                && !yytable_value_is_error (yytable[yyx + yyn]))
-              {
-                if (yycount == YYERROR_VERBOSE_ARGS_MAXIMUM)
-                  {
-                    yycount = 1;
-                    yysize = yysize0;
-                    break;
-                  }
-                yyarg[yycount++] = yytname[yyx];
-                {
-                  YYSIZE_T yysize1 = yysize + yytnamerr (YY_NULLPTR, yytname[yyx]);
-                  if (! (yysize <= yysize1
-                         && yysize1 <= YYSTACK_ALLOC_MAXIMUM))
-                    return 2;
-                  yysize = yysize1;
-                }
-              }
-        }
-    }
-
-  switch (yycount)
-    {
-# define YYCASE_(N, S)                      \
-      case N:                               \
-        yyformat = S;                       \
-      break
-    default: /* Avoid compiler warnings. */
-      YYCASE_(0, YY_("syntax error"));
-      YYCASE_(1, YY_("syntax error, unexpected %s"));
-      YYCASE_(2, YY_("syntax error, unexpected %s, expecting %s"));
-      YYCASE_(3, YY_("syntax error, unexpected %s, expecting %s or %s"));
-      YYCASE_(4, YY_("syntax error, unexpected %s, expecting %s or %s or %s"));
-      YYCASE_(5, YY_("syntax error, unexpected %s, expecting %s or %s or %s or %s"));
-# undef YYCASE_
-    }
-
-  {
-    YYSIZE_T yysize1 = yysize + yystrlen (yyformat);
-    if (! (yysize <= yysize1 && yysize1 <= YYSTACK_ALLOC_MAXIMUM))
-      return 2;
-    yysize = yysize1;
-  }
-
-  if (*yymsg_alloc < yysize)
-    {
-      *yymsg_alloc = 2 * yysize;
-      if (! (yysize <= *yymsg_alloc
-             && *yymsg_alloc <= YYSTACK_ALLOC_MAXIMUM))
-        *yymsg_alloc = YYSTACK_ALLOC_MAXIMUM;
-      return 1;
-    }
-
-  /* Avoid sprintf, as that infringes on the user's name space.
-     Don't have undefined behavior even if the translation
-     produced a string with the wrong number of "%s"s.  */
-  {
-    char *yyp = *yymsg;
-    int yyi = 0;
-    while ((*yyp = *yyformat) != '\0')
-      if (*yyp == '%' && yyformat[1] == 's' && yyi < yycount)
-        {
-          yyp += yytnamerr (yyp, yyarg[yyi++]);
-          yyformat += 2;
-        }
-      else
-        {
-          yyp++;
-          yyformat++;
-        }
-  }
-  return 0;
-}
-#endif /* YYERROR_VERBOSE */
 
 /*-----------------------------------------------.
 | Release the memory associated to this symbol.  |
 `-----------------------------------------------*/
 
 static void
-yydestruct (const char *yymsg, int yytype, YYSTYPE *yyvaluep)
+yydestruct (const char *yymsg,
+            yysymbol_kind_t yykind, YYSTYPE *yyvaluep)
 {
-  YYUSE (yyvaluep);
+  YY_USE (yyvaluep);
   if (!yymsg)
     yymsg = "Deleting";
-  YY_SYMBOL_PRINT (yymsg, yytype, yyvaluep, yylocationp);
+  YY_SYMBOL_PRINT (yymsg, yykind, yyvaluep, yylocationp);
 
   YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
-  YYUSE (yytype);
+  YY_USE (yykind);
   YY_IGNORE_MAYBE_UNINITIALIZED_END
 }
 
 
-
-
-/* The lookahead symbol.  */
+/* Lookahead token kind.  */
 int yychar;
 
 /* The semantic value of the lookahead symbol.  */
 YYSTYPE yylval;
 /* Number of syntax errors so far.  */
 int yynerrs;
+
+
 
 
 /*----------.
@@ -1254,43 +1086,36 @@ int yynerrs;
 int
 yyparse (void)
 {
-    int yystate;
+    yy_state_fast_t yystate = 0;
     /* Number of tokens to shift before error messages enabled.  */
-    int yyerrstatus;
+    int yyerrstatus = 0;
 
-    /* The stacks and their tools:
-       'yyss': related to states.
-       'yyvs': related to semantic values.
-
-       Refer to the stacks through separate pointers, to allow yyoverflow
+    /* Refer to the stacks through separate pointers, to allow yyoverflow
        to reallocate them elsewhere.  */
 
-    /* The state stack.  */
-    yytype_int16 yyssa[YYINITDEPTH];
-    yytype_int16 *yyss;
-    yytype_int16 *yyssp;
+    /* Their size.  */
+    YYPTRDIFF_T yystacksize = YYINITDEPTH;
 
-    /* The semantic value stack.  */
+    /* The state stack: array, bottom, top.  */
+    yy_state_t yyssa[YYINITDEPTH];
+    yy_state_t *yyss = yyssa;
+    yy_state_t *yyssp = yyss;
+
+    /* The semantic value stack: array, bottom, top.  */
     YYSTYPE yyvsa[YYINITDEPTH];
-    YYSTYPE *yyvs;
-    YYSTYPE *yyvsp;
-
-    YYSIZE_T yystacksize;
+    YYSTYPE *yyvs = yyvsa;
+    YYSTYPE *yyvsp = yyvs;
 
   int yyn;
+  /* The return value of yyparse.  */
   int yyresult;
-  /* Lookahead token as an internal (translated) token number.  */
-  int yytoken = 0;
+  /* Lookahead symbol kind.  */
+  yysymbol_kind_t yytoken = YYSYMBOL_YYEMPTY;
   /* The variables used to return semantic value and location from the
      action routines.  */
   YYSTYPE yyval;
 
-#if YYERROR_VERBOSE
-  /* Buffer for error messages, and its allocated size.  */
-  char yymsgbuf[128];
-  char *yymsg = yymsgbuf;
-  YYSIZE_T yymsg_alloc = sizeof yymsgbuf;
-#endif
+
 
 #define YYPOPSTACK(N)   (yyvsp -= (N), yyssp -= (N))
 
@@ -1298,71 +1123,75 @@ yyparse (void)
      Keep to zero when no symbol should be popped.  */
   int yylen = 0;
 
-  yyssp = yyss = yyssa;
-  yyvsp = yyvs = yyvsa;
-  yystacksize = YYINITDEPTH;
-
   YYDPRINTF ((stderr, "Starting parse\n"));
 
-  yystate = 0;
-  yyerrstatus = 0;
-  yynerrs = 0;
   yychar = YYEMPTY; /* Cause a token to be read.  */
+
   goto yysetstate;
 
+
 /*------------------------------------------------------------.
-| yynewstate -- Push a new state, which is found in yystate.  |
+| yynewstate -- push a new state, which is found in yystate.  |
 `------------------------------------------------------------*/
- yynewstate:
+yynewstate:
   /* In all cases, when you get here, the value and location stacks
      have just been pushed.  So pushing a state here evens the stacks.  */
   yyssp++;
 
- yysetstate:
-  *yyssp = yystate;
+
+/*--------------------------------------------------------------------.
+| yysetstate -- set current state (the top of the stack) to yystate.  |
+`--------------------------------------------------------------------*/
+yysetstate:
+  YYDPRINTF ((stderr, "Entering state %d\n", yystate));
+  YY_ASSERT (0 <= yystate && yystate < YYNSTATES);
+  YY_IGNORE_USELESS_CAST_BEGIN
+  *yyssp = YY_CAST (yy_state_t, yystate);
+  YY_IGNORE_USELESS_CAST_END
+  YY_STACK_PRINT (yyss, yyssp);
 
   if (yyss + yystacksize - 1 <= yyssp)
+#if !defined yyoverflow && !defined YYSTACK_RELOCATE
+    YYNOMEM;
+#else
     {
       /* Get the current used size of the three stacks, in elements.  */
-      YYSIZE_T yysize = yyssp - yyss + 1;
+      YYPTRDIFF_T yysize = yyssp - yyss + 1;
 
-#ifdef yyoverflow
+# if defined yyoverflow
       {
         /* Give user a chance to reallocate the stack.  Use copies of
            these so that the &'s don't force the real ones into
            memory.  */
+        yy_state_t *yyss1 = yyss;
         YYSTYPE *yyvs1 = yyvs;
-        yytype_int16 *yyss1 = yyss;
 
         /* Each stack pointer address is followed by the size of the
            data in use in that stack, in bytes.  This used to be a
            conditional around just the two extra args, but that might
            be undefined if yyoverflow is a macro.  */
         yyoverflow (YY_("memory exhausted"),
-                    &yyss1, yysize * sizeof (*yyssp),
-                    &yyvs1, yysize * sizeof (*yyvsp),
+                    &yyss1, yysize * YYSIZEOF (*yyssp),
+                    &yyvs1, yysize * YYSIZEOF (*yyvsp),
                     &yystacksize);
-
         yyss = yyss1;
         yyvs = yyvs1;
       }
-#else /* no yyoverflow */
-# ifndef YYSTACK_RELOCATE
-      goto yyexhaustedlab;
-# else
+# else /* defined YYSTACK_RELOCATE */
       /* Extend the stack our own way.  */
       if (YYMAXDEPTH <= yystacksize)
-        goto yyexhaustedlab;
+        YYNOMEM;
       yystacksize *= 2;
       if (YYMAXDEPTH < yystacksize)
         yystacksize = YYMAXDEPTH;
 
       {
-        yytype_int16 *yyss1 = yyss;
+        yy_state_t *yyss1 = yyss;
         union yyalloc *yyptr =
-          (union yyalloc *) YYSTACK_ALLOC (YYSTACK_BYTES (yystacksize));
+          YY_CAST (union yyalloc *,
+                   YYSTACK_ALLOC (YY_CAST (YYSIZE_T, YYSTACK_BYTES (yystacksize))));
         if (! yyptr)
-          goto yyexhaustedlab;
+          YYNOMEM;
         YYSTACK_RELOCATE (yyss_alloc, yyss);
         YYSTACK_RELOCATE (yyvs_alloc, yyvs);
 #  undef YYSTACK_RELOCATE
@@ -1370,30 +1199,31 @@ yyparse (void)
           YYSTACK_FREE (yyss1);
       }
 # endif
-#endif /* no yyoverflow */
 
       yyssp = yyss + yysize - 1;
       yyvsp = yyvs + yysize - 1;
 
-      YYDPRINTF ((stderr, "Stack size increased to %lu\n",
-                  (unsigned long int) yystacksize));
+      YY_IGNORE_USELESS_CAST_BEGIN
+      YYDPRINTF ((stderr, "Stack size increased to %ld\n",
+                  YY_CAST (long, yystacksize)));
+      YY_IGNORE_USELESS_CAST_END
 
       if (yyss + yystacksize - 1 <= yyssp)
         YYABORT;
     }
+#endif /* !defined yyoverflow && !defined YYSTACK_RELOCATE */
 
-  YYDPRINTF ((stderr, "Entering state %d\n", yystate));
 
   if (yystate == YYFINAL)
     YYACCEPT;
 
   goto yybackup;
 
+
 /*-----------.
 | yybackup.  |
 `-----------*/
 yybackup:
-
   /* Do appropriate processing given the current state.  Read a
      lookahead token if we need one and don't already have one.  */
 
@@ -1404,17 +1234,28 @@ yybackup:
 
   /* Not known => get a lookahead token if don't already have one.  */
 
-  /* YYCHAR is either YYEMPTY or YYEOF or a valid lookahead symbol.  */
+  /* YYCHAR is either empty, or end-of-input, or a valid lookahead.  */
   if (yychar == YYEMPTY)
     {
-      YYDPRINTF ((stderr, "Reading a token: "));
+      YYDPRINTF ((stderr, "Reading a token\n"));
       yychar = yylex ();
     }
 
   if (yychar <= YYEOF)
     {
-      yychar = yytoken = YYEOF;
+      yychar = YYEOF;
+      yytoken = YYSYMBOL_YYEOF;
       YYDPRINTF ((stderr, "Now at end of input.\n"));
+    }
+  else if (yychar == YYerror)
+    {
+      /* The scanner already issued an error message, process directly
+         to error recovery.  But do not keep the error token as
+         lookahead, it is too special and may lead us to an endless
+         loop in error recovery. */
+      yychar = YYUNDEF;
+      yytoken = YYSYMBOL_YYerror;
+      goto yyerrlab1;
     }
   else
     {
@@ -1443,15 +1284,13 @@ yybackup:
 
   /* Shift the lookahead token.  */
   YY_SYMBOL_PRINT ("Shifting", yytoken, &yylval, &yylloc);
-
-  /* Discard the shifted token.  */
-  yychar = YYEMPTY;
-
   yystate = yyn;
   YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
   *++yyvsp = yylval;
   YY_IGNORE_MAYBE_UNINITIALIZED_END
 
+  /* Discard the shifted token.  */
+  yychar = YYEMPTY;
   goto yynewstate;
 
 
@@ -1466,7 +1305,7 @@ yydefault:
 
 
 /*-----------------------------.
-| yyreduce -- Do a reduction.  |
+| yyreduce -- do a reduction.  |
 `-----------------------------*/
 yyreduce:
   /* yyn is the number of a rule to reduce with.  */
@@ -1486,155 +1325,155 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 2:
-#line 145 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 2: /* AttributeGrammar: SnortAttributes  */
+#line 145 "sf_attribute_table.y"
+  {
     YYACCEPT;
   }
-#line 1495 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1334 "sf_attribute_table.c"
     break;
 
-  case 3:
-#line 151 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 3: /* SnortAttributes: SF_START_SNORT_ATTRIBUTES MappingTable AttributeTable SF_END_SNORT_ATTRIBUTES  */
+#line 151 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "SnortAttributes: Got Attribute Map & Table\n"););
   }
-#line 1503 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1342 "sf_attribute_table.c"
     break;
 
-  case 4:
-#line 156 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 4: /* SnortAttributes: SF_START_SNORT_ATTRIBUTES AttributeTable SF_END_SNORT_ATTRIBUTES  */
+#line 156 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "SnortAttributes: Got Attribute Table\n"););
   }
-#line 1511 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1350 "sf_attribute_table.c"
     break;
 
-  case 5:
-#line 163 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 5: /* MappingTable: SF_AT_START_MAP_TABLE ListOfMapEntries SF_AT_END_MAP_TABLE  */
+#line 163 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Got Attribute Map\n"););
   }
-#line 1519 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1358 "sf_attribute_table.c"
     break;
 
-  case 6:
-#line 168 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 6: /* ListOfMapEntries: %empty  */
+#line 168 "sf_attribute_table.y"
+   {
      DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Empty Mapping Table\n"););
    }
-#line 1527 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1366 "sf_attribute_table.c"
     break;
 
-  case 8:
-#line 175 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 8: /* MapEntry: MapEntryStart MapEntryData MapEntryEnd  */
+#line 175 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "MapEntry: Name: %s, Id %d\n",
         (yyvsp[-1].mapEntry).s_mapvalue, (yyvsp[-1].mapEntry).l_mapid););
     SFAT_AddMapEntry(&(yyvsp[-1].mapEntry));
   }
-#line 1537 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1376 "sf_attribute_table.c"
     break;
 
-  case 11:
-#line 189 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 11: /* MapEntryData: MapId MapValue  */
+#line 189 "sf_attribute_table.y"
+  {
     (yyval.mapEntry).l_mapid = (yyvsp[-1].numericValue);
     SnortStrncpy((yyval.mapEntry).s_mapvalue, (yyvsp[0].stringValue), STD_BUF);
   }
-#line 1546 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1385 "sf_attribute_table.c"
     break;
 
-  case 12:
-#line 196 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 12: /* MapValue: SF_AT_START_ENTRY_VALUE SF_AT_STRING SF_AT_END_ENTRY_VALUE  */
+#line 196 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "MapValue: %s\n", (yyvsp[-1].stringValue));)
     SnortStrncpy((yyval.stringValue), (yyvsp[-1].stringValue), STD_BUF);
   }
-#line 1555 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1394 "sf_attribute_table.c"
     break;
 
-  case 13:
-#line 203 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 13: /* MapId: SF_AT_START_ENTRY_ID SF_AT_NUMERIC SF_AT_END_ENTRY_ID  */
+#line 203 "sf_attribute_table.y"
+  {
     (yyval.numericValue) = (yyvsp[-1].numericValue);
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "MapId: %d\n", (yyvsp[-1].numericValue)););
   }
-#line 1564 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1403 "sf_attribute_table.c"
     break;
 
-  case 14:
-#line 211 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 14: /* AttributeTable: SF_AT_START_ATTRIBUTE_TABLE ListOfHosts SF_AT_END_ATTRIBUTE_TABLE  */
+#line 211 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Got Attribute Table\n"););
   }
-#line 1572 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1411 "sf_attribute_table.c"
     break;
 
-  case 15:
-#line 216 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 15: /* ListOfHosts: %empty  */
+#line 216 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "EmptyHostEntry\n"););
   }
-#line 1580 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1419 "sf_attribute_table.c"
     break;
 
-  case 17:
-#line 223 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 17: /* HostEntry: HostEntryStart HostEntryData HostEntryEnd  */
+#line 223 "sf_attribute_table.y"
+  {
     if (SFAT_AddHostEntryToMap() != SFAT_OK)
     {
         YYABORT;
     }
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Host Added\n"););
   }
-#line 1592 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1431 "sf_attribute_table.c"
     break;
 
-  case 18:
-#line 233 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 18: /* HostEntryStart: SF_AT_START_HOST  */
+#line 233 "sf_attribute_table.y"
+  {
     /* Callback to create a host entry object */
     SFAT_CreateHostEntry();
   }
-#line 1601 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1440 "sf_attribute_table.c"
     break;
 
-  case 20:
-#line 243 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 20: /* HostEntryData: IpCidr HostOS ServiceList ClientList  */
+#line 243 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "HostEntryData\n"););
   }
-#line 1609 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1448 "sf_attribute_table.c"
     break;
 
-  case 21:
-#line 248 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 21: /* HostEntryData: IpCidr HostOS ClientList  */
+#line 248 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "HostEntryData: No Services\n"););
   }
-#line 1617 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1456 "sf_attribute_table.c"
     break;
 
-  case 22:
-#line 253 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 22: /* HostEntryData: IpCidr HostOS ServiceList  */
+#line 253 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "HostEntryData: No Clients\n"););
   }
-#line 1625 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1464 "sf_attribute_table.c"
     break;
 
-  case 23:
-#line 258 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 23: /* HostEntryData: IpCidr HostOS  */
+#line 258 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "HostEntryData: No Services or Clients\n"););
   }
-#line 1633 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1472 "sf_attribute_table.c"
     break;
 
-  case 24:
-#line 265 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 24: /* IpCidr: SF_AT_START_HOST_IP SF_AT_STRING SF_AT_END_HOST_IP  */
+#line 265 "sf_attribute_table.y"
+  {
     /* Convert IP/CIDR to Snort IPCidr Object */
     /* determine the number of bits (done in SetHostIp4) */
     if (SFAT_SetHostIp((yyvsp[-1].stringValue)) != SFAT_OK)
@@ -1642,102 +1481,102 @@ yyreduce:
         YYABORT;
     }
   }
-#line 1646 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1485 "sf_attribute_table.c"
     break;
 
-  case 33:
-#line 283 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 33: /* OSName: SF_AT_START_NAME AttributeInfo SF_AT_END_NAME  */
+#line 283 "sf_attribute_table.y"
+  {
     /* Copy OSName */
     DEBUG_WRAP(PrintAttributeData("OS:Name", &(yyvsp[-1].data)););
     SFAT_SetOSAttribute(&(yyvsp[-1].data), HOST_INFO_OS);
   }
-#line 1656 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1495 "sf_attribute_table.c"
     break;
 
-  case 34:
-#line 291 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 34: /* OSVendor: SF_AT_START_VENDOR AttributeInfo SF_AT_END_VENDOR  */
+#line 291 "sf_attribute_table.y"
+  {
     /* Copy OSVendor */
     DEBUG_WRAP(PrintAttributeData("OS:Vendor", &(yyvsp[-1].data)););
     SFAT_SetOSAttribute(&(yyvsp[-1].data), HOST_INFO_VENDOR);
   }
-#line 1666 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1505 "sf_attribute_table.c"
     break;
 
-  case 35:
-#line 299 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 35: /* OSVersion: SF_AT_START_VERSION AttributeInfo SF_AT_END_VERSION  */
+#line 299 "sf_attribute_table.y"
+  {
     /* Copy OSVersion */
     DEBUG_WRAP(PrintAttributeData("OS:Version", &(yyvsp[-1].data)););
     SFAT_SetOSAttribute(&(yyvsp[-1].data), HOST_INFO_VERSION);
   }
-#line 1676 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1515 "sf_attribute_table.c"
     break;
 
-  case 36:
-#line 307 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 36: /* OSFragPolicy: SF_AT_START_FRAG_POLICY SF_AT_STRING SF_AT_END_FRAG_POLICY  */
+#line 307 "sf_attribute_table.y"
+  {
     /* Copy OSFragPolicy */
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "OS:FragPolicy: %s\n", (yyvsp[-1].stringValue)););
     SFAT_SetOSPolicy((yyvsp[-1].stringValue), HOST_INFO_FRAG_POLICY);
   }
-#line 1686 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1525 "sf_attribute_table.c"
     break;
 
-  case 37:
-#line 315 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 37: /* OSStreamPolicy: SF_AT_START_STREAM_POLICY SF_AT_STRING SF_AT_END_STREAM_POLICY  */
+#line 315 "sf_attribute_table.y"
+  {
     /* Copy OSStreamPolicy */
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "OS:StreamPolicy: %s\n", (yyvsp[-1].stringValue)););
     SFAT_SetOSPolicy((yyvsp[-1].stringValue), HOST_INFO_STREAM_POLICY);
   }
-#line 1696 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1535 "sf_attribute_table.c"
     break;
 
-  case 38:
-#line 323 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 38: /* AttributeInfo: AttributeValueString  */
+#line 323 "sf_attribute_table.y"
+  {
         (yyval.data).type = ATTRIBUTE_NAME; 
         (yyval.data).confidence = 100;
         SnortStrncpy((yyval.data).value.s_value, (yyvsp[0].stringValue), STD_BUF);
   }
-#line 1706 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1545 "sf_attribute_table.c"
     break;
 
-  case 39:
-#line 329 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 39: /* AttributeInfo: AttributeValueString AttributeConfidence  */
+#line 329 "sf_attribute_table.y"
+  {
         (yyval.data).type = ATTRIBUTE_NAME; 
         (yyval.data).confidence = (yyvsp[0].numericValue);
         SnortStrncpy((yyval.data).value.s_value, (yyvsp[-1].stringValue), STD_BUF);
   }
-#line 1716 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1555 "sf_attribute_table.c"
     break;
 
-  case 40:
-#line 335 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 40: /* AttributeInfo: AttributeValueNumber AttributeConfidence  */
+#line 335 "sf_attribute_table.y"
+  {
         (yyval.data).type = ATTRIBUTE_NAME; 
         (yyval.data).confidence = (yyvsp[0].numericValue);
         SnortSnprintf((yyval.data).value.s_value, STD_BUF, "%d", (yyvsp[-1].numericValue));
   }
-#line 1726 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1565 "sf_attribute_table.c"
     break;
 
-  case 41:
-#line 341 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 41: /* AttributeInfo: AttributeValueNumber  */
+#line 341 "sf_attribute_table.y"
+  {
         (yyval.data).type = ATTRIBUTE_NAME; 
         (yyval.data).confidence = 100;
         SnortSnprintf((yyval.data).value.s_value, STD_BUF, "%d", (yyvsp[0].numericValue));
   }
-#line 1736 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1575 "sf_attribute_table.c"
     break;
 
-  case 42:
-#line 347 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 42: /* AttributeInfo: AttributeId AttributeConfidence  */
+#line 347 "sf_attribute_table.y"
+  {
         char *mapped_name;
         (yyval.data).confidence = (yyvsp[0].numericValue);
         mapped_name = SFAT_LookupAttributeNameById((yyvsp[-1].numericValue));
@@ -1756,12 +1595,12 @@ yyreduce:
             SnortStrncpy((yyval.data).value.s_value, mapped_name, STD_BUF);
         }
   }
-#line 1760 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1599 "sf_attribute_table.c"
     break;
 
-  case 43:
-#line 367 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 43: /* AttributeInfo: AttributeId  */
+#line 367 "sf_attribute_table.y"
+  {
         char *mapped_name;
         (yyval.data).confidence = 100;
         mapped_name = SFAT_LookupAttributeNameById((yyvsp[0].numericValue));
@@ -1780,364 +1619,365 @@ yyreduce:
             SnortStrncpy((yyval.data).value.s_value, mapped_name, STD_BUF);
         }
   }
-#line 1784 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1623 "sf_attribute_table.c"
     break;
 
-  case 44:
-#line 389 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 44: /* AttributeValueString: SF_AT_START_ATTRIBUTE_VALUE SF_AT_STRING SF_AT_END_ATTRIBUTE_VALUE  */
+#line 389 "sf_attribute_table.y"
+  {
         SnortStrncpy((yyval.stringValue), (yyvsp[-1].stringValue), STD_BUF);
   }
-#line 1792 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1631 "sf_attribute_table.c"
     break;
 
-  case 45:
-#line 395 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 45: /* AttributeValueNumber: SF_AT_START_ATTRIBUTE_VALUE SF_AT_END_ATTRIBUTE_VALUE  */
+#line 395 "sf_attribute_table.y"
+  {
         (yyval.numericValue) = 0;
   }
-#line 1800 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1639 "sf_attribute_table.c"
     break;
 
-  case 46:
-#line 399 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 46: /* AttributeValueNumber: SF_AT_START_ATTRIBUTE_VALUE SF_AT_NUMERIC SF_AT_END_ATTRIBUTE_VALUE  */
+#line 399 "sf_attribute_table.y"
+  {
         (yyval.numericValue) = (yyvsp[-1].numericValue);
   }
-#line 1808 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1647 "sf_attribute_table.c"
     break;
 
-  case 47:
-#line 405 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 47: /* AttributeId: SF_AT_START_ATTRIBUTE_ID SF_AT_NUMERIC SF_AT_END_ATTRIBUTE_ID  */
+#line 405 "sf_attribute_table.y"
+      {
         /* Copy numeric */
         (yyval.numericValue) = (yyvsp[-1].numericValue);
       }
-#line 1817 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1656 "sf_attribute_table.c"
     break;
 
-  case 48:
-#line 412 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 48: /* AttributeConfidence: SF_AT_START_CONFIDENCE SF_AT_NUMERIC SF_AT_END_CONFIDENCE  */
+#line 412 "sf_attribute_table.y"
+  {
     /* Copy numeric */
     (yyval.numericValue) = (yyvsp[-1].numericValue);
   }
-#line 1826 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1665 "sf_attribute_table.c"
     break;
 
-  case 49:
-#line 419 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 49: /* ServiceList: ServiceListStart ServiceListData ServiceListEnd  */
+#line 419 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "ServiceList (complete)\n"););
   }
-#line 1834 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1673 "sf_attribute_table.c"
     break;
 
-  case 50:
-#line 425 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 50: /* ServiceListStart: SF_AT_START_SERVICES  */
+#line 425 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Start ServiceList\n"););
     sfat_client_or_service = ATTRIBUTE_SERVICE;
   }
-#line 1843 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1682 "sf_attribute_table.c"
     break;
 
-  case 51:
-#line 432 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 51: /* ServiceListEnd: SF_AT_END_SERVICES  */
+#line 432 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "End ServiceList\n"););
   }
-#line 1851 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1690 "sf_attribute_table.c"
     break;
 
-  case 52:
-#line 437 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 52: /* ServiceListData: %empty  */
+#line 437 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "EmptyService\n"););
   }
-#line 1859 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1698 "sf_attribute_table.c"
     break;
 
-  case 53:
-#line 441 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 53: /* ServiceListData: Service ServiceListData  */
+#line 441 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Service ServiceListData\n"););
   }
-#line 1867 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1706 "sf_attribute_table.c"
     break;
 
-  case 54:
-#line 447 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 54: /* Service: ServiceStart ServiceData ServiceEnd  */
+#line 447 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Service Adding Complete\n"););
     SFAT_AddApplicationData();
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Service Added\n"););
   }
-#line 1877 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1716 "sf_attribute_table.c"
     break;
 
-  case 55:
-#line 455 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 55: /* ServiceStart: SF_AT_START_SERVICE  */
+#line 455 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Service Start\n"););
     SFAT_CreateApplicationEntry();
   }
-#line 1886 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1725 "sf_attribute_table.c"
     break;
 
-  case 56:
-#line 462 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 56: /* ServiceEnd: SF_AT_END_SERVICE  */
+#line 462 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Service End\n"););
   }
-#line 1894 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1733 "sf_attribute_table.c"
     break;
 
-  case 57:
-#line 468 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 57: /* ServiceData: ServiceDataRequired  */
+#line 468 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Service Data (no application)\n"););
   }
-#line 1902 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1741 "sf_attribute_table.c"
     break;
 
-  case 58:
-#line 472 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 58: /* ServiceData: ServiceDataRequired Application  */
+#line 472 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Service Data (application)\n"););
   }
-#line 1910 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1749 "sf_attribute_table.c"
     break;
 
-  case 59:
-#line 478 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 59: /* ServiceDataRequired: IPProtocol Protocol Port  */
+#line 478 "sf_attribute_table.y"
+  {
     /* Order independent */
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Service Data Required (IPProto Proto Port)\n"););
   }
-#line 1919 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1758 "sf_attribute_table.c"
     break;
 
-  case 60:
-#line 483 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 60: /* ServiceDataRequired: IPProtocol Port Protocol  */
+#line 483 "sf_attribute_table.y"
+  {
     /* Order independent */
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Service Data Required (IPProto Port Proto)\n"););
   }
-#line 1928 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1767 "sf_attribute_table.c"
     break;
 
-  case 61:
-#line 488 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 61: /* ServiceDataRequired: Protocol IPProtocol Port  */
+#line 488 "sf_attribute_table.y"
+  {
     /* Order independent */
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Service Data Required (Proto IPProto Port)\n"););
   }
-#line 1937 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1776 "sf_attribute_table.c"
     break;
 
-  case 62:
-#line 493 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 62: /* ServiceDataRequired: Protocol Port IPProtocol  */
+#line 493 "sf_attribute_table.y"
+  {
     /* Order independent */
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Service Data Required (Proto Port IPProto)\n"););
   }
-#line 1946 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1785 "sf_attribute_table.c"
     break;
 
-  case 63:
-#line 498 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 63: /* ServiceDataRequired: Port Protocol IPProtocol  */
+#line 498 "sf_attribute_table.y"
+  {
     /* Order independent */
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Service Data Required (Port Proto IPProto)\n"););
   }
-#line 1955 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1794 "sf_attribute_table.c"
     break;
 
-  case 64:
-#line 503 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 64: /* ServiceDataRequired: Port IPProtocol Protocol  */
+#line 503 "sf_attribute_table.y"
+  {
     /* Order independent */
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Service Data Required (Port IPProto Proto)\n"););
   }
-#line 1964 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1803 "sf_attribute_table.c"
     break;
 
-  case 65:
-#line 510 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 65: /* IPProtocol: SF_AT_START_IPPROTO AttributeInfo SF_AT_END_IPPROTO  */
+#line 510 "sf_attribute_table.y"
+  {
     /* Store IPProto Info */
     DEBUG_WRAP(PrintAttributeData("IPProto", &(yyvsp[-1].data)););
     SFAT_SetApplicationAttribute(&(yyvsp[-1].data), APPLICATION_ENTRY_IPPROTO);
   }
-#line 1974 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1813 "sf_attribute_table.c"
     break;
 
-  case 66:
-#line 518 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 66: /* Protocol: SF_AT_START_PROTOCOL AttributeInfo SF_AT_END_PROTOCOL  */
+#line 518 "sf_attribute_table.y"
+  {
     /* Store Protocol Info */
     DEBUG_WRAP(PrintAttributeData("Protocol", &(yyvsp[-1].data)););
     SFAT_SetApplicationAttribute(&(yyvsp[-1].data), APPLICATION_ENTRY_PROTO);
   }
-#line 1984 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1823 "sf_attribute_table.c"
     break;
 
-  case 67:
-#line 526 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 67: /* Port: SF_AT_START_PORT AttributeInfo SF_AT_END_PORT  */
+#line 526 "sf_attribute_table.y"
+  {
     /* Store Port Info */
     DEBUG_WRAP(PrintAttributeData("Port", &(yyvsp[-1].data)););
     SFAT_SetApplicationAttribute(&(yyvsp[-1].data), APPLICATION_ENTRY_PORT);
   }
-#line 1994 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1833 "sf_attribute_table.c"
     break;
 
-  case 68:
-#line 534 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 68: /* Application: SF_AT_START_APPLICATION AttributeInfo SF_AT_END_APPLICATION  */
+#line 534 "sf_attribute_table.y"
+  {
     /* Store Application Info */
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Application\n"));
     DEBUG_WRAP(PrintAttributeData("Application", &(yyvsp[-1].data)););
     SFAT_SetApplicationAttribute(&(yyvsp[-1].data), APPLICATION_ENTRY_APPLICATION);
   }
-#line 2005 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1844 "sf_attribute_table.c"
     break;
 
-  case 69:
-#line 541 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 69: /* Application: SF_AT_START_APPLICATION AttributeInfo Version SF_AT_END_APPLICATION  */
+#line 541 "sf_attribute_table.y"
+  {
     /* Store Application Info */
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Application with Version\n"));
     DEBUG_WRAP(PrintAttributeData("Application", &(yyvsp[-2].data)););
     SFAT_SetApplicationAttribute(&(yyvsp[-2].data), APPLICATION_ENTRY_APPLICATION);
   }
-#line 2016 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1855 "sf_attribute_table.c"
     break;
 
-  case 70:
-#line 550 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 70: /* Version: SF_AT_START_VERSION AttributeInfo SF_AT_END_VERSION  */
+#line 550 "sf_attribute_table.y"
+  {
     /* Store Version Info */
     DEBUG_WRAP(PrintAttributeData("Version", &(yyvsp[-1].data)););
     SFAT_SetApplicationAttribute(&(yyvsp[-1].data), APPLICATION_ENTRY_VERSION);
   }
-#line 2026 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1865 "sf_attribute_table.c"
     break;
 
-  case 71:
-#line 558 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 71: /* ClientList: ClientListStart ClientListData ClientListEnd  */
+#line 558 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "ClientList (complete)\n"););
   }
-#line 2034 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1873 "sf_attribute_table.c"
     break;
 
-  case 72:
-#line 564 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 72: /* ClientListStart: SF_AT_START_CLIENTS  */
+#line 564 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Start ClientList\n"););
     sfat_client_or_service = ATTRIBUTE_CLIENT;
   }
-#line 2043 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1882 "sf_attribute_table.c"
     break;
 
-  case 73:
-#line 571 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 73: /* ClientListEnd: SF_AT_END_CLIENTS  */
+#line 571 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "End ClientList\n"););
   }
-#line 2051 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1890 "sf_attribute_table.c"
     break;
 
-  case 74:
-#line 576 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 74: /* ClientListData: %empty  */
+#line 576 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "EmptyClient\n"););
   }
-#line 2059 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1898 "sf_attribute_table.c"
     break;
 
-  case 75:
-#line 580 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 75: /* ClientListData: Client ClientListData  */
+#line 580 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Client ClientListData\n"););
   }
-#line 2067 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1906 "sf_attribute_table.c"
     break;
 
-  case 76:
-#line 586 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 76: /* Client: ClientStart ClientData ClientEnd  */
+#line 586 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Client Adding Complete\n"););
     SFAT_AddApplicationData();
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Client Added\n"););
   }
-#line 2077 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1916 "sf_attribute_table.c"
     break;
 
-  case 77:
-#line 594 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 77: /* ClientStart: SF_AT_START_CLIENT  */
+#line 594 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Client Start\n"););
     SFAT_CreateApplicationEntry();
   }
-#line 2086 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1925 "sf_attribute_table.c"
     break;
 
-  case 78:
-#line 601 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 78: /* ClientEnd: SF_AT_END_CLIENT  */
+#line 601 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Client End\n"););
   }
-#line 2094 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1933 "sf_attribute_table.c"
     break;
 
-  case 79:
-#line 607 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 79: /* ClientData: ClientDataRequired  */
+#line 607 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Client Data (no application)\n"););
   }
-#line 2102 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1941 "sf_attribute_table.c"
     break;
 
-  case 80:
-#line 611 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 80: /* ClientData: ClientDataRequired Application  */
+#line 611 "sf_attribute_table.y"
+  {
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Client Data (application)\n"););
   }
-#line 2110 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1949 "sf_attribute_table.c"
     break;
 
-  case 81:
-#line 617 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 81: /* ClientDataRequired: Protocol  */
+#line 617 "sf_attribute_table.y"
+  {
     /* Order independent */
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Client Data Required (Proto)\n"););
   }
-#line 2119 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1958 "sf_attribute_table.c"
     break;
 
-  case 82:
-#line 622 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 82: /* ClientDataRequired: IPProtocol Protocol  */
+#line 622 "sf_attribute_table.y"
+  {
     /* Order independent */
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Client Data Required (IPProto Proto)\n"););
   }
-#line 2128 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1967 "sf_attribute_table.c"
     break;
 
-  case 83:
-#line 627 "sf_attribute_table.y" /* yacc.c:1648  */
-    {
+  case 83: /* ClientDataRequired: Protocol IPProtocol  */
+#line 627 "sf_attribute_table.y"
+  {
     /* Order independent */
     DEBUG_WRAP(DebugMessage(DEBUG_ATTRIBUTE, "Client Data Required (Proto IPProto)\n"););
   }
-#line 2137 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1976 "sf_attribute_table.c"
     break;
 
 
-#line 2141 "sf_attribute_table.c" /* yacc.c:1648  */
+#line 1980 "sf_attribute_table.c"
+
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2151,25 +1991,23 @@ yyreduce:
      case of YYERROR or YYBACKUP, subsequent parser actions might lead
      to an incorrect destructor call or verbose syntax error message
      before the lookahead is translated.  */
-  YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
+  YY_SYMBOL_PRINT ("-> $$ =", YY_CAST (yysymbol_kind_t, yyr1[yyn]), &yyval, &yyloc);
 
   YYPOPSTACK (yylen);
   yylen = 0;
-  YY_STACK_PRINT (yyss, yyssp);
 
   *++yyvsp = yyval;
 
   /* Now 'shift' the result of the reduction.  Determine what state
      that goes to, based on the state we popped back to and the rule
      number reduced by.  */
-
-  yyn = yyr1[yyn];
-
-  yystate = yypgoto[yyn - YYNTOKENS] + *yyssp;
-  if (0 <= yystate && yystate <= YYLAST && yycheck[yystate] == *yyssp)
-    yystate = yytable[yystate];
-  else
-    yystate = yydefgoto[yyn - YYNTOKENS];
+  {
+    const int yylhs = yyr1[yyn] - YYNTOKENS;
+    const int yyi = yypgoto[yylhs] + *yyssp;
+    yystate = (0 <= yyi && yyi <= YYLAST && yycheck[yyi] == *yyssp
+               ? yytable[yyi]
+               : yydefgoto[yylhs]);
+  }
 
   goto yynewstate;
 
@@ -2180,49 +2018,13 @@ yyreduce:
 yyerrlab:
   /* Make sure we have latest lookahead translation.  See comments at
      user semantic actions for why this is necessary.  */
-  yytoken = yychar == YYEMPTY ? YYEMPTY : YYTRANSLATE (yychar);
-
+  yytoken = yychar == YYEMPTY ? YYSYMBOL_YYEMPTY : YYTRANSLATE (yychar);
   /* If not already recovering from an error, report this error.  */
   if (!yyerrstatus)
     {
       ++yynerrs;
-#if ! YYERROR_VERBOSE
       yyerror (YY_("syntax error"));
-#else
-# define YYSYNTAX_ERROR yysyntax_error (&yymsg_alloc, &yymsg, \
-                                        yyssp, yytoken)
-      {
-        char const *yymsgp = YY_("syntax error");
-        int yysyntax_error_status;
-        yysyntax_error_status = YYSYNTAX_ERROR;
-        if (yysyntax_error_status == 0)
-          yymsgp = yymsg;
-        else if (yysyntax_error_status == 1)
-          {
-            if (yymsg != yymsgbuf)
-              YYSTACK_FREE (yymsg);
-            yymsg = (char *) YYSTACK_ALLOC (yymsg_alloc);
-            if (!yymsg)
-              {
-                yymsg = yymsgbuf;
-                yymsg_alloc = sizeof yymsgbuf;
-                yysyntax_error_status = 2;
-              }
-            else
-              {
-                yysyntax_error_status = YYSYNTAX_ERROR;
-                yymsgp = yymsg;
-              }
-          }
-        yyerror (yymsgp);
-        if (yysyntax_error_status == 2)
-          goto yyexhaustedlab;
-      }
-# undef YYSYNTAX_ERROR
-#endif
     }
-
-
 
   if (yyerrstatus == 3)
     {
@@ -2252,12 +2054,11 @@ yyerrlab:
 | yyerrorlab -- error raised explicitly by YYERROR.  |
 `---------------------------------------------------*/
 yyerrorlab:
-
-  /* Pacify compilers like GCC when the user code never invokes
-     YYERROR and the label yyerrorlab therefore never appears in user
-     code.  */
-  if (/*CONSTCOND*/ 0)
-     goto yyerrorlab;
+  /* Pacify compilers when the user code never invokes YYERROR and the
+     label yyerrorlab therefore never appears in user code.  */
+  if (0)
+    YYERROR;
+  ++yynerrs;
 
   /* Do not reclaim the symbols of the rule whose action triggered
      this YYERROR.  */
@@ -2274,13 +2075,14 @@ yyerrorlab:
 yyerrlab1:
   yyerrstatus = 3;      /* Each real token shifted decrements this.  */
 
+  /* Pop stack until we find a state that shifts the error token.  */
   for (;;)
     {
       yyn = yypact[yystate];
       if (!yypact_value_is_default (yyn))
         {
-          yyn += YYTERROR;
-          if (0 <= yyn && yyn <= YYLAST && yycheck[yyn] == YYTERROR)
+          yyn += YYSYMBOL_YYerror;
+          if (0 <= yyn && yyn <= YYLAST && yycheck[yyn] == YYSYMBOL_YYerror)
             {
               yyn = yytable[yyn];
               if (0 < yyn)
@@ -2294,7 +2096,7 @@ yyerrlab1:
 
 
       yydestruct ("Error: popping",
-                  yystos[yystate], yyvsp);
+                  YY_ACCESSING_SYMBOL (yystate), yyvsp);
       YYPOPSTACK (1);
       yystate = *yyssp;
       YY_STACK_PRINT (yyss, yyssp);
@@ -2306,7 +2108,7 @@ yyerrlab1:
 
 
   /* Shift the error token.  */
-  YY_SYMBOL_PRINT ("Shifting", yystos[yyn], yyvsp, yylsp);
+  YY_SYMBOL_PRINT ("Shifting", YY_ACCESSING_SYMBOL (yyn), yyvsp, yylsp);
 
   yystate = yyn;
   goto yynewstate;
@@ -2317,26 +2119,30 @@ yyerrlab1:
 `-------------------------------------*/
 yyacceptlab:
   yyresult = 0;
-  goto yyreturn;
+  goto yyreturnlab;
+
 
 /*-----------------------------------.
 | yyabortlab -- YYABORT comes here.  |
 `-----------------------------------*/
 yyabortlab:
   yyresult = 1;
-  goto yyreturn;
+  goto yyreturnlab;
 
-#if !defined yyoverflow || YYERROR_VERBOSE
-/*-------------------------------------------------.
-| yyexhaustedlab -- memory exhaustion comes here.  |
-`-------------------------------------------------*/
+
+/*-----------------------------------------------------------.
+| yyexhaustedlab -- YYNOMEM (memory exhaustion) comes here.  |
+`-----------------------------------------------------------*/
 yyexhaustedlab:
   yyerror (YY_("memory exhausted"));
   yyresult = 2;
-  /* Fall through.  */
-#endif
+  goto yyreturnlab;
 
-yyreturn:
+
+/*----------------------------------------------------------.
+| yyreturnlab -- parsing is finished, clean up and return.  |
+`----------------------------------------------------------*/
+yyreturnlab:
   if (yychar != YYEMPTY)
     {
       /* Make sure we have latest lookahead translation.  See comments at
@@ -2352,20 +2158,18 @@ yyreturn:
   while (yyssp != yyss)
     {
       yydestruct ("Cleanup: popping",
-                  yystos[*yyssp], yyvsp);
+                  YY_ACCESSING_SYMBOL (+*yyssp), yyvsp);
       YYPOPSTACK (1);
     }
 #ifndef yyoverflow
   if (yyss != yyssa)
     YYSTACK_FREE (yyss);
 #endif
-#if YYERROR_VERBOSE
-  if (yymsg != yymsgbuf)
-    YYSTACK_FREE (yymsg);
-#endif
+
   return yyresult;
 }
-#line 632 "sf_attribute_table.y" /* yacc.c:1907  */
+
+#line 632 "sf_attribute_table.y"
 
 /*
 int yywrap(void)

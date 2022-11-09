@@ -33,6 +33,7 @@ struct pktbuf {
 	unsigned short	*len;	/* Packet lengths */
 	unsigned char	*usr;	/* Packet user data */
 	unsigned int	*res;	/* Packet results */
+	unsigned int	*reschar;
 	unsigned int	max;	/* Max number of packets */
 	unsigned int	cnt;	/* Packets counter */
 	unsigned int	pos;	/* Packets iterator */
@@ -46,6 +47,7 @@ struct pktbuf {
 	cl_mem		klen, ilen;
 	cl_mem		kusr, iusr;
 	cl_mem		kres, ires;
+	cl_mem		kretchar, iretchar;
 };
 
 struct xpktbuf {

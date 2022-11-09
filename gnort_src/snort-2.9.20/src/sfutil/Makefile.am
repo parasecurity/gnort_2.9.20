@@ -65,8 +65,14 @@ libsfutil_a_SOURCES = \
 	mpse_methods.h \
 	sfdebug.h \
     $(INTEL_SOFT_CPM_SOURCES) \
+    clutil.c clutil.h \
+    dfa.c dfa.h \
+    dfamatch.c dfamatch.h \
+    xdfa.c xdfa.h \
+    xpktbuf.c xpktbuf.h \
+    common.h \
+    hacks.h \
     $(OPENSSL_MD5) \
     $(OPENSSL_SHA)
 
 INCLUDES = @INCLUDES@
-

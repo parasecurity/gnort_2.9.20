@@ -811,6 +811,7 @@ int pmx_create_tree(struct _SnortConfig *sc, void *id, void **existing_tree)
     pmx    = (PMX*)id;
     rnNode = (RULE_NODE*)(pmx->RuleNode);
     otn    = (OptTreeNode *)rnNode->rnRuleData;
+    printf("DOES THIS EVER HAPPEN???\n");
     return otn_create_tree(otn, existing_tree);
 }
 
@@ -1588,10 +1589,10 @@ static int fpFinishPortGroup(SnortConfig *sc, PORT_GROUP *pg, FastPatternConfig 
     {
         if (pg->pgPms[i] != NULL)
         {
-            printf("568: pg pgpms not null.\n");
+            // printf("568: pg pgpms not null.\n");
             if (mpseGetPatternCount(pg->pgPms[i]) != 0)
             {
-                printf("998: pgpms not null.\n");
+                // printf("998: pgpms not null.\n");
                 if (mpsePrepPatternsWithSnortConf(sc, pg->pgPms[i], pmx_create_tree,
                             add_patrn_to_neg_list) != 0)
                 {
@@ -1605,7 +1606,7 @@ static int fpFinishPortGroup(SnortConfig *sc, PORT_GROUP *pg, FastPatternConfig 
             }
             else
             {
-                printf(":))))\n");
+                // printf(":))))\n");
                 mpseFree(pg->pgPms[i]);
                 pg->pgPms[i] = NULL;
             }

@@ -10,7 +10,9 @@
 #define IGNORE_CASE 0
 
 struct xdfactx *
-xdfa_new(void)
+xdfa_new(void (*userfree)(void *p),
+                         void (*optiontreefree)(void **p),
+                         void (*neg_list_free)(void **p))
 {
 	struct xdfactx *xdfa;
 
@@ -24,6 +26,7 @@ xdfa_new(void)
 	xdfa->dfa = malloc(sizeof(struct dfa));
 	if (xdfa->dfa == NULL)
 		ERR(1, "malloc dfa");
+	xdfa->patterns = NULL;
 
 	dfainit(xdfa->dfa);
 
@@ -57,20 +60,77 @@ xdfa_new(void)
 	// xdfa_cl_init(xdfa, cl.ctx);
 	xdfa->cl = cl;
 	xdfa->xpb = xpb;
+
+    xdfa->userfree              = userfree;
+    xdfa->optiontreefree        = optiontreefree;
+    xdfa->neg_list_free         = neg_list_free;
 	return xdfa;
 }
 
 void
-xdfa_addpattern(struct xdfactx *xdfa, char *pattern, unsigned int length)
+xdfa_print_plist(struct xdfactx *xdfa){
+	struct pattern * plist;
+	plist = xdfa->patterns;
+	while(plist != NULL){
+		printf("pattern from plist: %s\n", plist->patrn);
+		if (plist->next != NULL){
+			plist = plist->next;
+		}
+		else {
+			break;
+		}
+		
+	}
+	return;
+}
+
+struct pattern *
+insert_bottom(struct pattern * head, char *pattern, unsigned int len, int nocase, int offset, int depth, int negative, void * id, int iid){
+	struct pattern *current_node = head;
+	struct pattern *new_node;
+	while ( current_node != NULL && current_node->next != NULL) {
+	current_node = current_node->next;
+	}
+
+	new_node = (struct pattern *) malloc(sizeof(struct pattern));
+	new_node->patrn = malloc(len);
+	strcpy(new_node->patrn, pattern);
+	// printf("strlen pattern: %d, %s\n", len, pattern);
+	// printf("strlen pattern: %d, %s\n", strlen(pattern), pattern);
+	// printf("strlen pattern: %d, %s\n", strlen((unsigned char *)pattern), pattern);
+	new_node->n = len;
+	new_node->next = NULL;
+	new_node->neg_list = NULL;
+	new_node->rule_option_tree = NULL;
+	new_node->nocase = nocase;
+	new_node->offset = offset;
+	new_node->depth  = depth;
+	new_node->negative = negative;
+	new_node->iid    = iid;
+	new_node->udata = id;
+
+	if (current_node != NULL)
+		current_node->next = new_node;
+	else
+		head = new_node;
+
+return head;
+}
+
+void
+xdfa_addpattern(struct xdfactx *xdfa, char *pattern, unsigned int length, int nocase,
+        int offset, int depth, int negative, void * id, int iid)
 {
 	// printf("pattern: %s\n", pattern);
 	if (length > xdfa->maxpatlen)
 		xdfa->maxpatlen = length;
 
 	xdfa->nregexps += 1;
+	xdfa->patterns = insert_bottom(xdfa->patterns, pattern, length, nocase, offset, depth, negative, id, iid);
 
 	dfaaddpatt(xdfa->dfa, pattern, length);
-	printf("==GPUREGEX== Successfully added pattern: %s\n", pattern);
+	printf("id: %d, iid: %d\n", id, iid);
+	printf("////////////Successfully added pattern(%d): %s\n", length, pattern);
 }
 
 int xdfa_patterncount(struct xdfactx *xdfa){
@@ -78,7 +138,9 @@ int xdfa_patterncount(struct xdfactx *xdfa){
 }
 
 void
-xdfa_compile(struct xdfactx *xdfa)
+xdfa_compile(struct xdfactx *xdfa,
+                                int (*build_tree)(struct _SnortConfig *, void * id, void **existing_tree),
+                                int (*neg_list_func)(void *id, void **list))
 {
 	int i;
 
@@ -104,14 +166,218 @@ xdfa_compile(struct xdfactx *xdfa)
 		    sizeof(int) * 256);
 	}
 
+	// argyris ============================================
+	// dfaprint(xdfa->dfa);
+	// before freeing must enter the match listings
+	create_matchlist(xdfa);
+	// print_matchlist(xdfa);
+	// ====================================================
+
 	dfafree(xdfa->dfa);
 	xdfa->dfa = NULL;
 	struct clconf cl;
 	cl = xdfa->cl;
 	xdfa_cl_init(xdfa, cl.ctx);
 	xdfa->cl = cl;
+
+	// if (build_tree && neg_list_func)
+    // {
+    //     xdfa_build_match_state_trees_with_sc(xdfa, sc, build_tree, neg_list_func);
+    // }
 	printf("==GPUREGEX== Compiled successfully!\n");
 }
+
+void
+xdfa_compile_with_sc(struct xdfactx *xdfa, struct _SnortConfig * sc,
+                                int (*build_tree)(struct _SnortConfig *, void * id, void **existing_tree),
+                                int (*neg_list_func)(void *id, void **list))
+{
+	int i;
+
+
+	dfacomp(xdfa->dfa->regexp, xdfa->dfa->re_count, xdfa->dfa, 0);
+	printf("==GPUREGEX== dfa compiled!\n");
+	dfabuild(xdfa->dfa);
+	printf("==GPUREGEX== dfa built!\n");
+	xdfa->trcount = xdfa->dfa->trcount;
+
+	xdfa->trans = malloc(256 * xdfa->trcount * sizeof(int));
+	if (xdfa->trans == NULL)
+		ERR(1, "malloc trans");
+
+	/* copy state table to consecutive memory */
+	for (i = 0; i < xdfa->dfa->trcount; ++i) {
+		if (xdfa->dfa->fails[i]) {
+			memcpy((xdfa->trans + i * 256), xdfa->dfa->fails[i],
+			    sizeof(int) * 256);
+			continue;
+		}
+
+		memcpy((xdfa->trans + i * 256), xdfa->dfa->trans[i],
+		    sizeof(int) * 256);
+	}
+
+	// argyris ============================================
+	// dfaprint(xdfa->dfa);
+	// before freeing must enter the match listings
+	create_matchlist(xdfa);
+	print_matchlist(xdfa);
+	// ====================================================
+
+	dfafree(xdfa->dfa);
+	xdfa->dfa = NULL;
+	struct clconf cl;
+	cl = xdfa->cl;
+	xdfa_cl_init(xdfa, cl.ctx);
+	xdfa->cl = cl;
+	// printf("all good here 21\n");
+
+	if (build_tree && neg_list_func)
+    {
+        xdfa_build_match_state_trees_with_sc(xdfa, sc, build_tree, neg_list_func);
+    }
+	printf("==GPUREGEX== Compiled successfully!\n");
+}
+
+
+
+int xdfa_build_match_state_trees_with_sc(struct xdfactx *xdfa, struct _SnortConfig *sc,
+                                                   int (*build_tree)(struct _SnortConfig *, void * id, void **existing_tree),
+                                                   int (*neg_list_func)(void *id, void **list) )
+{
+    int i, j, cnt = 0;
+    // struct pattern  *** MatchList = xdfa->mlist;
+    struct pattern * mlist;
+
+	for (i = 0; i<xdfa->trcount; i++){
+		for (j = 0; j < 256; j++){
+			mlist = xdfa->mlist[i][j];
+			if (mlist != NULL){
+				// printf("build match state trees with sc mlist: %s\n", mlist->patrn);
+				printf("all good here 23\n");
+				if (mlist->udata)
+				{
+					printf("all good here 24\n");
+					if (mlist->negative)
+					{
+						printf("all good here 25\n");
+						neg_list_func(mlist->udata, &xdfa->mlist[i][j]->neg_list);
+						printf("all good here 26\n");
+					}
+					else
+					{
+						printf("all good here 27\n");
+						build_tree(sc, mlist->udata, &xdfa->mlist[i][j]->rule_option_tree);
+						printf("all good here 28\n");
+					}
+				}
+
+				cnt++;
+			}
+			if (xdfa->mlist[i][j])
+			{
+				printf("all good here 35\n");
+				/* Last call to finalize the tree */
+				build_tree(sc, NULL, &xdfa->mlist[i][j]->rule_option_tree);
+				printf("all good here 40\n");
+
+			}
+
+		}
+	}
+
+
+	printf("all good here RETURN\n");
+
+    return cnt;
+}
+
+
+void
+print_matchlist(struct xdfactx *xdfa){
+	int i, j;
+	struct pattern *** mlist = xdfa->mlist;
+	for (i = 0; i < xdfa->trcount; i++){
+
+	
+		for (j = 0; j < 256; j++){
+			if (mlist[i][j] != NULL)
+				printf("mlist: %s\n", mlist[i][j]->patrn);
+		}
+	}
+}
+
+void
+create_matchlist(struct xdfactx *xdfa){
+	int i, j, l, state, prev_state, ch;
+	int plen = 0;
+
+	struct pattern * plist = xdfa->patterns;
+	struct pattern temp_pat;
+	struct pattern * p;
+
+
+
+	struct pattern *** mlist = (struct pattern ***)malloc(xdfa->trcount * 256 * sizeof(struct pattern *)); // make it triple pointer
+	for (i = 0; i < xdfa->trcount; ++i){
+		mlist[i] = (struct pattern **)malloc(256 * sizeof(struct pattern));
+		for (j = 0; j < 256; j++) {
+			// mlist[i][j] = (struct pattern *)malloc(sizeof(struct pattern));
+			mlist[i][j] = NULL;
+		}
+	}
+    	
+			
+
+
+	while (plist != NULL){
+		
+		plen = strlen(plist->patrn);
+		// printf("mlist curr pattern (%d): %s\n", plen, plist->patrn);
+		state = 0;
+		prev_state = 0;
+		for (l = 0; l < plen; l++){
+			prev_state = state;
+			ch = plist->patrn[l];
+			// /*						// COMMENT THIS ON ACTUAL SNORT
+			// if (ch == '\n'){
+			// 	break;
+			// }		
+			// */						// COMMENT THIS ON ACTUAL SNORT									
+			if (xdfa->dfa->fails[state]){
+				// printf("state: %d (%d, %c) -> %d\n",state, ch, ch, xdfa->dfa->fails[prev_state][ch]);
+				state = xdfa->dfa->fails[prev_state][ch];
+			}else{
+				// printf("state: %d (%d, %c) -> %d\n",state, ch, ch, xdfa->dfa->trans[prev_state][ch]);
+				state = xdfa->dfa->trans[prev_state][ch];
+			}
+
+			if (state < 0){
+				mlist[prev_state][ch] = (struct pattern *)malloc(sizeof(struct pattern));
+				memcpy (mlist[prev_state][ch], plist, sizeof (struct pattern));
+
+				mlist[prev_state][ch]->next = NULL;
+				// mlist[prev_state][ch]->rule_option_tree = NULL;
+				state = -state; // add more subsets of patterns, comment to discard duplicates
+			}
+			// d->trans[i][j], i is the current state, j is the next character, and returns the next state, 
+			// since here we parse the patterns it will never return 0, and will always result in a match state
+		}
+		printf("\n");
+
+		// end of loop
+		if (plist->next == NULL){
+			break;
+		}
+		plist = plist->next;
+	}
+
+	xdfa->mlist = mlist;
+	return;
+}
+
+
+
 
 void
 xdfa_dump(struct xdfactx *xdfa, const char *path, int print)

@@ -51,6 +51,14 @@ pktbuf_new(unsigned int max, unsigned int bufsiz, int ismapped,
 	if (e != CL_SUCCESS)
 		ERRXV(1, "alloc res: %s", clstrerror(e));
 
+	// =======
+	pb->kretchar = clCreateBuffer(ctx,
+	    CL_MEM_WRITE_ONLY | CL_MEM_ALLOC_HOST_PTR,
+	    max * reslen, NULL, &e);
+	if (e != CL_SUCCESS)
+		ERRXV(1, "alloc res: %s", clstrerror(e));
+	//========
+
 	if (ismapped) {
 		/* map buffers to host */
 		pb->buf = clEnqueueMapBuffer(queue, pb->kbuf, CL_TRUE,
@@ -83,6 +91,16 @@ pktbuf_new(unsigned int max, unsigned int bufsiz, int ismapped,
 		    0, NULL, NULL, &e);
 		if (e != CL_SUCCESS)
 			ERRXV(1, "map res: %s", clstrerror(e));
+
+		// =======
+		pb->reschar = clEnqueueMapBuffer(queue, pb->kretchar, CL_TRUE,
+		    CL_MAP_READ | CL_MAP_WRITE, 0,
+		    max * reslen,
+		    0, NULL, NULL, &e);
+		if (e != CL_SUCCESS)
+			ERRXV(1, "map res: %s", clstrerror(e));
+		//========
+
 	} else {
 		/* allocate host buffers */
 		pb->buf = MALLOC(bufsiz * sizeof(unsigned char));
@@ -100,6 +118,12 @@ pktbuf_new(unsigned int max, unsigned int bufsiz, int ismapped,
 		pb->res = MALLOC(max * reslen);
 		if (pb->res == NULL)
 			ERR(1, "malloc res");
+
+		// =======
+		pb->reschar = MALLOC(max * reslen);
+		if (pb->reschar == NULL)
+			ERR(1, "malloc reschar");
+		//========
 
 		/* register host buffers */
 		pb->ibuf = clCreateBuffer(ctx,
@@ -127,6 +151,14 @@ pktbuf_new(unsigned int max, unsigned int bufsiz, int ismapped,
 		    max * reslen, pb->res, &e);
 		if (e != CL_SUCCESS)
 			ERRXV(1, "register res: %s", clstrerror(e));
+
+		// =======
+		pb->iretchar = clCreateBuffer(ctx,
+		    CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR,
+		    max * reslen, pb->reschar, &e);
+		if (e != CL_SUCCESS)
+			ERRXV(1, "register res: %s", clstrerror(e));
+		//========
 	}
 
 	pb->max = max;
@@ -173,6 +205,14 @@ pktbuf_free(struct pktbuf *pb, int ismapped, cl_command_queue queue)
 		if (e != CL_SUCCESS)
 			ERRXV(1, "enqueue unmap mem object:  %s",
 			    clstrerror(e));
+
+		//=======
+		e = clEnqueueUnmapMemObject(queue, pb->kretchar, pb->reschar,
+		    0, NULL, NULL);
+		if (e != CL_SUCCESS)
+			ERRXV(1, "enqueue unmap mem object:  %s",
+			    clstrerror(e));
+		//=======
 	} else {
 		e = clReleaseMemObject(pb->ibuf);
 		if (e != CL_SUCCESS)
@@ -189,11 +229,17 @@ pktbuf_free(struct pktbuf *pb, int ismapped, cl_command_queue queue)
 		e = clReleaseMemObject(pb->ires);
 		if (e != CL_SUCCESS)
 			ERRXV(1, "release mem object:  %s", clstrerror(e));
+		// =======
+		e = clReleaseMemObject(pb->iretchar);
+		if (e != CL_SUCCESS)
+			ERRXV(1, "release mem object:  %s", clstrerror(e));
+		//========
 		FREE(pb->buf);
 		FREE(pb->off);
 		FREE(pb->len);
 		FREE(pb->usr);
 		FREE(pb->res);
+		FREE(pb->reschar);
 	}
 	e = clReleaseMemObject(pb->kbuf);
 	if (e != CL_SUCCESS)
@@ -210,6 +256,12 @@ pktbuf_free(struct pktbuf *pb, int ismapped, cl_command_queue queue)
 	e = clReleaseMemObject(pb->kres);
 	if (e != CL_SUCCESS)
 		ERRXV(1, "release mem object:  %s", clstrerror(e));
+
+	//argyris
+	e = clReleaseMemObject(pb->kretchar);
+	if (e != CL_SUCCESS)
+		ERRXV(1, "release mem object:  %s", clstrerror(e));
+	//=======
 	free(pb);
 
 	return;
@@ -450,6 +502,16 @@ xpktbuf_copytohost(struct xpktbuf *xpb)
 		if (e != CL_SUCCESS)
 			ERRXV(1, "read res: %s", clstrerror(e));
 	}
+
+	// =======
+	if (xpb->flags & XPB_RDRES) {
+		e = clEnqueueReadBuffer(xpb->queue, xpb->tmp->kretchar,
+		    CL_TRUE, 0, xpb->tmp->cnt * xpb->tmp->reslen,
+		    xpb->tmp->reschar, 0, NULL, NULL);
+		if (e != CL_SUCCESS)
+			ERRXV(1, "read reschar: %s", clstrerror(e));
+	}
+	//========
 
 	return;
 }

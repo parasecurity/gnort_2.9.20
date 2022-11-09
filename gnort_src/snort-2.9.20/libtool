@@ -1,6 +1,5 @@
 #! /bin/bash
 # Generated automatically by config.status (snort) 2.9.20
-# Libtool was configured on host zxcv:
 # NOTE: Changes made to this file will be lost: look at ltmain.sh.
 
 # Provide generalized library-building support services.
@@ -145,7 +144,7 @@ sharedlib_from_linklib_cmd="printf %s\\n"
 AR="ar"
 
 # Flags to create an archive.
-AR_FLAGS="cru"
+AR_FLAGS="cr"
 
 # How to feed a file listing to the archiver.
 archiver_list_spec="@"
@@ -285,7 +284,7 @@ hardcode_into_libs=yes
 sys_lib_search_path_spec="/usr/lib/gcc/x86_64-linux-gnu/11 /usr/lib/x86_64-linux-gnu /usr/lib /lib/x86_64-linux-gnu /lib "
 
 # Detected run-time system search path for libraries.
-sys_lib_dlsearch_path_spec="/lib64 /usr/lib64 /lib /usr/lib /usr/local/cuda/targets/x86_64-linux/lib /usr/local/cuda-11/targets/x86_64-linux/lib /usr/lib/x86_64-linux-gnu/libfakeroot /usr/local/cuda-11.7/targets/x86_64-linux/lib /usr/local/lib/i386-linux-gnu /lib/i386-linux-gnu /usr/lib/i386-linux-gnu /usr/local/lib/i686-linux-gnu /lib/i686-linux-gnu /usr/lib/i686-linux-gnu /usr/local/lib /usr/local/lib/x86_64-linux-gnu /lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu "
+sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/local/cuda/targets/x86_64-linux/lib /usr/local/cuda-11/targets/x86_64-linux/lib /usr/lib/x86_64-linux-gnu/libfakeroot /usr/local/cuda-11.7/targets/x86_64-linux/lib /usr/local/lib/i386-linux-gnu /lib/i386-linux-gnu /usr/lib/i386-linux-gnu /usr/local/lib/i686-linux-gnu /lib/i686-linux-gnu /usr/lib/i686-linux-gnu /usr/local/lib /usr/local/lib/x86_64-linux-gnu /lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu "
 
 # Explicit LT_SYS_LIBRARY_PATH set during ./configure time.
 configure_time_lt_sys_library_path=""
@@ -412,7 +411,7 @@ hardcode_automatic=no
 inherit_rpath=no
 
 # Whether libtool must link a program against all its dependency libraries.
-link_all_deplibs=unknown
+link_all_deplibs=no
 
 # Set to "yes" if exported symbols are required.
 always_export_symbols=no

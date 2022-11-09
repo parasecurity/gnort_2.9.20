@@ -8,7 +8,10 @@ dfamatch(
     __global unsigned int *retary,
     const unsigned int cnt,
     const unsigned int bufsiz,
-    __global int *trans)
+    __global int *trans,
+	//========
+	__global unsigned int *retchar)
+	//========
 {
 	/* map packet to different thread */
 	uint id = get_global_id(0);
@@ -40,6 +43,7 @@ dfamatch(
 
 	/* memset zero */
 	retary[id] = 0;
+	retchar[id] = 0;
 
 #ifdef _LCACHE
 	/* cache the first n rows */
@@ -73,14 +77,16 @@ dfamatch(
 			if (!state_prev && state)
 				offset = (i * sizeof(uint4)) + k;
 
-			state_prev = state;
 
 			/* match found */
 			if (state < 0) {
-				retary[id] = 1;
+				retary[id] = state_prev; /*1;*/
+				retchar[id] = (int)c;
 				/* XXX: 'state = -state' duplicate alerts */
-				state = 0;
+				// state = 0;
+				state = -state;
 			}
+			state_prev = state;
 		}
 	}
 }

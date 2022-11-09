@@ -16,7 +16,7 @@
 void
 kdfamatch(cl_kernel kernel, cl_command_queue queue, cl_mem kbuf, cl_mem koffary,
     cl_mem klenary, cl_mem kretary, cl_uint cnt, cl_uint bufsiz, cl_mem ktrans,
-    size_t blksiz, cl_event *event)
+    size_t blksiz, cl_event *event, cl_mem kretchar)
 {
 	int e;
 	static int counter = 0;
@@ -40,6 +40,7 @@ kdfamatch(cl_kernel kernel, cl_command_queue queue, cl_mem kbuf, cl_mem koffary,
 	clSetKernelArg(kernel, 4, sizeof(cl_uint), &cnt);
 	clSetKernelArg(kernel, 5, sizeof(cl_uint), &bufsiz);
 	clSetKernelArg(kernel, 6, sizeof(cl_mem), &ktrans);
+	clSetKernelArg(kernel, 7, sizeof(cl_mem), &kretchar);
 
 	/* execution */
 	e = clEnqueueNDRangeKernel(queue, kernel, 1, NULL,
@@ -72,9 +73,10 @@ kdfamatchpb(struct clconf *cl, struct pktbuf *pb, struct xdfactx *xdfa,
     size_t blksiz)
 {
 	kdfamatch(cl->kernel, cl->queue, pb->kbuf, pb->koff, pb->klen, pb->kres,
-	    pb->cnt, pb->used, xdfa->ktrans, blksiz, &cl->event);
+	    pb->cnt, pb->used, xdfa->ktrans, blksiz, &cl->event, pb->kretchar);
 }
 
+#ifdef DFA_MATCH_MAIN
 void
 load_patterns(struct xdfactx *xdfa, char *path)
 {
@@ -94,17 +96,23 @@ load_patterns(struct xdfactx *xdfa, char *path)
 
 	return;
 }
+#endif
 
 
 
 // argyris===========================================================
-int xdfa_search(struct xdfactx *xdfa, unsigned char *Tx, int n){
+int xdfa_search(struct xdfactx *xdfa, unsigned char *Tx, int n,
+				int (*Match)(void * id, void *tree, int index, void *data, void *neg_list),
+           		void *data){
 	
 	char pkt[1500];
+	struct pattern * mlist;
 
 	// printf("Tx: %s.\n", Tx);
 	int size_payload;
 	size_payload = n;
+
+	void ** data_list;
 
 
 	// decode the Tx string
@@ -118,6 +126,7 @@ int xdfa_search(struct xdfactx *xdfa, unsigned char *Tx, int n){
 		}
 		else{
 			pkt[i] = '.';
+			pkt[i] = Tx[i];
 		}
 	}
 	if (i >= 1500){
@@ -138,11 +147,13 @@ int xdfa_search(struct xdfactx *xdfa, unsigned char *Tx, int n){
     
     /* erase return cells */
     memset(xdfa->xpb->tmp->res, 0, xdfa->queuesiz * sizeof(unsigned int));
+	memset(xdfa->xpb->tmp->reschar, 0, xdfa->queuesiz * sizeof(unsigned int));
     
     gettimeofday(&xdfa->start_time, NULL);
 
     /* run */
     xpktbuf_copytodev(xdfa->xpb);
+
     kdfamatchpb(&xdfa->cl, xdfa->xpb->tmp, xdfa, xdfa->blksiz);
     xpktbuf_copytohost(xdfa->xpb);
 
@@ -155,11 +166,34 @@ int xdfa_search(struct xdfactx *xdfa, unsigned char *Tx, int n){
         ERRXV(1, "finish: %s", clstrerror(xdfa->e));
 
     for (int i = 0; i < xdfa->xpb->tmp->cnt; i++) {
-        if (xdfa->xpb->tmp->res[i]) {
+        if (xdfa->xpb->tmp->res[i] != 0) {		// or < 0
+			mlist = xdfa->mlist[xdfa->xpb->tmp->res[i]][xdfa->xpb->tmp->reschar[i]];
+			if (mlist->udata == NULL){ 
+				printf("not good udata\n");
+			}
+			if (mlist->rule_option_tree == NULL){
+				printf("not good rule option tree\n");
+			}
+
+			if (mlist->negative){
+				if (mlist->neg_list == NULL){
+					printf("not good neg list\n");
+				}
+			}
+			// if (Match (mlist->udata, mlist->rule_option_tree, 0, (void *)&xdfa->xpb->tmp->buf[xdfa->xpb->tmp->off[i]], mlist->neg_list) > 0)
+            // {
+            //     printf("good\n");
+            // }
+
+
+			// Match (mlist->udata, mlist->rule_option_tree, 0, (void *)(&xdfa->xpb->tmp->buf[xdfa->xpb->tmp->off[i]]), mlist->neg_list);
+			printf("id: %d\n", mlist->udata);
             if (xdfa->verbose == 1){
-                printf("\nMatch: ", i);
-                printf(&xdfa->xpb->tmp->buf[xdfa->xpb->tmp->off[i]]);
-                printf("\n");			
+                printf("\nMatch: \n");
+                printf("%s\n", &xdfa->xpb->tmp->buf[xdfa->xpb->tmp->off[i]]);
+				// printf("buf: %s\n", xdfa->xpb->tmp->buf);
+				printf("pattern: %s\n", mlist->patrn);
+				// printf("pattern: %s\n", xdfa->mlist[xdfa->xpb->tmp->res[i]][xdfa->xpb->tmp->reschar[i]]->patrn);
             }		
             xdfa->matches++;
         }

@@ -17,7 +17,7 @@ old_library='libsf_imap_preproc.a'
 inherited_linker_flags=''
 
 # Libraries that this one depends upon.
-dependency_libs=' -L/home/zxcv/Anaconda/ENTER/lib /usr/local/lib/libdaq_static.la -L/usr/local/lib /usr/local/lib/libdaq_static_modules.la -lnghttp2 -ldumbnet -lpcre -lnsl -lm -lcrypto -ldl /usr/local/lib/libsfbpf.la -lpcap -lz -llzma -lpthread'
+dependency_libs=' -L/home/zxcv/Anaconda/ENTER/lib /usr/local/lib/libdaq_static.la -L/usr/local/lib /usr/local/lib/libdaq_static_modules.la -lOpenCL -lnghttp2 -ldumbnet -lpcre -lnsl -lm -lcrypto -ldl /usr/local/lib/libsfbpf.la -lpcap -lz -llzma -lpthread'
 
 # Names of additional weak libraries provided by this library
 weak_library_names=''

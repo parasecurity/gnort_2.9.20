@@ -35,8 +35,8 @@
    especially those whose name start with YY_ or yy_.  They are
    private implementation details that can be changed or removed.  */
 
-#ifndef YY_SFAT_Y_TAB_H_INCLUDED
-# define YY_SFAT_Y_TAB_H_INCLUDED
+#ifndef YY_SFAT_SF_ATTRIBUTE_TABLE_H_INCLUDED
+# define YY_SFAT_SF_ATTRIBUTE_TABLE_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -186,7 +186,7 @@ union YYSTYPE
   AttributeData data;
   MapData mapEntry;
 
-#line 190 "y.tab.h"
+#line 190 "sf_attribute_table.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -201,4 +201,4 @@ extern YYSTYPE sfat_lval;
 int sfat_parse (void);
 
 
-#endif /* !YY_SFAT_Y_TAB_H_INCLUDED  */
+#endif /* !YY_SFAT_SF_ATTRIBUTE_TABLE_H_INCLUDED  */
