@@ -6,6 +6,7 @@
 #include "dfa.h"
 #include "xdfa.h"
 #include "xpktbuf.h"
+#include "acsmx2.h"
 
 #define IGNORE_CASE 0
 
@@ -64,6 +65,11 @@ xdfa_new(void (*userfree)(void *p),
     xdfa->userfree              = userfree;
     xdfa->optiontreefree        = optiontreefree;
     xdfa->neg_list_free         = neg_list_free;
+
+	xdfa->acsm = acsmNew2(userfree, optiontreefree, neg_list_free);
+	xdfa->omd = (OTNX_MATCH_DATA **)malloc(xdfa->queuesiz * sizeof(OTNX_MATCH_DATA *));
+
+	xdfa->payloads = (unsigned char **)malloc(xdfa->queuesiz * sizeof(unsigned char *));
 	return xdfa;
 }
 
@@ -131,6 +137,9 @@ xdfa_addpattern(struct xdfactx *xdfa, char *pattern, unsigned int length, int no
 	dfaaddpatt(xdfa->dfa, pattern, length);
 	printf("id: %d, iid: %d\n", id, iid);
 	printf("////////////Successfully added pattern(%d): %s\n", length, pattern);
+
+	acsmAddPattern2(xdfa->acsm, (unsigned char *)pattern, length,
+              nocase, offset, depth, negative, id, iid);
 }
 
 int xdfa_patterncount(struct xdfactx *xdfa){
@@ -232,11 +241,12 @@ xdfa_compile_with_sc(struct xdfactx *xdfa, struct _SnortConfig * sc,
 	xdfa->cl = cl;
 	// printf("all good here 21\n");
 
-	if (build_tree && neg_list_func)
-    {
-        xdfa_build_match_state_trees_with_sc(xdfa, sc, build_tree, neg_list_func);
-    }
+	// if (build_tree && neg_list_func)
+    // {
+    //     xdfa_build_match_state_trees_with_sc(xdfa, sc, build_tree, neg_list_func);
+    // }
 	printf("==GPUREGEX== Compiled successfully!\n");
+	acsmCompile2WithSnortConf( sc, xdfa->acsm, build_tree, neg_list_func );
 }
 
 

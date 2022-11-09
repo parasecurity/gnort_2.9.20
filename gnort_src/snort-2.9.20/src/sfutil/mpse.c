@@ -369,7 +369,7 @@ int  mpseAddPatternWithSnortConfig ( SnortConfig *sc, void * pvoid, void * P, in
 	// printf("Pattern: %s\n", (unsigned char *) P);
   MPSE * p = (MPSE*)pvoid;
 //   printf("METHOD: %d\n", p->method);
-    printf("id: %d, iid: %d\n", ID, IID);
+    printf("id: %d, iid: %d\n", (int)ID, IID);
 
   switch( p->method )
    {

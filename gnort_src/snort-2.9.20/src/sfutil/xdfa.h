@@ -5,6 +5,8 @@
 
 #include "dfa.h"
 #include "clutil.h"
+#include "acsmx2.h"
+#include "fpdetect.h"
 
 #define MAXPKTLEN 1536
 
@@ -42,6 +44,10 @@ struct xdfactx {
     void         (*optiontreefree)(void **p);
     void         (*neg_list_free)(void **p);
 	//=======
+
+	ACSM_STRUCT2 * acsm;
+	OTNX_MATCH_DATA ** omd;
+	unsigned char ** payloads;
 };
 
 // ========

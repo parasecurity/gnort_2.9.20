@@ -10,6 +10,8 @@
 #include "xdfa.h"
 #include "xpktbuf.h"
 #include "hacks.h"
+#include "acsmx2.h"
+#include "fpdetect.h"
 
 
 /* dfa match kernel wrapper */
@@ -106,13 +108,20 @@ int xdfa_search(struct xdfactx *xdfa, unsigned char *Tx, int n,
            		void *data){
 	
 	char pkt[1500];
+	// unsigned char * pkt;
+	// pkt = (unsigned char *)malloc(sizeof(unsigned char));
 	struct pattern * mlist;
+
+	OTNX_MATCH_DATA ** omd;
+
+	
 
 	// printf("Tx: %s.\n", Tx);
 	int size_payload;
 	size_payload = n;
 
-	void ** data_list;
+	unsigned char *T_new;
+	
 
 
 	// decode the Tx string
@@ -126,19 +135,30 @@ int xdfa_search(struct xdfactx *xdfa, unsigned char *Tx, int n,
 		}
 		else{
 			pkt[i] = '.';
-			pkt[i] = Tx[i];
+			// pkt[i] = Tx[i];
 		}
 	}
 	if (i >= 1500){
 		return -1;
 	}
-	pkt[i] = '\0';
-	// printf("pkt: %s.\n", pkt);
+	// pkt[i] = '\0';
+	printf("pkt: %s.\n", pkt);
+
+	xdfa->omd[xdfa->xpb->in->cnt] = (OTNX_MATCH_DATA *)data;
+	// xdfa->payloads[xdfa->xpb->in->cnt] = (unsigned char *)pkt;
 
 	if(xpktbuf_addtoin(xdfa->xpb, (unsigned char *)pkt, strlen(pkt) + 1) > 0){
+		xdfa->omd[xdfa->xpb->in->cnt - 1] = (OTNX_MATCH_DATA *)data;
+		xdfa->payloads[xdfa->xpb->in->cnt - 1] = (unsigned char *)pkt;
+		// printf("omd[%d]: %s\n",xdfa->xpb->in->cnt - 1, xdfa->omd[xdfa->xpb->in->cnt - 1]->p);
         // printf("Returned!\n");
 		return 0;
     }
+
+	// if(xpktbuf_addtoin(xdfa->xpb, Tx, n) > 0){
+    //     // printf("Returned!\n");
+	// 	return 0;
+    // }
 
 	DPRINTF_D(xdfa->xpb->in->cnt);
     DPRINTF_D(xdfa->xpb->in->used);
@@ -168,37 +188,35 @@ int xdfa_search(struct xdfactx *xdfa, unsigned char *Tx, int n,
     for (int i = 0; i < xdfa->xpb->tmp->cnt; i++) {
         if (xdfa->xpb->tmp->res[i] != 0) {		// or < 0
 			mlist = xdfa->mlist[xdfa->xpb->tmp->res[i]][xdfa->xpb->tmp->reschar[i]];
-			if (mlist->udata == NULL){ 
-				printf("not good udata\n");
-			}
-			if (mlist->rule_option_tree == NULL){
-				printf("not good rule option tree\n");
-			}
 
-			if (mlist->negative){
-				if (mlist->neg_list == NULL){
-					printf("not good neg list\n");
+
+			// Match (mlist->udata, mlist->rule_option_tree, 0, omd[i], mlist->neg_list);
+			// printf("id: %d\n", (int)mlist->udata);
+			int k;
+			for (k = 0; k < xdfa->acsm->acsmMaxStates; k++){
+				if (xdfa->acsm->acsmMatchList[k]){
+					if (mlist->udata == xdfa->acsm->acsmMatchList[k]->udata){
+						// printf("udata: %d\n", mlist->udata);
+						// printf("omd[]->p: %s", xdfa->omd[i]->p);
+						Match (xdfa->acsm->acsmMatchList[k]->udata, xdfa->acsm->acsmMatchList[k]->rule_option_tree, 0, xdfa->omd[i], xdfa->acsm->acsmMatchList[k]->neg_list);
+					}
 				}
 			}
-			// if (Match (mlist->udata, mlist->rule_option_tree, 0, (void *)&xdfa->xpb->tmp->buf[xdfa->xpb->tmp->off[i]], mlist->neg_list) > 0)
-            // {
-            //     printf("good\n");
-            // }
-
-
-			// Match (mlist->udata, mlist->rule_option_tree, 0, (void *)(&xdfa->xpb->tmp->buf[xdfa->xpb->tmp->off[i]]), mlist->neg_list);
-			printf("id: %d\n", mlist->udata);
             if (xdfa->verbose == 1){
-                printf("\nMatch: \n");
-                printf("%s\n", &xdfa->xpb->tmp->buf[xdfa->xpb->tmp->off[i]]);
+                printf("Match[%d]: \n", i);
+                printf("off: %s\n", &xdfa->xpb->tmp->buf[xdfa->xpb->tmp->off[i]]);
 				// printf("buf: %s\n", xdfa->xpb->tmp->buf);
-				printf("pattern: %s\n", mlist->patrn);
+				printf("xdfa->payloads: %s\n", xdfa->payloads[i]);
+				printf("pattern: %s\n\n", mlist->patrn);
 				// printf("pattern: %s\n", xdfa->mlist[xdfa->xpb->tmp->res[i]][xdfa->xpb->tmp->reschar[i]]->patrn);
             }		
             xdfa->matches++;
         }
     }
     xpktbuf_addtoin(xdfa->xpb, (unsigned char *)pkt, strlen(pkt + 1));
+	xdfa->omd[xdfa->xpb->in->cnt - 1] = (OTNX_MATCH_DATA *)data;
+	xdfa->payloads[xdfa->xpb->in->cnt - 1] = (unsigned char *)pkt;
+
 
 	return 0;
 }

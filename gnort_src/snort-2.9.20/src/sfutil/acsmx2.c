@@ -2683,6 +2683,7 @@ acsmSearchSparseDFA_Full_q(
         _add_queue(&acsm->q,MatchList[state]);
 
     _process_queue(&acsm->q,Match,data);
+    // _process_queue(&acsm->q,Match,(void *) T);
 
     return 0;
 }
