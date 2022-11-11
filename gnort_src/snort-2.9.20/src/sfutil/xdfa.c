@@ -38,7 +38,7 @@ xdfa_new(void (*userfree)(void *p),
 
 	xdfa->devpos = 0; /* the first available device */
 	xdfa->mapped = 0; /* 0 for discrete devices */
-	xdfa->verbose = 1; /* do not print matches by default*/
+	xdfa->verbose = 0; /* do not print matches by default*/
 	xdfa->matches = 0;
 	xdfa->queuesiz = 50; /* size of packet buffer */
 	xdfa->blksiz = 16; /* partitioning */
@@ -68,6 +68,7 @@ xdfa_new(void (*userfree)(void *p),
 
 	xdfa->acsm = acsmNew2(userfree, optiontreefree, neg_list_free);
 	xdfa->omd = (OTNX_MATCH_DATA **)malloc(xdfa->queuesiz * sizeof(OTNX_MATCH_DATA *));
+	xdfa->datalist = (void **)malloc(xdfa->queuesiz * sizeof(void *));
 
 	xdfa->payloads = (unsigned char **)malloc(xdfa->queuesiz * sizeof(unsigned char *));
 	return xdfa;

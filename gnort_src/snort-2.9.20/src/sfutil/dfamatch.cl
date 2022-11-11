@@ -10,7 +10,8 @@ dfamatch(
     const unsigned int bufsiz,
     __global int *trans,
 	//========
-	__global unsigned int *retchar)
+	__global unsigned int *retchar,
+	__global unsigned short *retpktid)
 	//========
 {
 	/* map packet to different thread */
@@ -19,7 +20,10 @@ dfamatch(
 	uint lsiz = get_local_size(0);
 	uint ngrp = get_num_groups(0);
 	int off = offary[id];
+	// printf("off(.cl): %d\n", off);
 	unsigned short len = lenary[id];
+	unsigned short pktid = retpktid[id];
+	// printf("id inside .cl: %hu\n", pktid);
 	int offset = 0;
 	unsigned char c;
 	unsigned int size;
@@ -40,6 +44,7 @@ dfamatch(
 	/* divide and ceil */
 #define CEILDIV(x, y) (((x) + (y) - 1) / (y))
 	size = CEILDIV(len, sizeof(uint4));
+	// pktid = CEILDIV(pktid, sizeof(uint4));
 
 	/* memset zero */
 	retary[id] = 0;
@@ -82,6 +87,7 @@ dfamatch(
 			if (state < 0) {
 				retary[id] = state_prev; /*1;*/
 				retchar[id] = (int)c;
+				retpktid[id] = pktid;
 				/* XXX: 'state = -state' duplicate alerts */
 				// state = 0;
 				state = -state;

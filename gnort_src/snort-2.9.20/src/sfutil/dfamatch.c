@@ -18,7 +18,7 @@
 void
 kdfamatch(cl_kernel kernel, cl_command_queue queue, cl_mem kbuf, cl_mem koffary,
     cl_mem klenary, cl_mem kretary, cl_uint cnt, cl_uint bufsiz, cl_mem ktrans,
-    size_t blksiz, cl_event *event, cl_mem kretchar)
+    size_t blksiz, cl_event *event, cl_mem kretchar, cl_mem kretpktid)
 {
 	int e;
 	static int counter = 0;
@@ -43,6 +43,7 @@ kdfamatch(cl_kernel kernel, cl_command_queue queue, cl_mem kbuf, cl_mem koffary,
 	clSetKernelArg(kernel, 5, sizeof(cl_uint), &bufsiz);
 	clSetKernelArg(kernel, 6, sizeof(cl_mem), &ktrans);
 	clSetKernelArg(kernel, 7, sizeof(cl_mem), &kretchar);
+	clSetKernelArg(kernel, 8, sizeof(cl_mem), &kretpktid);
 
 	/* execution */
 	e = clEnqueueNDRangeKernel(queue, kernel, 1, NULL,
@@ -75,7 +76,7 @@ kdfamatchpb(struct clconf *cl, struct pktbuf *pb, struct xdfactx *xdfa,
     size_t blksiz)
 {
 	kdfamatch(cl->kernel, cl->queue, pb->kbuf, pb->koff, pb->klen, pb->kres,
-	    pb->cnt, pb->used, xdfa->ktrans, blksiz, &cl->event, pb->kretchar);
+	    pb->cnt, pb->used, xdfa->ktrans, blksiz, &cl->event, pb->kretchar, pb->kretpktid);
 }
 
 #ifdef DFA_MATCH_MAIN
@@ -113,6 +114,7 @@ int xdfa_search(struct xdfactx *xdfa, unsigned char *Tx, int n,
 	struct pattern * mlist;
 
 	OTNX_MATCH_DATA ** omd;
+	void ** datalist;
 
 	
 
@@ -142,14 +144,23 @@ int xdfa_search(struct xdfactx *xdfa, unsigned char *Tx, int n,
 		return -1;
 	}
 	// pkt[i] = '\0';
-	printf("pkt: %s.\n", pkt);
+	// printf("pkt: %s.\n", pkt);
 
 	xdfa->omd[xdfa->xpb->in->cnt] = (OTNX_MATCH_DATA *)data;
+	// printf("id: %d\n", xdfa->xpb->in->cnt);
+
+
 	// xdfa->payloads[xdfa->xpb->in->cnt] = (unsigned char *)pkt;
 
+	// xdfa->omd[xdfa->xpb->in->cnt] = (OTNX_MATCH_DATA *)data;
+	// xdfa->payloads[xdfa->xpb->in->cnt] = (unsigned char *)pkt;
+
+	xdfa->omd[xdfa->xpb->in->cnt] = (OTNX_MATCH_DATA *)data;
+	xdfa->datalist[xdfa->xpb->in->cnt] = data;
+	xdfa->payloads[xdfa->xpb->in->cnt] = (unsigned char *)pkt;
+
 	if(xpktbuf_addtoin(xdfa->xpb, (unsigned char *)pkt, strlen(pkt) + 1) > 0){
-		xdfa->omd[xdfa->xpb->in->cnt - 1] = (OTNX_MATCH_DATA *)data;
-		xdfa->payloads[xdfa->xpb->in->cnt - 1] = (unsigned char *)pkt;
+		
 		// printf("omd[%d]: %s\n",xdfa->xpb->in->cnt - 1, xdfa->omd[xdfa->xpb->in->cnt - 1]->p);
         // printf("Returned!\n");
 		return 0;
@@ -198,7 +209,11 @@ int xdfa_search(struct xdfactx *xdfa, unsigned char *Tx, int n,
 					if (mlist->udata == xdfa->acsm->acsmMatchList[k]->udata){
 						// printf("udata: %d\n", mlist->udata);
 						// printf("omd[]->p: %s", xdfa->omd[i]->p);
-						Match (xdfa->acsm->acsmMatchList[k]->udata, xdfa->acsm->acsmMatchList[k]->rule_option_tree, 0, xdfa->omd[i], xdfa->acsm->acsmMatchList[k]->neg_list);
+						Match (xdfa->acsm->acsmMatchList[k]->udata, xdfa->acsm->acsmMatchList[k]->rule_option_tree, 0, xdfa->omd[(int)xdfa->xpb->tmp->retpktid[i]], xdfa->acsm->acsmMatchList[k]->neg_list);
+						Match (mlist->udata, mlist->rule_option_tree, 0, xdfa->omd[(int)xdfa->xpb->tmp->retpktid[i]], mlist->neg_list);
+
+						Match (xdfa->acsm->acsmMatchList[k]->udata, xdfa->acsm->acsmMatchList[k]->rule_option_tree, 0, xdfa->datalist[(int)xdfa->xpb->tmp->retpktid[i]], xdfa->acsm->acsmMatchList[k]->neg_list);
+						Match (mlist->udata, mlist->rule_option_tree, 0, xdfa->datalist[(int)xdfa->xpb->tmp->retpktid[i]], mlist->neg_list);
 					}
 				}
 			}
@@ -206,16 +221,17 @@ int xdfa_search(struct xdfactx *xdfa, unsigned char *Tx, int n,
                 printf("Match[%d]: \n", i);
                 printf("off: %s\n", &xdfa->xpb->tmp->buf[xdfa->xpb->tmp->off[i]]);
 				// printf("buf: %s\n", xdfa->xpb->tmp->buf);
-				printf("xdfa->payloads: %s\n", xdfa->payloads[i]);
-				printf("pattern: %s\n\n", mlist->patrn);
+				printf("pattern: %s\n", mlist->patrn);
+				printf("gpuid: %d, trueid: %hu\n", i, xdfa->xpb->tmp->retpktid[i]); // this is always the same
 				// printf("pattern: %s\n", xdfa->mlist[xdfa->xpb->tmp->res[i]][xdfa->xpb->tmp->reschar[i]]->patrn);
             }		
             xdfa->matches++;
         }
     }
+	xdfa->omd[xdfa->xpb->in->cnt] = (OTNX_MATCH_DATA *)data;
+	xdfa->datalist[xdfa->xpb->in->cnt] = data;
+	xdfa->payloads[xdfa->xpb->in->cnt] = (unsigned char *)pkt;
     xpktbuf_addtoin(xdfa->xpb, (unsigned char *)pkt, strlen(pkt + 1));
-	xdfa->omd[xdfa->xpb->in->cnt - 1] = (OTNX_MATCH_DATA *)data;
-	xdfa->payloads[xdfa->xpb->in->cnt - 1] = (unsigned char *)pkt;
 
 
 	return 0;

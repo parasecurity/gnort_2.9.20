@@ -34,6 +34,7 @@ struct pktbuf {
 	unsigned char	*usr;	/* Packet user data */
 	unsigned int	*res;	/* Packet results */
 	unsigned int	*reschar;
+	unsigned short	*retpktid;
 	unsigned int	max;	/* Max number of packets */
 	unsigned int	cnt;	/* Packets counter */
 	unsigned int	pos;	/* Packets iterator */
@@ -48,6 +49,7 @@ struct pktbuf {
 	cl_mem		kusr, iusr;
 	cl_mem		kres, ires;
 	cl_mem		kretchar, iretchar;
+	cl_mem		kretpktid, iretpktid;
 };
 
 struct xpktbuf {

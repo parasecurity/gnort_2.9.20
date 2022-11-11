@@ -48,6 +48,7 @@ struct xdfactx {
 	ACSM_STRUCT2 * acsm;
 	OTNX_MATCH_DATA ** omd;
 	unsigned char ** payloads;
+	void ** datalist;
 };
 
 // ========

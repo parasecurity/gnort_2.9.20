@@ -15,6 +15,7 @@ kdfamatch(cl_kernel kernel, cl_command_queue queue,
     cl_mem ktrans,
     size_t blksiz,
     cl_event *event,
-    cl_mem kretchar);
+    cl_mem kretchar,
+    cl_mem kretpktid);
 
 #endif /* _DFAMATCH_H_ */
