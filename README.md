@@ -1,5 +1,3 @@
-# COMPLETE, CLEANUP AND FURTHER INSTRUCTIONS REQUIRED
-
 # Gnort (Pattern Matching on GPU) installation guide
 
 This is a short guide on how to install and run GPU Accelerated Snort IDS, including technical prerequisites.
@@ -7,7 +5,7 @@ Base snort version: 2.9.20
 
 Quickjump:
 
-[Technical Prerequisites](#possible-installation-problems) | [Installation](#installation) | [Configure Snort](#configure-snort) | [Community rules](#community-rules) | [Configure the network and rule sets](#configure-the-network-and-rule-sets) | [Validate settings](#validate-settings) | [Good rule writing sources](#good-rule-writing-sources) | [Possible installation problems](#possible-installation-problems)
+[Technical Prerequisites](#technical-prerequisites) | [Installation](#installation) | [Configure Snort](#configure-snort) | [Community rules](#community-rules) | [Configure the network and rule sets](#configure-the-network-and-rule-sets) | [Validate settings](#validate-settings) | [Good rule writing sources](#good-rule-writing-sources) | [Possible installation problems](#possible-installation-problems)
 
 ## Technical prerequisites
 
